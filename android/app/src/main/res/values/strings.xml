@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ICHOShop</string>
+    <string name="facebook_client_token">f744d2e5c762aa7620da60e2c3787303</string>
+    <string name="facebook_app_id">1627329980951512</string>
+    <string name="fb_login_protocol_scheme">fb1627329980951512</string>
+
+</resources>

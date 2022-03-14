@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "913394926277",
+    "project_id": "icho-shop",
+    "storage_bucket": "icho-shop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913394926277:android:338b8020206b34efe7a6ac",
+        "android_client_info": {
+          "package_name": "com.example.shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913394926277-hq9vh7k62e8ndi8jskokm9slog1smo7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1LjTVGs2jCOd2WmjMy-bl2MPrcqR-a_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913394926277-hq9vh7k62e8ndi8jskokm9slog1smo7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
