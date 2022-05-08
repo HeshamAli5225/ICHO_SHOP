@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
 import 'package:shop/routes/routes.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
+
+import '../../../utils/my_string.dart';
 
 class CartTotal extends StatelessWidget {
 
@@ -18,7 +21,7 @@ class CartTotal extends StatelessWidget {
           Column(
             children: [
               TextUtils(
-                text: 'Total',
+                text:  tr(StringManger.total),
                 color: Colors.grey,
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -52,7 +55,7 @@ class CartTotal extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextUtils(
-                            text: 'Check Out',
+                            text: tr(StringManger.checkOut),
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

@@ -5,7 +5,7 @@ import 'package:shop/utils/my_string.dart';
 class ProductServices{
 
   static Future<List<ProductModel>> getProduct()async{
-    var response=await http.get(Uri.parse('$baseUrl/products'));
+    var response=await http.get(Uri.parse('${StringManger.baseUrl}/products'));
     if(response.statusCode==200){
       var jsonData=response.body;
       return productModelFromJson(jsonData);

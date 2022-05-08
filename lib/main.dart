@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shop/logic/bindings/main_binding.dart';
@@ -11,13 +13,20 @@ import 'package:shop/veiw/screens/main_screen.dart';
 import 'routes/routes.dart';
 import 'veiw/screens/welcome_screen.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   MainBinding().dependencies();
+  await EasyLocalization.ensureInitialized();
   await GetStorage.init();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+        supportedLocales: [ Locale('ar', 'SA'),Locale('en', 'US'),],
+        path: 'assets/translations',
+
+        child: Phoenix(child: MyApp())),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,17 +36,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       title: 'My Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemesApp.light,
-      darkTheme:ThemesApp.dark,
+      darkTheme: ThemesApp.dark,
       themeMode: ThemeController().themeMode,
       //home:  WelcomeScreen()/*MainScreen()*/,
-      initialRoute: FirebaseAuth.instance.currentUser !=null || GetStorage().read('auth')==true?
-      AppRoutes.mainScreen:GetStorage().read('signInBefore')==true?AppRoutes.loginScreen:AppRoutes.welcome,
+      initialRoute: FirebaseAuth.instance.currentUser != null ||
+              GetStorage().read('auth') == true
+          ? AppRoutes.mainScreen
+          : GetStorage().read('signInBefore') == true
+              ? AppRoutes.loginScreen
+              : AppRoutes.welcome,
       getPages: AppRoutes.routes,
     );
-
   }
 }
-

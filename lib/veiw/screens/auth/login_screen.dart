@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/auth_controller.dart';
@@ -15,13 +16,13 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final controller = Get.find<AuthController>();
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
         appBar: AppBar(
-          backgroundColor: Get.isDarkMode ?darkGreyClr  :Colors.white ,
+          backgroundColor: Get.isDarkMode ? darkGreyClr : Colors.white,
           elevation: 0,
         ),
         backgroundColor: context.theme.backgroundColor,
@@ -40,8 +41,8 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           children: [
                             TextUtils(
-                              text: 'LOG',
-                              color: Get.isDarkMode ? pinkClr :mainColor ,
+                              text: tr(StringManger.log),
+                              color: Get.isDarkMode ? pinkClr : mainColor,
                               fontSize: 30,
                               fontWeight: FontWeight.w500,
                             ),
@@ -49,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                               height: 3,
                             ),
                             TextUtils(
-                              text: 'IN',
+                              text: tr(StringManger.In),
                               color:
                                   Get.isDarkMode ? Colors.white : Colors.black,
                               fontSize: 30,
@@ -64,21 +65,22 @@ class LoginScreen extends StatelessWidget {
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
-                            if (!RegExp(validationEmail).hasMatch(value)) {
-                              return 'Enter a valid Email';
+                            if (!RegExp(StringManger.validationEmail)
+                                .hasMatch(value)) {
+                              return tr(StringManger.validEmail);
                             } else {
                               return null;
                             }
                           },
                           prefixIcon: Get.isDarkMode
-                              ?Icon(
-                            Icons.email,
-                            size: 30,
-                            color: pinkClr,
-                          )
+                              ? Icon(
+                                  Icons.email,
+                                  size: 30,
+                                  color: pinkClr,
+                                )
                               : Image.asset('assets/images/email.png'),
                           //suffixIcon: Icon(Icons.remove_red_eye),
-                          hintText: 'Email',
+                          hintText: tr(StringManger.email),
                         ),
                         SizedBox(
                           height: 20,
@@ -92,18 +94,18 @@ class LoginScreen extends StatelessWidget {
                             obsecureText: controller.isVisible ? false : true,
                             validator: (value) {
                               if (value.toString().length < 6) {
-                                return 'Password is too short';
+                                return tr(StringManger.validEmail);
                               } else {
                                 return null;
                               }
                             },
                             prefixIcon: Get.isDarkMode
-                                ?Icon(
-                              Icons.lock,
-                              size: 30,
-                              color: pinkClr,
-                            )
-                                :Image.asset('assets/images/lock.png') ,
+                                ? Icon(
+                                    Icons.lock,
+                                    size: 30,
+                                    color: pinkClr,
+                                  )
+                                : Image.asset('assets/images/lock.png'),
                             suffixIcon: IconButton(
                                 onPressed: () {
                                   controller.visibility();
@@ -117,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                                         Icons.visibility,
                                         color: Colors.black,
                                       )),
-                            hintText: 'Password',
+                            hintText: tr(StringManger.password),
                           );
                         }),
                         Align(
@@ -127,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                                 Get.toNamed(Routes.forgetPasswordScreen);
                               },
                               child: TextUtils(
-                                text: 'Forget Password?',
+                                text: tr(StringManger.forgetPassword),
                                 color: Get.isDarkMode
                                     ? Colors.white
                                     : Colors.black,
@@ -138,16 +140,23 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 30,
                         ),
-                        GetBuilder<AuthController>(builder:(x){return AuthButton(text: 'LOG IN', onPressed: () {
-                          if(formKey.currentState!.validate()){
-                            controller.logInUsingFirebase(email: emailController.text.trim(), password: passwordController.text,);
-                          }
-                        });}),
+                        GetBuilder<AuthController>(builder: (x) {
+                          return AuthButton(
+                              text: tr(StringManger.login),
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  controller.logInUsingFirebase(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text,
+                                  );
+                                }
+                              });
+                        }),
                         SizedBox(
                           height: 20,
                         ),
                         TextUtils(
-                          text: 'OR',
+                          text: tr(StringManger.or),
                           color: Get.isDarkMode ? Colors.white : Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.normal,
@@ -158,21 +167,25 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GetBuilder<AuthController>(builder: (x){return InkWell(
-                                onTap: () {
-                                  controller.signUpUsingFaceBook();
-                                },
-                                child:
-                                Image.asset('assets/images/facebook.png'));}),
+                            GetBuilder<AuthController>(builder: (x) {
+                              return InkWell(
+                                  onTap: () {
+                                    controller.signUpUsingFaceBook();
+                                  },
+                                  child: Image.asset(
+                                      'assets/images/facebook.png'));
+                            }),
                             const SizedBox(
                               width: 10,
                             ),
-                            GetBuilder<AuthController>(builder:(x){return InkWell(
-                              onTap: () {
-                                controller.signUpUsingGoogle();
-                              },
-                              child: Image.asset('assets/images/google.png'),
-                            );}),
+                            GetBuilder<AuthController>(builder: (x) {
+                              return InkWell(
+                                onTap: () {
+                                  controller.signUpUsingGoogle();
+                                },
+                                child: Image.asset('assets/images/google.png'),
+                              );
+                            }),
                           ],
                         )
                       ],
@@ -181,8 +194,8 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               ContainerUnder(
-                  text: 'Don\'t have an Account? ',
-                  textType: 'SIGN UP',
+                  text:  tr(StringManger.dontHaveAccount),
+                  textType:  tr(StringManger.signUp),
                   onPressed: () {
                     Get.offNamed(Routes.SignUpScreen);
                   })

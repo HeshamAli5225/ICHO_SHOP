@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/auth_controller.dart';
-import 'package:shop/logic/controllers/settings_controller.dart';
+import 'package:shop/utils/my_string.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
@@ -17,20 +18,20 @@ class LogOutWidget extends StatelessWidget {
 
           Get.defaultDialog(
                   backgroundColor: Colors.grey,
-                  title: 'LogOut',
+                  title: tr(StringManger.logOut),
                   titleStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
-                  middleText: 'are you sure you wan to logOut',
+                  middleText: tr(StringManger.sureLogOut),
                   middleTextStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
-                  textCancel: 'No',
+                  textCancel: tr(StringManger.no),
                   cancelTextColor: Colors.white,
                   onCancel: (){Get.back();},
-                    textConfirm: 'Yes',
+                    textConfirm: tr(StringManger.yes),
                   confirmTextColor: Colors.white,
                   onConfirm: (){controller.signOut();},
                   buttonColor: Get.isDarkMode?pinkClr:mainColor
@@ -54,7 +55,7 @@ class LogOutWidget extends StatelessWidget {
               width: 20,
             ),
             TextUtils(
-              text: 'Logout',
+              text: tr(StringManger.logOut),
               color: Get.isDarkMode ?Colors.white:Colors.black,
               fontSize: 22,
               fontWeight: FontWeight.bold,

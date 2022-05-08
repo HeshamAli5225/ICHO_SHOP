@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/settings_controller.dart';
 import 'package:shop/logic/controllers/theme_controller.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
+
+import '../../../utils/my_string.dart';
 
 class DarkModeWidget extends StatelessWidget {
   final controller=Get.put(SettingController());
@@ -44,7 +47,7 @@ class DarkModeWidget extends StatelessWidget {
             width: 20,
           ),
           TextUtils(
-              text: 'Dark Mode',
+              text:  tr(StringManger.darkMode),
               color: Get.isDarkMode ?Colors.white:Colors.black,
               fontSize: 22,
               fontWeight: FontWeight.bold,

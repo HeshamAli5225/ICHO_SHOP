@@ -1,10 +1,13 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
 import 'package:shop/model/product_model.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
+
+import '../../../utils/my_string.dart';
 
 class AddCart extends StatelessWidget {
   final double price;
@@ -23,7 +26,7 @@ class AddCart extends StatelessWidget {
           Column(
             children: [
               TextUtils(
-                text: 'Price',
+                text: tr(StringManger.price),
                 color: Colors.grey,
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -58,7 +61,7 @@ class AddCart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextUtils(
-                            text: 'Add to cart',
+                            text: tr(StringManger.addToCart),
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

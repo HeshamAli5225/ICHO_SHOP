@@ -1,10 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/product_controller.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
+import '../../utils/my_string.dart';
+
 class FavoritesScreen extends StatelessWidget {
   final controller = Get.find<ProductController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +28,7 @@ class FavoritesScreen extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  'No Favourite Product yet',
+                  tr(StringManger.noFavYet),
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -36,7 +40,11 @@ class FavoritesScreen extends StatelessWidget {
         } else {
           return ListView.separated(
             itemBuilder: (context, index) {
-              return buildFavouritItem(image: controller.favouritesList[index].image,title: controller.favouritesList[index].title,price: controller.favouritesList[index].price,productId: controller.favouritesList[index].id);
+              return buildFavouritItem(
+                  image: controller.favouritesList[index].image,
+                  title: controller.favouritesList[index].title,
+                  price: controller.favouritesList[index].price,
+                  productId: controller.favouritesList[index].id);
             },
             separatorBuilder: (context, index) {
               return Divider(
@@ -51,7 +59,11 @@ class FavoritesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildFavouritItem({required String image,required String title,required double price,required int productId}) {
+  Widget buildFavouritItem(
+      {required String image,
+      required String title,
+      required double price,
+      required int productId}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -100,7 +112,6 @@ class FavoritesScreen extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,
-
                     ),
                   ),
                 ],
