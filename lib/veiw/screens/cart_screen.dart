@@ -16,79 +16,83 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        title: Text(
-          tr(StringManger.cartItem),
-        ),
-        elevation: 0,
-        backgroundColor: Get.isDarkMode ? darkGreyClr : mainColor,
-        centerTitle: true,
-        actions: !controller.productMap.isEmpty
-            ? [
-                IconButton(
-                    onPressed: () {
-                      Get.defaultDialog(
-                          backgroundColor: Colors.grey,
-                          title: tr(StringManger.cleanProduct),
-                          titleStyle: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          middleText:
-                          tr(StringManger.sureDeleteAll)  ,
-                          middleTextStyle: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textCancel: tr(StringManger.no),
-                          cancelTextColor: Colors.white,
-                          onCancel: () {
-                            Get.offNamed(Routes.cartScreen);
-                          },
-                          textConfirm: tr(StringManger.yes),
-                          confirmTextColor: Colors.white,
-                          onConfirm: () {
-                            controller.removeAllCart();
-                            Get.offNamed(Routes.mainScreen);
-                          },
-                          buttonColor: Get.isDarkMode ? pinkClr : mainColor);
-
-                      //controller.removeAllCart();
-                    },
-                    icon: Icon(Icons.backspace))
-              ]
-            : [],
-      ),
-      backgroundColor: context.theme.backgroundColor,
-      body: Obx(() {
-        if (controller.productMap.isEmpty) {
-          return EmptyCart();
-        } else {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: 600,
-                  child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return CartProduct(
-                        productModel:
-                            controller.productMap.keys.toList()[index],
-                      );
-                    },
-                    separatorBuilder: (context, index) => SizedBox(height: 20),
-                    itemCount: controller.productMap.length,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: CartTotal(),
-                )
-              ],
+          appBar: AppBar(
+            title: Text(
+              tr(StringManger.cartItem),
             ),
-          );
-        }
-      }),
-    ));
+            elevation: 0,
+            backgroundColor: Get.isDarkMode ? darkGreyClr : mainColor,
+            centerTitle: true,
+            actions: !controller.productMap.isEmpty
+                ? [
+              IconButton(
+                  onPressed: () {
+                    Get.defaultDialog(
+                        backgroundColor: Colors.grey,
+                        title: tr(StringManger.cleanProduct),
+                        titleStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        middleText:
+                        tr(StringManger.sureDeleteAll)  ,
+                        middleTextStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textCancel: tr(StringManger.no),
+                        cancelTextColor: Colors.white,
+                        onCancel: () {
+                          Get.offNamed(Routes.cartScreen);
+                        },
+                        textConfirm: tr(StringManger.yes),
+                        confirmTextColor: Colors.white,
+                        onConfirm: () {
+                          controller.removeAllCart();
+                          Get.offNamed(Routes.mainScreen);
+                        },
+                        buttonColor: Get.isDarkMode ? pinkClr : mainColor);
+
+                    //controller.removeAllCart();
+                  },
+                  icon: Icon(Icons.backspace))
+            ]
+                : [],
+          ),
+          backgroundColor: context.theme.backgroundColor,
+          body: Obx(() {
+            if (controller.productMap.isEmpty) {
+              return EmptyCart();
+            } else {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 600,
+                            child: ListView.separated(
+                              itemBuilder: (context, index) {
+                                return CartProduct(
+                                  productModel:
+                                  controller.productMap.keys.toList()[index],
+                                );
+                              },
+                              separatorBuilder: (context, index) => SizedBox(height: 20),
+                              itemCount: controller.productMap.length,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  CartTotal()
+                ],
+              );
+            }
+          }),
+        ));
   }
 }

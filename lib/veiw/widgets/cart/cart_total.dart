@@ -9,35 +9,36 @@ import 'package:shop/veiw/widgets/text_utils.dart';
 import '../../../utils/my_string.dart';
 
 class CartTotal extends StatelessWidget {
-
-  final controller=Get.find<CartController>();
+  final controller = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {return Container(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        children: [
-          Column(
-            children: [
-              TextUtils(
-                text:  tr(StringManger.total),
-                color: Colors.grey,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              TextUtils(
-                text: '\$${controller.total.toStringAsFixed(2)}',
-                color: Get.isDarkMode ? Colors.white : Colors.black,
-                fontSize: 25,
-                fontWeight: FontWeight.w800,
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
+    return Obx(() {
+      return Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextUtils(
+                  text: tr(StringManger.total),
+                  color: Colors.grey,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+                TextUtils(
+                  text: '\$${controller.total.toStringAsFixed(2)}',
+                  color: Get.isDarkMode ? Colors.white : Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
               child: Container(
                   height: 60,
                   child: ElevatedButton(
@@ -65,9 +66,11 @@ class CartTotal extends StatelessWidget {
                           ),
                           Icon(Icons.shopping_cart)
                         ],
-                      ))))
-        ],
-      ),
-    );});
+                      ))),
+            )
+          ],
+        ),
+      );
+    });
   }
 }

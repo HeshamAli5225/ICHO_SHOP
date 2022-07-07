@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shop/logic/bindings/main_binding.dart';
@@ -12,8 +13,13 @@ import 'package:shop/veiw/screens/main_screen.dart';
 
 import 'routes/routes.dart';
 import 'veiw/screens/welcome_screen.dart';
-
+const String stripePublishableKey =
+    "pk_test_51L7tTkF5uinudAWIE2bMsmYQz7iIZqudpAls9tJeR6NONi1ihRq71PCFfa5mzQPdAfck3dWPIFysLM9XCzkfLQ40003ZeFrqhX";
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // set the publishable key for Stripe - this is mandatory
+  Stripe.publishableKey = stripePublishableKey;
   WidgetsFlutterBinding.ensureInitialized();
 
   MainBinding().dependencies();
