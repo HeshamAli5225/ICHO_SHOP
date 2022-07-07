@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,12 +19,13 @@ class SignUpScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final controller = Get.find<AuthController>();
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Get.isDarkMode ? darkGreyClr :Colors.white ,
+          backgroundColor: Get.isDarkMode ? darkGreyClr : Colors.white,
           elevation: 0,
         ),
         backgroundColor: context.theme.backgroundColor,
@@ -42,8 +44,8 @@ class SignUpScreen extends StatelessWidget {
                         Row(
                           children: [
                             TextUtils(
-                              text: 'SIGN',
-                              color: Get.isDarkMode ?  pinkClr: mainColor,
+                              text: tr(StringManger.sign),
+                              color: Get.isDarkMode ? pinkClr : mainColor,
                               fontSize: 30,
                               fontWeight: FontWeight.w500,
                             ),
@@ -51,7 +53,7 @@ class SignUpScreen extends StatelessWidget {
                               height: 3,
                             ),
                             TextUtils(
-                              text: 'UP',
+                              text: tr(StringManger.up),
                               color:
                                   Get.isDarkMode ? Colors.white : Colors.black,
                               fontSize: 30,
@@ -68,21 +70,22 @@ class SignUpScreen extends StatelessWidget {
                           obsecureText: false,
                           validator: (value) {
                             if (value.toString().length <= 2 ||
-                                !RegExp(validationName).hasMatch(value)) {
-                              return 'Enter a valid Name';
+                                !RegExp(StringManger.validationName)
+                                    .hasMatch(value)) {
+                              return tr(StringManger.validName);
                             } else {
                               return null;
                             }
                           },
                           prefixIcon: Get.isDarkMode
-                              ?Icon(
-                            Icons.person,
-                            size: 30,
-                            color: pinkClr,
-                          )
+                              ? Icon(
+                                  Icons.person,
+                                  size: 30,
+                                  color: pinkClr,
+                                )
                               : Image.asset('assets/images/user.png'),
                           //suffixIcon: Icon(Icons.remove_red_eye),
-                          hintText: 'User Name',
+                          hintText: tr(StringManger.userName),
                         ),
                         SizedBox(
                           height: 10,
@@ -91,21 +94,22 @@ class SignUpScreen extends StatelessWidget {
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
-                            if (!RegExp(validationEmail).hasMatch(value)) {
-                              return 'Enter a valid Email';
+                            if (!RegExp(StringManger.validationEmail)
+                                .hasMatch(value)) {
+                              return tr(StringManger.validEmail);
                             } else {
                               return null;
                             }
                           },
                           prefixIcon: Get.isDarkMode
-                              ?Icon(
-                            Icons.email,
-                            size: 30,
-                            color: pinkClr,
-                          )
+                              ? Icon(
+                                  Icons.email,
+                                  size: 30,
+                                  color: pinkClr,
+                                )
                               : Image.asset('assets/images/email.png'),
                           //suffixIcon: Icon(Icons.remove_red_eye),
-                          hintText: 'Email',
+                          hintText: tr(StringManger.email),
                         ),
                         SizedBox(
                           height: 10,
@@ -119,17 +123,17 @@ class SignUpScreen extends StatelessWidget {
                             obsecureText: controller.isVisible ? false : true,
                             validator: (value) {
                               if (value.toString().length < 6) {
-                                return 'Password is too short';
+                                return tr(StringManger.validPassword);
                               } else {
                                 return null;
                               }
                             },
                             prefixIcon: Get.isDarkMode
-                                ?Icon(
-                              Icons.lock,
-                              size: 30,
-                              color: pinkClr,
-                            )
+                                ? Icon(
+                                    Icons.lock,
+                                    size: 30,
+                                    color: pinkClr,
+                                  )
                                 : Image.asset('assets/images/lock.png'),
                             suffixIcon: IconButton(
                                 onPressed: () {
@@ -144,7 +148,7 @@ class SignUpScreen extends StatelessWidget {
                                         Icons.visibility,
                                         color: Colors.black,
                                       )),
-                            hintText: 'Password',
+                            hintText: tr(StringManger.password),
                           );
                         }),
                         SizedBox(
@@ -155,32 +159,40 @@ class SignUpScreen extends StatelessWidget {
                         SizedBox(
                           height: 50,
                         ),
-                        GetBuilder<AuthController>(init: AuthController(),builder: (x) {
-                          return AuthButton(text: 'SIGN UP',onPressed: () {
-                            if(formKey.currentState!.validate() && controller.isCheckBox){
-                            controller.signUpUsingFirebase(
-                            name: nameController.text.trim(),
-                            email: emailController.text.trim(),
-                            password: passwordController.text,
-
-                            );
-                            }
-                            else if (!controller.isCheckBox){
-                            Get.snackbar('Check Box', 'Please accept terms && conditions',
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Get.isDarkMode?Colors.blueGrey:Colors.redAccent,
-                            colorText: Colors.white,);
-                            }
-                          });
-                        }),
+                        GetBuilder<AuthController>(
+                            init: AuthController(),
+                            builder: (x) {
+                              return AuthButton(
+                                  text: tr(StringManger.signUp),
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate() &&
+                                        controller.isCheckBox) {
+                                      controller.signUpUsingFirebase(
+                                        name: nameController.text.trim(),
+                                        email: emailController.text.trim(),
+                                        password: passwordController.text,
+                                      );
+                                    } else if (!controller.isCheckBox) {
+                                      Get.snackbar(
+                                        tr(StringManger.checkBox),
+                                        tr(StringManger.acceptTerm),
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        backgroundColor: Get.isDarkMode
+                                            ? Colors.blueGrey
+                                            : Colors.redAccent,
+                                        colorText: Colors.white,
+                                      );
+                                    }
+                                  });
+                            }),
                       ],
                     ),
                   ),
                 ),
               ),
               ContainerUnder(
-                  text: 'Already have an Account? ',
-                  textType: 'Log IN',
+                  text: tr(StringManger.haveAccount),
+                  textType: tr(StringManger.login),
                   onPressed: () {
                     Get.offNamed(Routes.LoginScreen);
                   })

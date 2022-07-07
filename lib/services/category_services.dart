@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 class CategoryServices{
   static Future<List<String>> getCategory()async{
-    var response=await http.get(Uri.parse('$baseUrl/products/categories'));
+    var response=await http.get(Uri.parse('${StringManger.baseUrl}/products/categories'));
     if(response.statusCode==200){
       var jsonData=response.body;
       return categoryModelFromJson(jsonData);
@@ -23,7 +23,7 @@ class CategoryServices{
 class CategoryProductServices{
 
   static Future<List<ProductModel>> getCategoryProduct(String categoryName)async{
-    var response=await http.get(Uri.parse('$baseUrl/products/category/$categoryName'));
+    var response=await http.get(Uri.parse('${StringManger.baseUrl}/products/category/$categoryName'));
     if(response.statusCode==200){
       var jsonData=response.body;
       return productModelFromJson(jsonData);

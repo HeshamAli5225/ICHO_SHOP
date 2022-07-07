@@ -19,10 +19,20 @@ class ProductDetailsScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              ImageSliders(image: productModel.image,),
-              ProductInfo(title: productModel.title,productId: productModel.id,rate: productModel.rating.rate,description: productModel.description,),
+              ImageSliders(
+                image: productModel.image,
+              ),
+              ProductInfo(
+                title: productModel.title,
+                productId: productModel.id,
+                rate: productModel.rating.rate,
+                description: productModel.description,
+              ),
               SizeList(),
-              AddCart(productModel: productModel,price: productModel.price,),
+              AddCart(
+                productModel: productModel,
+                price: productModel.price,
+              ),
             ],
           ),
         ),

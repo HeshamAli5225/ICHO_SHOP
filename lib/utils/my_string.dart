@@ -1,14 +1,134 @@
-String validationEmail =
-    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+class StringManger {
+  static String validationEmail =
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+  static String validationName = r'^[a-z A-Z]+$';
 
-String validationName = r'^[a-z A-Z]+$';
+  static String baseUrl = 'https://fakestoreapi.com';
 
-String baseUrl = 'https://fakestoreapi.com';
+  static String france = 'France 🇫🇷';
+  static String ar = 'ar';
+  static String en = 'en󠁧󠁢󠁥󠁮󠁧󠁿';
+  static String fr = 'fr';
 
-String arabic='Arabic 🇸🇦';
-String english='English 🏴󠁧󠁢󠁥󠁮󠁧󠁿';
-String france='France 🇫🇷';
+  static const String email = "email";
 
-String ar='ar';
-String en='en󠁧󠁢󠁥󠁮󠁧󠁿';
-String fr='fr';
+  static String arabic = "arabic";
+  static String english = "english";
+
+  static const String payment = "payment";
+
+  static const String userName = "userName";
+
+  static const String password = "password";
+
+  static const String forgetPassword = "forgetPassword";
+
+  static const String login = "login";
+
+  static const String or = "or";
+
+  static const String no = "no";
+
+  static const String yes = "yes";
+
+  static const String dontHaveAccount = "dontHaveAccount";
+
+  static const String signUp = "signUp";
+
+  static const String signIn = "signIn";
+
+  static const String iShop = "iShop";
+
+  static const String categories = "categories";
+
+  static const String favorites = "favorites";
+
+  static const String settings = "settings";
+
+  static const String recoverAccount = "recoverAccount";
+
+  static const String validEmail = "validEmail";
+
+  static const String validName = "validName";
+
+  static const String send = "send";
+
+  static const String log = "log";
+
+  static const String In = "In";
+
+  static const String validPassword = "validPassword";
+
+  static const String up = "up";
+
+  static const String sign = "sign";
+
+  static const String checkBox = "checkBox";
+
+  static const String acceptTerm = "acceptTerm";
+
+  static const String haveAccount = "haveAccount";
+
+  static const String cartItem = "cartItem";
+
+  static const String cleanProduct = "cleanProduct";
+
+  static const String sureDeleteAll = "sureDeleteAll";
+
+  static const String category = "category";
+
+  static const String noFavYet = "noFavYet";
+
+  static const String findYour = "findYour";
+
+  static const String inspiration = "inspiration";
+
+  static const String shipTo = "shipTo";
+
+  static const String paymentMethod = "paymentMethod";
+
+  static const String general = "general";
+
+  static const String welcome = "welcome";
+
+  static const String icho = "icho";
+
+  static const String shop = "shop";
+
+  static const String getStart = "getStart";
+
+  static const String iAccept = "iAccept";
+
+  static const String termCond = "termCond";
+
+  static const String checkOut = "checkOut";
+
+  static const String total = "total";
+
+  static const String searchWith = "searchWith";
+
+  static const String payNow = "payNow";
+
+  static const String price = "price";
+
+  static const String addToCart = "addToCart";
+
+  static const String showMore = "showMore";
+
+  static const String showLess = "showLess";
+
+  static const String darkMode = "darkMode";
+
+  static const String language = "language";
+
+  static const String logOut = "logOut";
+
+  static const String sureLogOut = "sureLogOut";
+
+// static const String or                 = "Or";
+// static const String or                 = "Or";
+// static const String or                 = "Or";
+// static const String or                 = "Or";
+// static const String or                 = "Or";
+// static const String or                 = "Or";
+}

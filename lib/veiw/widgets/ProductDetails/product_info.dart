@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 //import 'package:flutter_simple_rating_bar/flutter_simple_rating_bar.dart';
@@ -6,6 +7,8 @@ import 'package:readmore/readmore.dart';
 import 'package:shop/logic/controllers/product_controller.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
+
+import '../../../utils/my_string.dart';
 
 class ProductInfo extends StatelessWidget {
   final String title;
@@ -114,8 +117,8 @@ class ProductInfo extends StatelessWidget {
             ,trimLines: 3,
             textAlign: TextAlign.justify,
             trimMode: TrimMode.Line,
-            trimCollapsedText: 'Show more',
-            trimExpandedText: 'Show Less',
+            trimCollapsedText: tr(StringManger.showMore),
+            trimExpandedText:  tr(StringManger.showLess),
             lessStyle: TextStyle(
               fontWeight: FontWeight.bold,
               color: Get.isDarkMode?pinkClr:mainColor

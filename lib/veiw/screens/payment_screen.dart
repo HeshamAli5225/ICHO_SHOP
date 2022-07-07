@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
@@ -7,14 +8,19 @@ import 'package:shop/veiw/widgets/payment/payment_button_widget.dart';
 import 'package:shop/veiw/widgets/payment/payment_method_widget.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
+import '../../utils/my_string.dart';
+
 class PaymentScreen extends StatelessWidget {
   final controller = Get.find<CartController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.backgroundColor,
       appBar: AppBar(
-        title: Text('PayMent'),
+        title: Text(
+          tr(StringManger.payment),
+        ),
         elevation: 0,
         backgroundColor: Get.isDarkMode ? darkGreyClr : mainColor,
         centerTitle: true,
@@ -26,7 +32,7 @@ class PaymentScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextUtils(
-                text: 'Shipping to',
+                text:    tr(StringManger.shipTo),
                 color: Get.isDarkMode ? Colors.white : Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -39,7 +45,7 @@ class PaymentScreen extends StatelessWidget {
                 height: 20,
               ),
               TextUtils(
-                text: 'Payment method',
+                text: tr(StringManger.paymentMethod),
                 color: Get.isDarkMode ? Colors.white : Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -48,7 +54,9 @@ class PaymentScreen extends StatelessWidget {
                 height: 20,
               ),
               PaymentMethodWidget(),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               PaymentButtonWidget(),
             ],
           ),

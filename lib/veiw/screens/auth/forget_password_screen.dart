@@ -5,11 +5,13 @@ import 'package:shop/utils/my_string.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/auth/auth_button.dart';
 import 'package:shop/veiw/widgets/auth/auth_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
-  final controller=Get.find<AuthController>();
+  final controller = Get.find<AuthController>();
   final TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,9 +20,9 @@ class ForgetPasswordScreen extends StatelessWidget {
         backgroundColor: context.theme.backgroundColor,
         elevation: 0,
         title: Text(
-          'Forget Password',
+          tr(StringManger.forgetPassword),
           style: TextStyle(
-            color: Get.isDarkMode ? pinkClr :mainColor ,
+            color: Get.isDarkMode ? pinkClr : mainColor,
           ),
         ),
         leading: IconButton(
@@ -33,7 +35,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: Get.isDarkMode ? darkGreyClr :Colors.white ,
+      backgroundColor: Get.isDarkMode ? darkGreyClr : Colors.white,
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
@@ -52,44 +54,58 @@ class ForgetPasswordScreen extends StatelessWidget {
                         color: Get.isDarkMode ? Colors.white : Colors.black,
                       )),
                 ),
-                SizedBox(height: 20,),
-                Text('if you want to recover your account, then please provide your email ID below..',
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  tr(StringManger.recoverAccount),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                  color: Get.isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 16
-
-                ),),
-                SizedBox(height: 50,),
-                Image.asset('assets/images/forgetpass copy.png',width: 280),
-                SizedBox(height: 50,),
+                      color: Get.isDarkMode ? Colors.white : Colors.black,
+                      fontSize: 16),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Image.asset('assets/images/forgetpass copy.png', width: 280),
+                SizedBox(
+                  height: 50,
+                ),
                 AuthTextFormField(
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (!RegExp(validationEmail).hasMatch(value)) {
-                      return 'Enter a valid Email';
+                    if (!RegExp(StringManger.validationEmail).hasMatch(value)) {
+                      return tr(StringManger.validEmail);
                     } else {
                       return null;
                     }
                   },
                   prefixIcon: Get.isDarkMode
-                      ?Icon(
-                    Icons.email,
-                    size: 30,
-                    color: pinkClr,
-                  )
-                      :Image.asset('assets/images/email.png') ,
+                      ? Icon(
+                          Icons.email,
+                          size: 30,
+                          color: pinkClr,
+                        )
+                      : Image.asset('assets/images/email.png'),
                   //suffixIcon: Icon(Icons.remove_red_eye),
-                  hintText: 'Email',
+                  hintText: tr(StringManger.email),
                 ),
-                SizedBox(height: 30,),
-                GetBuilder<AuthController>(builder: (x){return AuthButton(text: 'SEND',onPressed: () {
-                  if(formKey.currentState!.validate()){
-                    controller.resetPassword(emailController.text.trim());
-                  }
-                });}),
-                SizedBox(height: 10,)
+                SizedBox(
+                  height: 30,
+                ),
+                GetBuilder<AuthController>(builder: (x) {
+                  return AuthButton(
+                      text: tr(StringManger.send),
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          controller.resetPassword(emailController.text.trim());
+                        }
+                      });
+                }),
+                SizedBox(
+                  height: 10,
+                )
               ],
             ),
           ),

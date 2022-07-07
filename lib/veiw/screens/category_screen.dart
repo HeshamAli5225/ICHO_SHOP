@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/veiw/widgets/category/category_widgit.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
+
+import '../../utils/my_string.dart';
 
 class CategoryScreen extends StatelessWidget {
   @override
@@ -15,7 +18,7 @@ class CategoryScreen extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: TextUtils(
-                  text: 'Category',
+                  text: tr(StringManger.category),
                   color: Get.isDarkMode?Colors.white:Colors.black,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

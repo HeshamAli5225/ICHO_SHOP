@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/home/card_items.dart';
 import 'package:shop/veiw/widgets/home/search_text_form.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
+
+import '../../utils/my_string.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -28,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextUtils(
-                    text: 'Find Your',
+                    text:  tr(StringManger.findYour) ,
                     color: Colors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -37,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                     height: 5,
                   ),
                   TextUtils(
-                    text: 'INSPIRATION',
+                    text:tr(StringManger.inspiration) ,
                     color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -58,7 +61,7 @@ class HomeScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.topLeft,
               child: TextUtils(
-                  text: 'Categories',
+                  text: tr(StringManger.categories),
                   color: Get.isDarkMode ? Colors.white : Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.w500),

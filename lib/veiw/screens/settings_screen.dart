@@ -1,13 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shop/logic/controllers/auth_controller.dart';
-import 'package:shop/logic/controllers/theme_controller.dart';
 import 'package:shop/veiw/widgets/setting/dark_mode_widget.dart';
 import 'package:shop/veiw/widgets/setting/language_widget.dart';
 import 'package:shop/veiw/widgets/setting/log_out_widget.dart';
 import 'package:shop/veiw/widgets/setting/profile_image.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
+import '../../utils/my_string.dart';
 import '../../utils/theme.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -32,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
               height: 20,
             ),
             TextUtils(
-                text: 'GENERAL',
+                text: tr(StringManger.general),
               color: Get.isDarkMode ? pinkClr : mainColor,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

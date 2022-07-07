@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/product_controller.dart';
+
+import '../../../utils/my_string.dart';
 
 class SearchFormText extends StatelessWidget {
   final controller=Get.find<ProductController>();
@@ -24,7 +27,7 @@ class SearchFormText extends StatelessWidget {
         ,
 
         ):null,
-        hintText: 'Search With Name And Price',
+        hintText: tr(StringManger.searchWith),
         hintStyle: TextStyle(fontSize: 16,
             fontWeight: FontWeight.w500,color: Colors.black45),
         focusColor: Colors.red,
