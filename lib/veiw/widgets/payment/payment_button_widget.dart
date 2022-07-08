@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -95,6 +94,7 @@ Future<void> makePayment(
 displayPaymentSheet() async {
   try {
     await Stripe.instance.presentPaymentSheet(
+
         parameters: PresentPaymentSheetParameters(
           clientSecret: paymentIntentData?['client_secret'],
           confirmPayment: true,

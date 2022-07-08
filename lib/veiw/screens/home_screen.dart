@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextUtils(
-                    text:  tr(StringManger.findYour) ,
+                    text:  tr(StringManger.findYour),
                     color: Colors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
