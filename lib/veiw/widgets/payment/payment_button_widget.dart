@@ -110,7 +110,8 @@ createPaymentIntent(String amount, String currency) async {
     Map<String, dynamic> body = {
       'amount': calculateAmount(amount),
       'currency': currency,
-      'payment_method_types[]': 'card'
+      'payment_method_types[]': 'card',
+      "payment_method_options[card][request_three_d_secure]":"any",
     };
     var response = await http.post(
         Uri.parse('https://api.stripe.com/v1/payment_intents'),

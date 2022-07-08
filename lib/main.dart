@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:shop/logic/bindings/main_binding.dart';
 import 'package:shop/logic/controllers/theme_controller.dart';
 import 'package:shop/utils/theme.dart';
+import 'package:shop/veiw/screens/suppliers/upload.dart';
 
 
 import 'firebase_options.dart';
@@ -53,14 +54,14 @@ class MyApp extends StatelessWidget {
       theme: ThemesApp.light,
       darkTheme: ThemesApp.dark,
       themeMode: ThemeController().themeMode,
-      //home:  WelcomeScreen()/*MainScreen()*/,
-      initialRoute: FirebaseAuth.instance.currentUser != null ||
-              GetStorage().read('auth') == true
-          ? AppRoutes.mainScreen
-          : GetStorage().read('signInBefore') == true
-              ? AppRoutes.loginScreen
-              : AppRoutes.welcome,
-      getPages: AppRoutes.routes,
+      home:  UploadProductScreen()/*MainScreen()*/,
+      // initialRoute: FirebaseAuth.instance.currentUser != null ||
+      //         GetStorage().read('auth') == true
+      //     ? AppRoutes.mainScreen
+      //     : GetStorage().read('signInBefore') == true
+      //         ? AppRoutes.loginScreen
+      //         : AppRoutes.welcome,
+      // getPages: AppRoutes.routes,
     );
   }
 }
