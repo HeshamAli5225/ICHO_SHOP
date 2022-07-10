@@ -187,7 +187,7 @@ class AuthController extends GetxController{
     try{
      await auth.signOut();
      try{await googleSignIn.signOut();}catch(e){}
-     await FacebookAuth.instance.logOut();
+    
      displayUserName='';
      displayUserPhoto='';
      isSignIn=false;

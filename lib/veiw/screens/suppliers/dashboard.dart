@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'dart:ui';
 
 import 'package:shop/utils/theme.dart';
+
+import '../../../logic/controllers/auth_controller.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AuthController());
     return Scaffold(
       appBar: AppBar(
+        titleTextStyle: TextStyle(color: Colors.black,fontSize: 18,),
           centerTitle: true,
           elevation: 0,
           backgroundColor: mainColor,
           title: Text("DashBoard"),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {controller.signOut();},
               icon: Icon(Icons.logout),
             ),
           ]),
       body: GridView.builder(
+
         shrinkWrap: true,
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(12),
         itemCount: data.length,
         itemBuilder: (context, index) {
           var dashData =
