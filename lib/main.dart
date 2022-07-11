@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
       theme: ThemesApp.light,
       darkTheme: ThemesApp.dark,
       themeMode: ThemeController().themeMode,
-      // home:  PaymentScreen()/*MainScreen()*/,
+       // home:  DashboardScreen()/*MainScreen()*/,
       initialRoute: FirebaseAuth.instance.currentUser != null ||
               GetStorage().read('auth') == true
           ? AppRoutes.mainScreen
