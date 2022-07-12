@@ -125,6 +125,9 @@ class StringManger {
 
   static const String sureLogOut = "sureLogOut";
 
+  static const String buyer='buyer';
+  static const String seller='seller';
+
 // static const String or                 = "Or";
 // static const String or                 = "Or";
 // static const String or                 = "Or";

@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shop/model/facebook_model.dart';
+import 'package:shop/model/user_model.dart';
 import 'package:shop/routes/routes.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -80,6 +82,26 @@ class AuthController extends GetxController{
     }
     //////////
   }
+
+  void createUserInFirestore({
+    required String name,
+    required String phone,
+    required String email,
+    required String address,
+    required String uId,
+    required String type,
+    required String password,
+  })async{
+    UserModel model=UserModel(id: uId, name: name, email: email, phone: phone, address: address, type: type);
+    try{
+    catch(error){
+      print('error in create user');
+      print('*$error*');
+
+    }
+
+  }
+
   void logInUsingFirebase({required String email,
     required String password,})async{
     try {
@@ -186,14 +208,16 @@ class AuthController extends GetxController{
   void signOut()async{
     try{
      await auth.signOut();
-     try{await googleSignIn.signOut();}catch(e){}
-     await FacebookAuth.instance.logOut();
+     print('log out here 1');
+     // try{await googleSignIn.signOut();}catch(e){}
+     // try{await FacebookAuth.instance.logOut();}catch(e){}
+
+
      displayUserName='';
      displayUserPhoto='';
      isSignIn=false;
      authBox.remove('auth');
      update();
-
      Get.offNamed(Routes.LoginScreen);
     }
     catch(e){

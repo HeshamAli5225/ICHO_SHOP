@@ -9,8 +9,11 @@ import 'package:shop/veiw/widgets/text_utils.dart';
 import '../../utils/my_string.dart';
 
 class HomeScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
       backgroundColor: context.theme.backgroundColor,
@@ -19,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: 180,
+            height: height*0.3,
             decoration: BoxDecoration(
                 color: Get.isDarkMode ? darkGreyClr : mainColor,
                 borderRadius: BorderRadius.only(
@@ -48,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  SearchFormText(),
+                  Expanded(child: SearchFormText()),
                 ],
               ),
             ),
