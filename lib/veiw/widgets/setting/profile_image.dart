@@ -5,7 +5,6 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
 
 class ProfileImage extends StatelessWidget {
   @override
