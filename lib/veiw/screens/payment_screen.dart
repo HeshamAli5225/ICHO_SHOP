@@ -152,48 +152,50 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(15)),
-                                child: Column(
-                                  children: [
-                                    RadioListTile(
-                                      activeColor: Colors.deepOrange,
-                                      value: 1,
-                                      groupValue: selectedValue,
-                                      onChanged: (int? value) {
-                                        setState(() {
-                                          selectedValue = value!;
-                                        });
-                                      },
-                                      title: const Text('Cash On Delivery'),
-                                      subtitle: const Text('Pay Cash At Home'),
-                                    ),
-                                    RadioListTile(
-                                      activeColor: Colors.deepOrange,
-                                      value: 2,
-                                      groupValue: selectedValue,
-                                      onChanged: (int? value) {
-                                        setState(() {
-                                          selectedValue = value!;
-                                        });
-                                      },
-                                      title: const Text(
-                                          'Pay via visa / Master Card'),
-                                      subtitle: Row(
-                                        children: const [
-                                          Icon(Icons.payment,
-                                              color: Colors.deepOrange),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 15),
-                                            child: Icon(
-                                                FontAwesomeIcons.ccMastercard,
-                                                color: Colors.deepOrange),
-                                          ),
-                                          Icon(FontAwesomeIcons.ccVisa,
-                                              color: Colors.deepOrange)
-                                        ],
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      RadioListTile(
+                                        activeColor: Colors.deepOrange,
+                                        value: 1,
+                                        groupValue: selectedValue,
+                                        onChanged: (int? value) {
+                                          setState(() {
+                                            selectedValue = value!;
+                                          });
+                                        },
+                                        title: const Text('Cash On Delivery'),
+                                        subtitle: const Text('Pay Cash At Home'),
                                       ),
-                                    ),
-                                  ],
+                                      RadioListTile(
+                                        activeColor: Colors.deepOrange,
+                                        value: 2,
+                                        groupValue: selectedValue,
+                                        onChanged: (int? value) {
+                                          setState(() {
+                                            selectedValue = value!;
+                                          });
+                                        },
+                                        title: const Text(
+                                            'Pay via visa / Master Card'),
+                                        subtitle: Row(
+                                          children: const [
+                                            Icon(Icons.payment,
+                                                color: Colors.deepOrange),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 15),
+                                              child: Icon(
+                                                  FontAwesomeIcons.ccMastercard,
+                                                  color: Colors.deepOrange),
+                                            ),
+                                            Icon(FontAwesomeIcons.ccVisa,
+                                                color: Colors.deepOrange)
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
