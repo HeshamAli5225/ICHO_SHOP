@@ -9,6 +9,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop/routes/routes.dart';
 import 'package:uuid/uuid.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
@@ -315,17 +316,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                         Navigator.popUntil(
                                                             context,
                                                             ModalRoute.withName(
-                                                                '/customer_home'));
+                                                                Routes
+                                                                    .mainScreen));
                                                       },
                                                       width: 0.9)
                                                 ]),
                                           ),
                                         ));
                               } else if (selectedValue == 2) {
-                                final totalPaid = controller.total.toDouble()+10;
+                                final totalPaid =
+                                    controller.total.toDouble() + 10;
                                 makePayment(
-                                    amount: (totalPaid)
-                                        .toStringAsFixed(2),
+                                    amount: (totalPaid).toStringAsFixed(2),
                                     currency: "EGP");
                               }
                             },

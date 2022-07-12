@@ -91,7 +91,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                             child: ListView.builder(
                                 itemCount: controller.productMap.length,
                                 itemBuilder: (context, index) {
-                                  final order = controller.productMap;
+                                  final order = controller.productMap.keys.toList()[index];
                                   return Padding(
                                     padding: const EdgeInsets.all(6.0),
                                     child: Container(
@@ -113,7 +113,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                 height: 100,
                                                 width: 100,
                                                 child: Image.network(
-                                                    order.imagesUrl.first),
+                                                    order.image),
                                               )),
                                           Flexible(
                                             child: Column(
@@ -121,7 +121,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  order.name,
+                                                  order.title,
                                                   maxLines: 2,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -152,15 +152,15 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                             color: Colors
                                                                 .grey.shade600),
                                                       ),
-                                                      Text(
-                                                        'x ${order.qty.toString()}',
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: Colors
-                                                                .grey.shade600),
-                                                      )
+                                                      // Text(
+                                                      //   'x ${order.qty.toString()}',
+                                                      //   style: TextStyle(
+                                                      //       fontSize: 16,
+                                                      //       fontWeight:
+                                                      //           FontWeight.w600,
+                                                      //       color: Colors
+                                                      //           .grey.shade600),
+                                                      // )
                                                     ],
                                                   ),
                                                 )
@@ -182,7 +182,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GreenButton(
-                        label: 'Confirm ${totalPrice.toStringAsFixed(2)} USD',
+                        label: 'Confirm ${controller.total.toStringAsFixed(2)} EGP',
                         width: 1,
                         onPressed: () {
                           Navigator.push(
