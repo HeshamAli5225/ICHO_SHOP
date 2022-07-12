@@ -12,7 +12,7 @@ class ProfileImage extends StatelessWidget {
   Widget build(BuildContext context) {
     var user = FirebaseFirestore.instance
         .collection("users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         ;
     return FutureBuilder<DocumentSnapshot>(
       future: user.get(),

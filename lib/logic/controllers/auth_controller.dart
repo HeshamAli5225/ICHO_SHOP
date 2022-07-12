@@ -5,6 +5,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shop/model/facebook_model.dart';
+import 'package:shop/model/user_model.dart';
 import 'package:shop/routes/routes.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -35,6 +36,9 @@ class AuthController extends GetxController {
   void signUpUsingFirebase({
     required String name,
     required String email,
+    required String phone,
+    required String address,
+    required String type,
     required String password,
   }) async {
     /////////
@@ -47,11 +51,13 @@ class AuthController extends GetxController {
           .then((value) {
         displayUserName = name;
         auth.currentUser!.updateDisplayName(displayUserName);
-        user.doc(auth.currentUser?.uid).set({
-          "email": email,
-          "name": name,
-          "image": name.trim()[0].toUpperCase(),
-        });
+        // user.doc(auth.currentUser?.uid).set({
+        //   "email": email,
+        //   "name": name,
+        //   "image": name.trim()[0].toUpperCase(),
+        // });
+
+        createUserInFirestore(name: name, uId: value.user!.uid, email: email, phone: phone, address: address, type: type, password: password);
       });
       isSignIn = true;
       authBox.write('auth', isSignIn);
@@ -93,6 +99,27 @@ class AuthController extends GetxController {
     }
     //////////
   }
+
+  void createUserInFirestore({
+    required String name,
+    required String uId,
+    required String email,
+    required String phone,
+    required String address,
+    required String type,
+    required String password,
+  }) async {
+    UserModel userModel=UserModel(id: uId, name: name, email: email, phone: phone, address: address, type: type);
+    /////////
+    try {
+      FirebaseFirestore.instance.collection('users').doc(uId).set(userModel.toMap());
+    }  catch (error) {
+      print('error in create user in fireStore');
+      print('**$error**');
+    }
+    //////////
+  }
+
 
   void logInUsingFirebase({
     required String email,

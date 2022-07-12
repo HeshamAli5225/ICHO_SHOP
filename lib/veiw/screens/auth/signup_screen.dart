@@ -290,6 +290,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       name: nameController.text.trim(),
                                       email: emailController.text.trim(),
                                       password: passwordController.text,
+                                      phone: phoneController.text,
+                                      address: addressController.text,
+                                      type: registerType,
                                     );
                                   } else if (!controller.isCheckBox) {
                                     Get.snackbar(
