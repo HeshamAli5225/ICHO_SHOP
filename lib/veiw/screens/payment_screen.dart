@@ -322,8 +322,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           ),
                                         ));
                               } else if (selectedValue == 2) {
+                                final totalPaid = controller.total.toDouble()+10;
                                 makePayment(
-                                    amount: (controller.total + 10)
+                                    amount: (totalPaid)
                                         .toStringAsFixed(2),
                                     currency: "EGP");
                               }
