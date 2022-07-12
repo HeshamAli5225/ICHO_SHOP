@@ -72,7 +72,7 @@ class CartScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           Container(
-                            height: 600,
+                            height: MediaQuery.of(context).size.height*.75,
                             child: ListView.separated(
                               itemBuilder: (context, index) {
                                 return CartProduct(

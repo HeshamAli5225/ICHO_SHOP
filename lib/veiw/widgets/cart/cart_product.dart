@@ -15,8 +15,9 @@ class CartProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Container(
-      height: 130,
+      height: height*.18,
       width: double.infinity,
       margin: EdgeInsets.only(left: 15, right: 15, top: 5),
       decoration: BoxDecoration(
