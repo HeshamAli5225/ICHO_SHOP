@@ -9,8 +9,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:shop/logic/bindings/main_binding.dart';
 import 'package:shop/logic/controllers/theme_controller.dart';
 import 'package:shop/utils/theme.dart';
-import 'package:shop/veiw/screens/main_screen.dart';
+import 'package:shop/veiw/screens/payment_screen.dart';
+import 'package:shop/veiw/screens/suppliers/dashboard.dart';
+import 'package:shop/veiw/screens/suppliers/upload.dart';
 
+
+import 'firebase_options.dart';
 import 'routes/routes.dart';
 import 'veiw/screens/welcome_screen.dart';
 const String stripePublishableKey =
@@ -25,7 +29,9 @@ void main() async {
   MainBinding().dependencies();
   await EasyLocalization.ensureInitialized();
   await GetStorage.init();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(
     EasyLocalization(
         supportedLocales: [ Locale('ar', 'SA'),Locale('en', 'US'),],
@@ -50,7 +56,7 @@ class MyApp extends StatelessWidget {
       theme: ThemesApp.light,
       darkTheme: ThemesApp.dark,
       themeMode: ThemeController().themeMode,
-      //home:  WelcomeScreen()/*MainScreen()*/,
+       // home:  DashboardScreen()/*MainScreen()*/,
       initialRoute: FirebaseAuth.instance.currentUser != null ||
               GetStorage().read('auth') == true
           ? AppRoutes.mainScreen
