@@ -5,6 +5,8 @@ import 'package:shop/veiw/screens/category_screen.dart';
 import 'package:shop/veiw/screens/favorites_screen.dart';
 import 'package:shop/veiw/screens/home_screen.dart';
 import 'package:shop/veiw/screens/settings_screen.dart';
+import 'package:shop/veiw/screens/suppliers/dashboard.dart';
+import 'package:shop/veiw/screens/suppliers/upload.dart';
 
 class MainController extends GetxController {
   RxInt currentIndex = 0.obs;
@@ -20,5 +22,21 @@ class MainController extends GetxController {
     tr(StringManger.categories),
     tr(StringManger.favorites),
     tr(StringManger.settings),
+  ].obs;
+}
+class SupplierController extends GetxController {
+  RxInt currentIndex = 0.obs;
+  final tabs = [
+    HomeScreen(),
+    CategoryScreen(),
+    DashboardScreen(),
+    UploadProductScreen(),
+  ].obs;
+
+  final titles = [
+    tr(StringManger.iShop),
+    tr(StringManger.categories),
+    "dashboard",
+    'upload'
   ].obs;
 }
