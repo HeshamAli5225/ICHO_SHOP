@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shop/veiw/screens/customers/customer_orders.dart';
 import 'package:shop/veiw/widgets/setting/dark_mode_widget.dart';
 import 'package:shop/veiw/widgets/setting/language_widget.dart';
 import 'package:shop/veiw/widgets/setting/log_out_widget.dart';
@@ -18,7 +19,6 @@ class SettingsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: ListView(
-
           children: [
             ProfileImage(),
             SizedBox(
@@ -28,20 +28,35 @@ class SettingsScreen extends StatelessWidget {
               color: Get.isDarkMode ? Colors.white : Colors.grey,
               thickness: 2,
             ),
+            OutlinedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) {
+                      return CustomerOrders();
+                    },
+                  ));
+                },
+                child: Text("Order")),
             SizedBox(
               height: 20,
             ),
             TextUtils(
-                text: tr(StringManger.general),
+              text: tr(StringManger.general),
               color: Get.isDarkMode ? pinkClr : mainColor,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             DarkModeWidget(),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             LanguageWidget(),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             LogOutWidget(),
           ],
         ),
