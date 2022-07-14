@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/payment/green_button.dart';
+
 class EditBusiness extends StatelessWidget {
   const EditBusiness({Key? key}) : super(key: key);
 
@@ -9,7 +11,7 @@ class EditBusiness extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: BackButton(),
+        leading: AppBarBackButton(),
         title: Text('EditBusiness'),
       ),
     );

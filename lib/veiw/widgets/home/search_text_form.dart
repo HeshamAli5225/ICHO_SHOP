@@ -6,7 +6,7 @@ import 'package:shop/logic/controllers/product_controller.dart';
 import '../../../utils/my_string.dart';
 
 class SearchFormText extends StatelessWidget {
-  final controller=Get.find<ProductController>();
+  final controller=Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProductController>(builder: (x){

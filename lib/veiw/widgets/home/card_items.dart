@@ -8,8 +8,8 @@ import 'package:shop/veiw/screens/product_details_screen.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
 class CardItems extends StatelessWidget {
-  final controller = Get.find<ProductController>();
-  final cartController = Get.find<CartController>();
+  final controller = Get.put(ProductController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,7 @@ import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/customers/customer_orders.dart';
 import 'package:shop/veiw/screens/payment_screen.dart';
 import 'package:shop/veiw/screens/suppliers/dashboard.dart';
+import 'package:shop/veiw/screens/suppliers/suppliers_screen.dart';
 import 'package:shop/veiw/screens/suppliers/upload.dart';
 
 
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
       theme: ThemesApp.light,
       darkTheme: ThemesApp.dark,
       themeMode: ThemeController().themeMode,
-      home:  DashboardScreen()/*MainScreen()*/,
+       home:  SupplierScreen()/*MainScreen()*/,
       // initialRoute: FirebaseAuth.instance.currentUser != null ||
       //         GetStorage().read('auth') == true
       //     ? AppRoutes.mainScreen

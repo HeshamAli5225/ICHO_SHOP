@@ -5,10 +5,10 @@ import 'dart:ui';
 
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/suppliers/edit_business.dart';
+import 'package:shop/veiw/screens/suppliers/manage_product/manage_products.dart';
 import 'package:shop/veiw/screens/suppliers/my_store.dart';
-import 'package:shop/veiw/screens/suppliers/preparing_orders.dart';
 import 'package:shop/veiw/screens/suppliers/supplier_balance.dart';
-import 'package:shop/veiw/screens/suppliers/supplier_orders.dart';
+import 'package:shop/veiw/screens/suppliers/order/supplier_orders.dart';
 import 'package:shop/veiw/screens/suppliers/supplier_statics.dart';
 
 import '../../../logic/controllers/auth_controller.dart';
@@ -122,7 +122,7 @@ List<Widget> screens = [
   MyStore(),
   SupplierOrders(),
   EditBusiness(),
-  Preparing(),
+  ManageProducts(),
   Balance(),
   Statics(),
 ];

@@ -11,7 +11,7 @@ class Statics extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('orders')
-            .where('cid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+            .where('cid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -47,7 +47,7 @@ class Statics extends StatelessWidget {
                   children: [
                     StaticsModel(
                       label: 'sold out',
-                      value: snapshot.data!.docs.length,
+                      value: snapshot.data?.docs.length,
                       decimal: 0,
                     ),
                     StaticsModel(

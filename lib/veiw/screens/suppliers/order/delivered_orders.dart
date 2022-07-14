@@ -2,18 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/supp_order_model.dart';
+import '../../../../model/supp_order_model.dart';
 
-class Preparing extends StatelessWidget {
-  const Preparing({Key? key}) : super(key: key);
+class Delivered extends StatelessWidget {
+  const Delivered({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('orders')
-          .where('cid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          .where('deliverystatus', isEqualTo: 'preparing')
+          .where('sid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+          .where('deliverystatus', isEqualTo: 'delivered')
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -40,10 +40,10 @@ class Preparing extends StatelessWidget {
           ));
         }
         return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
+            itemCount: snapshot.data?.docs.length,
             itemBuilder: (context, index) {
               return SupplierOrderModel(
-                order: snapshot.data!.docs[index],
+                order: snapshot.data?.docs[index],
               );
             });
       },

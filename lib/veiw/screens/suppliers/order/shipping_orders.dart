@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/supp_order_model.dart';
+import '../../../../model/supp_order_model.dart';
 
 class Shipping extends StatelessWidget {
   const Shipping({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class Shipping extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('orders')
-          .where('cid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('cid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
           .where('deliverystatus', isEqualTo: 'shipping')
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -40,10 +40,10 @@ class Shipping extends StatelessWidget {
           ));
         }
         return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
+            itemCount: snapshot.data?.docs.length,
             itemBuilder: (context, index) {
               return SupplierOrderModel(
-                order: snapshot.data!.docs[index],
+                order: snapshot.data?.docs[index],
               );
             });
       },

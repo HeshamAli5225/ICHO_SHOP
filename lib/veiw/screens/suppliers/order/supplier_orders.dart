@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop/utils/theme.dart';
-import 'package:shop/veiw/screens/suppliers/preparing_orders.dart';
-import 'package:shop/veiw/screens/suppliers/shipping_orders.dart';
+import 'package:shop/veiw/screens/suppliers/order/preparing_orders.dart';
+import 'package:shop/veiw/screens/suppliers/order/shipping_orders.dart';
 
+import '../../../widgets/payment/green_button.dart';
 import 'delivered_orders.dart';
 
 class SupplierOrders extends StatelessWidget {
@@ -16,7 +17,7 @@ class SupplierOrders extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          leading: BackButton(),
+          leading: AppBarBackButton(),
           title: Text('Orders'),
           bottom: const TabBar(
               indicatorColor: mainColor,
