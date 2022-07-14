@@ -5,7 +5,7 @@ import 'package:shop/logic/bindings/main_binding.dart';
 import 'package:shop/logic/bindings/product_binding.dart';
 import 'package:shop/veiw/screens/cart_screen.dart';
 import 'package:shop/veiw/screens/auth/forget_password_screen.dart';
-import 'package:shop/veiw/screens/main_screen.dart';
+import 'package:shop/veiw/screens/customer_screen.dart';
 import 'package:shop/veiw/screens/payment_screen.dart';
 import 'package:shop/veiw/screens/suppliers/dashboard.dart';
 
@@ -23,7 +23,7 @@ class AppRoutes{
     GetPage(name: Routes.LoginScreen, page: ()=>LoginScreen(),binding: AuthBinding()),
     GetPage(name: Routes.SignUpScreen, page: ()=>SignUpScreen(),binding: AuthBinding()),
     GetPage(name: Routes.forgetPasswordScreen, page: ()=>ForgetPasswordScreen(),binding: AuthBinding()),
-    GetPage(name: Routes.mainScreen, page: ()=>MainScreen(),bindings: [AuthBinding(),MainBinding(),ProductBinding()]),
+    GetPage(name: Routes.mainScreen, page: ()=>CustomerScreen(),bindings: [AuthBinding(),MainBinding(),ProductBinding()]),
     GetPage(name: Routes.cartScreen, page: ()=>CartScreen(),bindings: [AuthBinding(),ProductBinding(),CartBinding()]),
     GetPage(name: Routes.placeOrder, page: ()=>PlaceOrderScreen(),bindings: [AuthBinding(),ProductBinding(),CartBinding()]),
     GetPage(name: Routes.paymentScreen, page: ()=>PaymentScreen(),
@@ -40,7 +40,7 @@ class Routes{
   static const String LoginScreen='/LoginScreen';
   static const String SignUpScreen='/SignUpScreen';
   static const String forgetPasswordScreen='/forgetPasswordScreen';
-  static const String mainScreen='/mainScreen';
+  static const String mainScreen='/CustomerScreen';
   static const String cartScreen='/cartScreen';
   static const String placeOrder='/placeOrder';
   static const String paymentScreen='/paymentScreen';
