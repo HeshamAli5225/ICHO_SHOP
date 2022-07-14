@@ -7,6 +7,7 @@ import 'package:shop/veiw/screens/cart_screen.dart';
 import 'package:shop/veiw/screens/auth/forget_password_screen.dart';
 import 'package:shop/veiw/screens/main_screen.dart';
 import 'package:shop/veiw/screens/payment_screen.dart';
+import 'package:shop/veiw/screens/suppliers/dashboard.dart';
 
 import '../veiw/screens/auth/login_screen.dart';
 import '../veiw/screens/auth/signup_screen.dart';
@@ -28,6 +29,8 @@ class AppRoutes{
     GetPage(name: Routes.paymentScreen, page: ()=>PaymentScreen(),
         bindings: [AuthBinding(),ProductBinding(),MainBinding()]
     ),
+
+    GetPage(name: Routes.dashboardScreen, page: ()=>DashboardScreen()),
   ];
 
 }
@@ -41,5 +44,6 @@ class Routes{
   static const String cartScreen='/cartScreen';
   static const String placeOrder='/placeOrder';
   static const String paymentScreen='/paymentScreen';
+  static const String dashboardScreen='/paymentScreen';
 
 }

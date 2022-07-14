@@ -112,7 +112,7 @@ class AuthController extends GetxController {
     UserModel userModel=UserModel(id: uId, name: name, email: email, phone: phone, address: address, type: type);
     /////////
     try {
-      FirebaseFirestore.instance.collection('users').doc(uId).set(userModel.toMap());
+      FirebaseFirestore.instance.collection('users').doc(uId).set(userModel.toMap()).then((value) {});
     }  catch (error) {
       print('error in create user in fireStore');
       print('**$error**');
@@ -126,17 +126,31 @@ class AuthController extends GetxController {
     required String password,
   }) async {
     try {
+      var type='cc';
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
         displayUserName = auth.currentUser!.displayName!;
+       var id= value.user?.uid;
+        FirebaseFirestore.instance.collection('users').doc(id).get().then((value){
+          type=value.data()!['type'];
+          print('typeIs '+value.data()!['type']);
+          print('typeInner'+type);
+
+          isSignIn = true;
+          authBox.write('auth', isSignIn);
+          signInBefore = true;
+          signInBeforeBox.write('signInBefore', signInBefore);
+          update();print('type'+type);
+          if(type=='buyer'){Get.offNamed(Routes.mainScreen);}
+          else if (type=='seller'){Get.offNamed(Routes.dashboardScreen);}
+
+        }).catchError((error){});
+       print('hereId'+id!);
+        print('typeInner2'+type);
       });
-      isSignIn = true;
-      authBox.write('auth', isSignIn);
-      signInBefore = true;
-      signInBeforeBox.write('signInBefore', signInBefore);
-      update();
-      Get.offNamed(Routes.mainScreen);
+
+
     } on FirebaseAuthException catch (e) {
       String title = e.code.replaceAll(RegExp('-'), ' ').capitalize!;
       String message = '';
@@ -239,9 +253,9 @@ class AuthController extends GetxController {
   void signOut() async {
     try {
       await auth.signOut();
-      try {
-        await googleSignIn.signOut();
-      } catch (e) {}
+      // try {
+      //   await googleSignIn.signOut();
+      // } catch (e) {}
 
       displayUserName = '';
       displayUserPhoto = '';
