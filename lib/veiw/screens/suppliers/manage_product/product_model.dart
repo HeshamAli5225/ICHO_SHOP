@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_details.dart';
 
-
 class ProductModel extends StatefulWidget {
   final dynamic products;
+
   const ProductModel({Key? key, required this.products}) : super(key: key);
 
   @override
@@ -14,6 +14,7 @@ class ProductModel extends StatefulWidget {
 class _ProductModelState extends State<ProductModel> {
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     var onSale = widget.products['discount'];
     return InkWell(
       onTap: () {
@@ -70,21 +71,23 @@ class _ProductModelState extends State<ProductModel> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                Text(
-                                  widget.products['price'].toStringAsFixed(2),
-                                  style: onSale != 0
-                                      ? const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 11,
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          fontWeight: FontWeight.w600)
-                                      : const TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600),
+                                FittedBox(
+                                  child: Text(
+                                    widget.products['price'].toStringAsFixed(2),
+                                    style: onSale != 0
+                                        ? const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 11,
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            fontWeight: FontWeight.w600)
+                                        : const TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600),
+                                  ),
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   width: 6,
                                 ),
                                 onSale != 0
@@ -95,9 +98,9 @@ class _ProductModelState extends State<ProductModel> {
                                                         100)) *
                                                 widget.products['price'])
                                             .toStringAsFixed(2),
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             color: Colors.red,
-                                            fontSize: 16,
+                                            fontSize: width * .03,
                                             fontWeight: FontWeight.w600),
                                       )
                                     : const Text(''),
@@ -110,52 +113,53 @@ class _ProductModelState extends State<ProductModel> {
                                     icon: const Icon(
                                       Icons.edit,
                                       color: Colors.red,
-                                    )):Text("anas"),
-                                // : IconButton(
-                                //     onPressed: () {
-                                //       var existingItemWishlist = context
-                                //           .read<Wish>()
-                                //           .getWishItems
-                                //           .firstWhereOrNull((product) =>
-                                //               product.documentId ==
-                                //               widget.products['proid']);
-                                //       existingItemWishlist != null
-                                //           ? context.read<Wish>().removeThis(
-                                //               widget.products['proid'])
-                                //           : context.read<Wish>().addWishItem(
-                                //                 widget.products['proname'],
-                                //                 onSale != 0
-                                //                     ? ((1 -
-                                //                             (widget.products[
-                                //                                     'discount'] /
-                                //                                 100)) *
-                                //                         widget
-                                //                             .products['price'])
-                                //                     : widget.products['price'],
-                                //                 1,
-                                //                 widget.products['instock'],
-                                //                 widget.products['proimages'],
-                                //                 widget.products['proid'],
-                                //                 widget.products['sid'],
-                                //               );
-                                //     },
-                                //     icon: context
-                                //                 .watch<Wish>()
-                                //                 .getWishItems
-                                //                 .firstWhereOrNull((product) =>
-                                //                     product.documentId ==
-                                //                     widget.products['proid']) !=
-                                //             null
-                                //         ? const Icon(
-                                //             Icons.favorite,
-                                //             color: Colors.red,
-                                //             size: 30,
-                                //           )
-                                //         : const Icon(
-                                //             Icons.favorite_outline,
-                                //             color: Colors.red,
-                                //             size: 30,
-                                //           )),
+                                    ))
+                                : Text("don't exist"),
+                            // : IconButton(
+                            //     onPressed: () {
+                            //       var existingItemWishlist = context
+                            //           .read<Wish>()
+                            //           .getWishItems
+                            //           .firstWhereOrNull((product) =>
+                            //               product.documentId ==
+                            //               widget.products['proid']);
+                            //       existingItemWishlist != null
+                            //           ? context.read<Wish>().removeThis(
+                            //               widget.products['proid'])
+                            //           : context.read<Wish>().addWishItem(
+                            //                 widget.products['proname'],
+                            //                 onSale != 0
+                            //                     ? ((1 -
+                            //                             (widget.products[
+                            //                                     'discount'] /
+                            //                                 100)) *
+                            //                         widget
+                            //                             .products['price'])
+                            //                     : widget.products['price'],
+                            //                 1,
+                            //                 widget.products['instock'],
+                            //                 widget.products['proimages'],
+                            //                 widget.products['proid'],
+                            //                 widget.products['sid'],
+                            //               );
+                            //     },
+                            //     icon: context
+                            //                 .watch<Wish>()
+                            //                 .getWishItems
+                            //                 .firstWhereOrNull((product) =>
+                            //                     product.documentId ==
+                            //                     widget.products['proid']) !=
+                            //             null
+                            //         ? const Icon(
+                            //             Icons.favorite,
+                            //             color: Colors.red,
+                            //             size: 30,
+                            //           )
+                            //         : const Icon(
+                            //             Icons.favorite_outline,
+                            //             color: Colors.red,
+                            //             size: 30,
+                            //           )),
                           ],
                         )
                       ],

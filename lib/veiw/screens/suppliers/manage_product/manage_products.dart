@@ -14,7 +14,7 @@ class ManageProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _prodcutsStream = FirebaseFirestore.instance
         .collection('products')
-        .where('cid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+        .where('sid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
         .snapshots();
     return Scaffold(
       appBar: AppBar(
