@@ -12,7 +12,7 @@ import '../../../utils/my_string.dart';
 
 class ProductInfo extends StatelessWidget {
   final String title;
-  final int productId;
+  final String productId;
   final double rate;
   final String description;
   final controller = Get.find<ProductController>();
@@ -89,7 +89,7 @@ class ProductInfo extends StatelessWidget {
                 rating: rate,
                 itemBuilder: (context, index) => Icon(
                   Icons.star,
-                  color: Colors.amber,
+                  color: mainColor,
                 ),
                 itemCount: 5,
                 itemSize: 20.0,

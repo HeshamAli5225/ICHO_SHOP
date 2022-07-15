@@ -6,7 +6,8 @@ import 'package:shop/veiw/screens/suppliers/manage_product/product_details.dart'
 
 class ProductModel extends StatefulWidget {
   final dynamic products;
-  const ProductModel({Key? key, required this.products}) : super(key: key);
+  const
+  ProductModel({Key? key, required this.products}) : super(key: key);
 
   @override
   State<ProductModel> createState() => _ProductModelState();

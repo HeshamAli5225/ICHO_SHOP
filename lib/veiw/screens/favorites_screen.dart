@@ -44,7 +44,7 @@ class FavoritesScreen extends StatelessWidget {
                   image: controller.favouritesList[index].image,
                   title: controller.favouritesList[index].title,
                   price: controller.favouritesList[index].price,
-                  productId: controller.favouritesList[index].id);
+                  productId: controller.favouritesList[index].id.toString());
             },
             separatorBuilder: (context, index) {
               return Divider(
@@ -63,7 +63,7 @@ class FavoritesScreen extends StatelessWidget {
       {required String image,
       required String title,
       required double price,
-      required int productId}) {
+      required String productId}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

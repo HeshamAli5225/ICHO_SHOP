@@ -24,7 +24,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
               ProductInfo(
                 title: productModel.title,
-                productId: productModel.id,
+                productId: productModel.id.toString(),
                 rate: productModel.rating.rate,
                 description: productModel.description,
               ),

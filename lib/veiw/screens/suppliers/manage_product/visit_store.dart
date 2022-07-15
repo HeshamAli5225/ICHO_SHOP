@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_model.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
@@ -62,7 +63,7 @@ class _VisitStoreState extends State<VisitStore> {
                     height: 80,
                     width: 80,
                     decoration: BoxDecoration(
-                        border: Border.all(width: 4, color: Colors.yellow),
+                        border: Border.all(width: 4, color: mainColor),
                         borderRadius: BorderRadius.circular(15)),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(11),
@@ -87,7 +88,7 @@ class _VisitStoreState extends State<VisitStore> {
                               child: Text(
                                 data['storename'].toUpperCase(),
                                 style: const TextStyle(
-                                    fontSize: 20, color: Colors.yellow),
+                                    fontSize: 20, color: mainColor),
                               ),
                             ),
                           ],
@@ -97,7 +98,7 @@ class _VisitStoreState extends State<VisitStore> {
                                 height: 35,
                                 width: MediaQuery.of(context).size.width * 0.3,
                                 decoration: BoxDecoration(
-                                    color: Colors.yellow,
+                                    color: mainColor,
                                     border: Border.all(
                                         width: 3, color: Colors.black),
                                     borderRadius: BorderRadius.circular(25)),
@@ -118,7 +119,7 @@ class _VisitStoreState extends State<VisitStore> {
                                 height: 35,
                                 width: MediaQuery.of(context).size.width * 0.3,
                                 decoration: BoxDecoration(
-                                    color: Colors.yellow,
+                                    color: mainColor,
                                     border: Border.all(
                                         width: 3, color: Colors.black),
                                     borderRadius: BorderRadius.circular(25)),

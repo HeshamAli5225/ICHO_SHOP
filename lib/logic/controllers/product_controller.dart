@@ -39,7 +39,7 @@ class ProductController extends GetxController {
 
   ////////////////////Logic for favourite////////////////
 
-  void changeFavourites(int productId) async {
+  void changeFavourites(String productId) async {
     var productIndex =
         favouritesList.indexWhere((element) => element.id == productId);
     if (productIndex >= 0) {
@@ -70,7 +70,7 @@ class ProductController extends GetxController {
 //    favouritesList.removeWhere((element) => element.id==productId);
 //  }
 
-  bool isFavourites(int productId) {
+  bool isFavourites(String productId) {
     return favouritesList.any((element) => element.id == productId);
   }
 

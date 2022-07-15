@@ -47,7 +47,8 @@ class CategoryItems extends StatelessWidget {
                   image: categoryController.categoryProductList[index].image,
                   price: categoryController.categoryProductList[index].price,
                   rate: categoryController.categoryProductList[index].rating.rate,
-                  productId: categoryController.categoryProductList[index].id,
+                  //todo
+                  productId: categoryController.categoryProductList[index].id.toString(),
                   productModel: categoryController.categoryProductList[index],
                   onTap: () {
                     Get.to(ProductDetailsScreen(
@@ -65,7 +66,7 @@ class CategoryItems extends StatelessWidget {
       {required String image,
       required double price,
       required double rate,
-      required int productId,
+      required String productId,
       required ProductModel productModel,
       required Function() onTap}) {
     return Padding(
