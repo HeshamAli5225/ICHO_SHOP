@@ -104,11 +104,11 @@ class CardItems extends StatelessWidget {
                   spreadRadius: 3,
                 ),
               ]),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Obx(() {
-                  return Row(
+          child: Column(
+            children: [
+              Obx(() {
+                return Expanded(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
@@ -136,67 +136,67 @@ class CardItems extends StatelessWidget {
                             color: Get.isDarkMode ? Colors.white : Colors.black,
                           )),
                     ],
-                  );
-                }),
-                Container(
-                  width: double.infinity,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
                   ),
-                  child: Image(
-                    image: NetworkImage(
-                      '$image',
-                    ),
-                    fit: BoxFit.fitHeight,
-                  ),
+                );
+              }),
+              Container(
+                width: double.infinity,
+                height: 140,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15.0,
-                    right: 15,
-                    top: 10,
+                child: Image(
+                  image: NetworkImage(
+                    '$image',
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextUtils(
-                          text: '\$ ${price}',
-                          color: Get.isDarkMode ? Colors.white : Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                      Container(
-                        height: 20,
-                        width: 45,
-                        decoration: BoxDecoration(
-                          color: Get.isDarkMode ? pinkClr : mainColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 3, right: 2),
-                          child: Row(
-                            children: [
-                              TextUtils(
-                                text: '${rate}',
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              Icon(
-                                Icons.star,
-                                size: 13,
-                                color: Colors.white,
-                              )
-                            ],
-                          ),
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 15.0,
+                  right: 15,
+                  top: 10,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextUtils(
+                        text: '\$ ${price}',
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                    Container(
+                      height: 20,
+                      width: 45,
+                      decoration: BoxDecoration(
+                        color: Get.isDarkMode ? pinkClr : mainColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 3, right: 2),
+                        child: Row(
+                          children: [
+                            TextUtils(
+                              text: '${rate}',
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            Icon(
+                              Icons.star,
+                              size: 13,
+                              color: Colors.white,
+                            )
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
