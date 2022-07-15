@@ -58,14 +58,13 @@ class MyApp extends StatelessWidget {
       theme: ThemesApp.light,
       darkTheme: ThemesApp.dark,
       themeMode: ThemeController().themeMode,
-       home:  SupplierScreen()/*MainScreen()*/,
-      // initialRoute: FirebaseAuth.instance.currentUser != null ||
-      //         GetStorage().read('auth') == true
-      //     ? AppRoutes.mainScreen
-      //     : GetStorage().read('signInBefore') == true
-      //         ? AppRoutes.loginScreen
-      //         : AppRoutes.welcome,
-      // getPages: AppRoutes.routes,
+      initialRoute: FirebaseAuth.instance.currentUser != null ||
+              GetStorage().read('auth') == true
+          ? AppRoutes.mainScreen
+          : GetStorage().read('signInBefore') == true
+              ? AppRoutes.loginScreen
+              : AppRoutes.welcome,
+      getPages: AppRoutes.routes,
     );
   }
 }

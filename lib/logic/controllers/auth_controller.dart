@@ -64,7 +64,8 @@ class AuthController extends GetxController {
       signInBefore = true;
       signInBeforeBox.write('signInBefore', signInBefore);
       update();
-      Get.offNamed(Routes.mainScreen);
+      if(type=='buyer'){Get.offNamed(Routes.mainScreen);}
+      else if (type=='seller'){Get.offNamed(Routes.SupplierScreen);}
 
       print('Success');
     } on FirebaseAuthException catch (e) {
@@ -143,7 +144,7 @@ class AuthController extends GetxController {
           signInBeforeBox.write('signInBefore', signInBefore);
           update();print('type'+type);
           if(type=='buyer'){Get.offNamed(Routes.mainScreen);}
-          else if (type=='seller'){Get.offNamed(Routes.dashboardScreen);}
+          else if (type=='seller'){Get.offNamed(Routes.SupplierScreen);}
 
         }).catchError((error){});
        print('hereId'+id!);
