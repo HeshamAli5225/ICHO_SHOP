@@ -59,6 +59,8 @@ class SubcategModel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -72,15 +74,18 @@ class SubcategModel extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: 70,
-            width: 70,
-            child: Image(
-              image: AssetImage(assetName),
+            height: height*.1,
+            width: width*.2,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Image(
+                image: AssetImage(assetName),
+              ),
             ),
           ),
           Text(
             subcategLabel,
-            style: const TextStyle(fontSize: 11),
+            style:  TextStyle(fontSize:width*.03 ),
           )
         ],
       ),
