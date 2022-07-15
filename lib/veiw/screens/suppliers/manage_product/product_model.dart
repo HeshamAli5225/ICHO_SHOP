@@ -116,7 +116,7 @@ class _ProductModelState extends State<ProductModel> {
                                       Icons.edit,
                                       color: Colors.red,
                                     ))
-                                : Text("don't exist"),
+                                : Text(""),
                             // : IconButton(
                             //     onPressed: () {
                             //       var existingItemWishlist = context
