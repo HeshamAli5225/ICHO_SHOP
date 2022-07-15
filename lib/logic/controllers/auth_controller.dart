@@ -22,6 +22,7 @@ class AuthController extends GetxController {
   var signInBefore = false;
   final GetStorage authBox = GetStorage();
   final GetStorage signInBeforeBox = GetStorage();
+  final GetStorage userType= GetStorage();
 
   void visibility() {
     isVisible = !isVisible;
@@ -64,8 +65,8 @@ class AuthController extends GetxController {
       signInBefore = true;
       signInBeforeBox.write('signInBefore', signInBefore);
       update();
-      if(type=='buyer'){Get.offNamed(Routes.mainScreen);}
-      else if (type=='seller'){Get.offNamed(Routes.SupplierScreen);}
+      if(type=='buyer'){userType.write('type', 'buyer');Get.offNamed(Routes.mainScreen);}
+      else if (type=='seller'){userType.write('type', 'seller');Get.offNamed(Routes.SupplierScreen);}
 
       print('Success');
     } on FirebaseAuthException catch (e) {
@@ -143,8 +144,8 @@ class AuthController extends GetxController {
           signInBefore = true;
           signInBeforeBox.write('signInBefore', signInBefore);
           update();print('type'+type);
-          if(type=='buyer'){Get.offNamed(Routes.mainScreen);}
-          else if (type=='seller'){Get.offNamed(Routes.SupplierScreen);}
+          if(type=='buyer'){userType.write('type', 'buyer');Get.offNamed(Routes.mainScreen);}
+          else if (type=='seller'){userType.write('type', 'seller');Get.offNamed(Routes.SupplierScreen);}
 
         }).catchError((error){});
        print('hereId'+id!);
@@ -262,6 +263,7 @@ class AuthController extends GetxController {
       displayUserPhoto = '';
       isSignIn = false;
       authBox.remove('auth');
+      userType.remove('type');
       update();
 
       Get.offNamed(Routes.LoginScreen);

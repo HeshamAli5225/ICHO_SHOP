@@ -19,6 +19,7 @@ class AppRoutes{
   static const String welcome=Routes.welcomeScreen;
   static const String mainScreen=Routes.mainScreen;
   static const String loginScreen=Routes.LoginScreen;
+  static const String sellerMain=Routes.SupplierScreen;
   static final routes =[
     GetPage(name: Routes.welcomeScreen, page: ()=>WelcomeScreen()),
     GetPage(name: Routes.LoginScreen, page: ()=>LoginScreen(),binding: AuthBinding()),
@@ -27,10 +28,7 @@ class AppRoutes{
     GetPage(name: Routes.mainScreen, page: ()=>CustomerScreen(),bindings: [AuthBinding(),MainBinding(),ProductBinding()]),
     GetPage(name: Routes.cartScreen, page: ()=>CartScreen(),bindings: [AuthBinding(),ProductBinding(),CartBinding()]),
     GetPage(name: Routes.placeOrder, page: ()=>PlaceOrderScreen(),bindings: [AuthBinding(),ProductBinding(),CartBinding()]),
-    GetPage(name: Routes.paymentScreen, page: ()=>PaymentScreen(),
-        bindings: [AuthBinding(),ProductBinding(),MainBinding()]
-    ),
-
+    GetPage(name: Routes.paymentScreen, page: ()=>PaymentScreen(), bindings: [AuthBinding(),ProductBinding(),MainBinding()]),
     GetPage(name: Routes.SupplierScreen, page: ()=>SupplierScreen(),bindings: [AuthBinding(),MainBinding(),ProductBinding()]),
   ];
 

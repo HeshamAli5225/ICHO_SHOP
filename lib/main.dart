@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeController().themeMode,
       initialRoute: FirebaseAuth.instance.currentUser != null ||
               GetStorage().read('auth') == true
-          ? AppRoutes.mainScreen
+          ? GetStorage().read('type') == 'seller'?AppRoutes.sellerMain:AppRoutes.mainScreen
           : GetStorage().read('signInBefore') == true
               ? AppRoutes.loginScreen
               : AppRoutes.welcome,
