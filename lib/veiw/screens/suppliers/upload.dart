@@ -130,7 +130,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
               _scaffoldKey, 'please pick images first');
         }
       } else {
-        MyMessageHandler.showSnackBar(_scaffoldKey, 'please fill all fields');
+        MyMessageHandler.showSnackBar(_scaffoldKey, 'please fill all fields!');
       }
     } else {
       MyMessageHandler.showSnackBar(_scaffoldKey, 'please select categories');
