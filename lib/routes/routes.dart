@@ -5,8 +5,10 @@ import 'package:shop/logic/bindings/main_binding.dart';
 import 'package:shop/logic/bindings/product_binding.dart';
 import 'package:shop/veiw/screens/cart_screen.dart';
 import 'package:shop/veiw/screens/auth/forget_password_screen.dart';
-import 'package:shop/veiw/screens/customer_screen.dart';
+import 'package:shop/veiw/screens/customers/customer_screen.dart';
 import 'package:shop/veiw/screens/payment_screen.dart';
+import 'package:shop/veiw/screens/suppliers/dashboard.dart';
+import 'package:shop/veiw/screens/suppliers/suppliers_screen.dart';
 
 import '../veiw/screens/auth/login_screen.dart';
 import '../veiw/screens/auth/signup_screen.dart';
@@ -28,6 +30,8 @@ class AppRoutes{
     GetPage(name: Routes.paymentScreen, page: ()=>PaymentScreen(),
         bindings: [AuthBinding(),ProductBinding(),MainBinding()]
     ),
+
+    GetPage(name: Routes.SupplierScreen, page: ()=>SupplierScreen(),bindings: [AuthBinding(),MainBinding(),ProductBinding()]),
   ];
 
 }
@@ -41,5 +45,7 @@ class Routes{
   static const String cartScreen='/cartScreen';
   static const String placeOrder='/placeOrder';
   static const String paymentScreen='/paymentScreen';
+  static const String dashboardScreen='/paymentScreen';
+  static const String SupplierScreen='/SupplierScreen';
 
 }

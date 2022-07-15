@@ -9,6 +9,8 @@ import 'package:easy_localization/easy_localization.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
+  //final controller = Get.find<AuthController>();
+
   final controller = Get.find<AuthController>();
   final TextEditingController emailController = TextEditingController();
 

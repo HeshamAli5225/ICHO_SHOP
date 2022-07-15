@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
+
 class ProfileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var user = FirebaseFirestore.instance
         .collection("users")
-        .doc(FirebaseAuth.instance.currentUser!.uid);
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        ;
     return FutureBuilder<DocumentSnapshot>(
         future: user.get(),
         builder: (context, snapshot) {
@@ -68,3 +70,4 @@ class ProfileImage extends StatelessWidget {
         });
   }
 }
+
