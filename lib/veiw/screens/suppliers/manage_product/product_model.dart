@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_details.dart';
 
 
@@ -15,6 +16,8 @@ class _ProductModelState extends State<ProductModel> {
   @override
   Widget build(BuildContext context) {
     var onSale = widget.products['discount'];
+    var width= MediaQuery.of(context).size.width;
+    var height= MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -61,47 +64,51 @@ class _ProductModelState extends State<ProductModel> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                const Text(
-                                  '\$ ',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Text(
-                                  widget.products['price'].toStringAsFixed(2),
-                                  style: onSale != 0
-                                      ? const TextStyle(
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'EGP ',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize:width*.03,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  FittedBox(
+                                    child: Text(
+                                      widget.products['price'].toStringAsFixed(2),
+                                      style: onSale != 0
+                                          ? TextStyle(
                                           color: Colors.grey,
-                                          fontSize: 11,
+                                          fontSize: width*.02,
                                           decoration:
-                                              TextDecoration.lineThrough,
+                                          TextDecoration.lineThrough,
                                           fontWeight: FontWeight.w600)
-                                      : const TextStyle(
+                                          :  TextStyle(
                                           color: Colors.red,
-                                          fontSize: 16,
+                                          fontSize: width*.03,
                                           fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  width: 6,
-                                ),
-                                onSale != 0
-                                    ? Text(
-                                        ((1 -
-                                                    (widget.products[
-                                                            'discount'] /
-                                                        100)) *
-                                                widget.products['price'])
-                                            .toStringAsFixed(2),
-                                        style: const TextStyle(
-                                            color: Colors.red,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600),
-                                      )
-                                    : const Text(''),
-                              ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 6,
+                                  ),
+                                  onSale != 0
+                                      ? Text(
+                                    ((1 -
+                                        (widget.products[
+                                        'discount'] /
+                                            100)) *
+                                        widget.products['price'])
+                                        .toStringAsFixed(2),
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: width* .03,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                      : const Text(''),
+                                ],
+                              ),
                             ),
                             widget.products['sid'] ==
                                     FirebaseAuth.instance.currentUser?.uid
@@ -110,7 +117,7 @@ class _ProductModelState extends State<ProductModel> {
                                     icon: const Icon(
                                       Icons.edit,
                                       color: Colors.red,
-                                    )):Text("anas"),
+                                    )):Text(""),
                                 // : IconButton(
                                 //     onPressed: () {
                                 //       var existingItemWishlist = context
@@ -172,7 +179,7 @@ class _ProductModelState extends State<ProductModel> {
                       height: 25,
                       width: 80,
                       decoration: const BoxDecoration(
-                          color: Colors.yellow,
+                          color: Colors.orangeAccent,
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(15),
                               bottomRight: Radius.circular(15))),

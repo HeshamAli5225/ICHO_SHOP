@@ -82,7 +82,7 @@ class SubcategModel extends StatelessWidget {
           ),
           Text(
             subcategLabel,
-            style: const TextStyle(fontSize: 11),
+            style: TextStyle(fontSize: width*.03),
           )
         ],
       ),

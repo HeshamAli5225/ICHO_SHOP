@@ -41,6 +41,7 @@ class CardItems extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return buildCardItems(
+                    context: context,
                     image: controller.productList[index].image,
                     price: controller.productList[index].price,
                     rate: controller.productList[index].rating.rate,
@@ -66,6 +67,7 @@ class CardItems extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return buildCardItems(
+                    context: context,
                     image: controller.searchList[index].image,
                     price: controller.searchList[index].price,
                     rate: controller.searchList[index].rating.rate,
@@ -85,12 +87,16 @@ class CardItems extends StatelessWidget {
   }
 
   Widget buildCardItems(
-      {required String image,
+      {
+        required BuildContext context,
+        required String image,
       required double price,
       required double rate,
       required int productId,
       required ProductModel productModel,
       required Function() onTap}) {
+    var width= MediaQuery.of(context).size.width;
+    var height= MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: InkWell(
@@ -139,7 +145,7 @@ class CardItems extends StatelessWidget {
               }),
               Container(
                 width: double.infinity,
-                height: 140,
+                height: height*.20,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
