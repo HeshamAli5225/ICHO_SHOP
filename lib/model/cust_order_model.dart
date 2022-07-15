@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shop/utils/theme.dart';
 
 class CustomerOrderModel extends StatelessWidget {
   final dynamic order;
@@ -11,7 +12,7 @@ class CustomerOrderModel extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.yellow),
+            border: Border.all(color: mainColor),
             borderRadius: BorderRadius.circular(15)),
         child: ExpansionTile(
           title: Container(
@@ -102,7 +103,7 @@ class CustomerOrderModel extends StatelessWidget {
                           Text(
                             (order['paymentstatus']),
                             style: const TextStyle(
-                                fontSize: 15, color: Colors.purple),
+                                fontSize: 15, color: mainColor),
                           ),
                         ],
                       ),

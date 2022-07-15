@@ -59,6 +59,8 @@ class SubcategModel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   double width=  MediaQuery.of(context).size.width;
+   double height=  MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -72,8 +74,8 @@ class SubcategModel extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: 70,
-            width: 70,
+            height: height*.1,
+            width: width*.1,
             child: Image(
               image: AssetImage(assetName),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
+import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_model.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/visit_store.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
@@ -27,7 +28,7 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   late final Stream<QuerySnapshot> _prodcutsStream = FirebaseFirestore.instance
-      .collection('proList')
+      .collection('products')
       .where('maincateg', isEqualTo: widget.proList['maincateg'])
       .where('subcateg', isEqualTo: widget.proList['subcateg'])
       .snapshots();
@@ -81,7 +82,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             left: 15,
                             top: 20,
                             child: CircleAvatar(
-                              backgroundColor: Colors.yellow,
+                              backgroundColor: mainColor,
                               child: IconButton(
                                 icon: const Icon(
                                   Icons.arrow_back_ios_new,
@@ -96,7 +97,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             right: 15,
                             top: 20,
                             child: CircleAvatar(
-                              backgroundColor: Colors.yellow,
+                              backgroundColor: mainColor,
                               child: IconButton(
                                 icon: const Icon(
                                   Icons.share,
@@ -126,7 +127,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Row(
                               children: [
                                 const Text(
-                                  'USD  ',
+                                  'EGP  ',
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontSize: 16,
@@ -323,7 +324,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ? false
                                   : true,
                               padding: const EdgeInsets.all(2),
-                              badgeColor: Colors.yellow,
+                              badgeColor: mainColor,
                               badgeContent: Text(
                                 controller.productMap.values.length.toString(),
                                 style: const TextStyle(

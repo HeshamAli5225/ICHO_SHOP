@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:shop/utils/theme.dart';
 
 class SupplierOrderModel extends StatelessWidget {
   final dynamic order;
@@ -13,7 +14,7 @@ class SupplierOrderModel extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.yellow),
+            border: Border.all(color: mainColor),
             borderRadius: BorderRadius.circular(15)),
         child: ExpansionTile(
           title: Container(
