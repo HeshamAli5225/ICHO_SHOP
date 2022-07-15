@@ -116,5 +116,6 @@ class Assets {
   static const String womenWomen7 = 'assets/images/women/women7.jpg';
   static const String womenWomen8 = 'assets/images/women/women8.jpg';
   static const String womenWomen9 = 'assets/images/women/women9.jpg';
+  static const String omen9 = 'assets/images/wo.jpg';
 
 }
