@@ -175,7 +175,7 @@ class _VisitStoreState extends State<VisitStore> {
                         itemCount: snapshot.data?.docs.length,
                         crossAxisCount: 2,
                         itemBuilder: (context, index) {
-                          return ProductModel(
+                          return ProductsModel(
                             products: snapshot.data?.docs[index],
                           );
                         },

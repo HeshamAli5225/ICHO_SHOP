@@ -72,16 +72,12 @@ class SubcategModel extends StatelessWidget {
                     )));
       },
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-            child: SizedBox(
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Image(
-                  image: AssetImage(assetName),
-                ),
-              ),
+          SizedBox(
+            height: height*.1,
+            width: height*.1,
+            child: Image(
+              image: AssetImage(assetName),
             ),
           ),
           Text(

@@ -13,6 +13,7 @@ class CardItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Obx(() {
       if (controller.isLoading.value) {
         return Expanded(
@@ -41,6 +42,7 @@ class CardItems extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return buildCardItems(
+                  context: context,
                     image: controller.productList[index].image,
                     price: controller.productList[index].price,
                     rate: controller.productList[index].rating.rate,
@@ -66,6 +68,7 @@ class CardItems extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return buildCardItems(
+                  context: context,
                     image: controller.searchList[index].image,
                     price: controller.searchList[index].price,
                     rate: controller.searchList[index].rating.rate,
@@ -90,7 +93,11 @@ class CardItems extends StatelessWidget {
       required double rate,
       required int productId,
       required ProductModel productModel,
-      required Function() onTap}) {
+      required Function() onTap
+      ,required BuildContext context,
+      }) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: InkWell(
@@ -105,43 +112,42 @@ class CardItems extends StatelessWidget {
                 ),
               ]),
           child: Column(
+
             children: [
               Obx(() {
-                return Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            controller.changeFavourites(productId);
-                          },
-                          icon: controller.isFavourites(productId)
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : Icon(
-                                  Icons.favorite_outline,
-                                  color: Get.isDarkMode
-                                      ? Colors.white
-                                      : Colors.black,
-                                )),
-                      IconButton(
-                          onPressed: () {
-                            cartController.addProductToCart(productModel);
-                            //print(cartController.allProductTotal());
-                          },
-                          icon: Icon(
-                            Icons.add_shopping_cart,
-                            color: Get.isDarkMode ? Colors.white : Colors.black,
-                          )),
-                    ],
-                  ),
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          controller.changeFavourites(productId);
+                        },
+                        icon: controller.isFavourites(productId)
+                            ? Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              )
+                            : Icon(
+                                Icons.favorite_outline,
+                                color: Get.isDarkMode
+                                    ? Colors.white
+                                    : Colors.black,
+                              )),
+                    IconButton(
+                        onPressed: () {
+                          cartController.addProductToCart(productModel);
+                          //print(cartController.allProductTotal());
+                        },
+                        icon: Icon(
+                          Icons.add_shopping_cart,
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
+                        )),
+                  ],
                 );
               }),
               Container(
                 width: double.infinity,
-                height: 140,
+                height: height*.20,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,

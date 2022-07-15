@@ -2,16 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_details.dart';
 
-class ProductModel extends StatefulWidget {
+class ProductsModel extends StatefulWidget {
   final dynamic products;
 
-  const ProductModel({Key? key, required this.products}) : super(key: key);
+  const ProductsModel({Key? key, required this.products}) : super(key: key);
 
   @override
-  State<ProductModel> createState() => _ProductModelState();
+  State<ProductsModel> createState() => _ProductsModelState();
 }
 
-class _ProductModelState extends State<ProductModel> {
+class _ProductsModelState extends State<ProductsModel> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

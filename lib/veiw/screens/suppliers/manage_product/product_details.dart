@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
+import 'package:shop/veiw/screens/place_order.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_model.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/visit_store.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart';
+import 'package:shop/model/product_model.dart';
 
+
+import '../../../../routes/routes.dart';
 import '../../../../utils/scaffold_helper.dart';
 import '../../../../utils/theme.dart';
 import '../../../widgets/payment/green_button.dart';
@@ -27,6 +31,7 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+ late ProductModel productModel;
   late final Stream<QuerySnapshot> _prodcutsStream = FirebaseFirestore.instance
       .collection('products')
       .where('maincateg', isEqualTo: widget.proList['maincateg'])
@@ -40,7 +45,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     var onSale = widget.proList['discount'];
-    var controller = Get.put(CartController());
+    var cartController = Get.put(CartController());
     var existingItemCart = Get.put(CartController().productMap.keys.toList())
         .firstWhereOrNull(
             (element) => element.documentId == widget.proList['proid']);
@@ -277,7 +282,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     itemCount: snapshot.data?.docs.length,
                                     crossAxisCount: 2,
                                     itemBuilder: (context, index) {
-                                      return ProductModel(
+                                      return ProductsModel(
                                         products: snapshot.data?.docs[index],
                                       );
                                     },
@@ -320,13 +325,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     builder: (context) => CartScreen()));
                           },
                           icon: Badge(
-                              showBadge: controller.productMap.isEmpty
-                                  ? false
-                                  : true,
+                              showBadge:
+                                  cartController.productMap.isEmpty ? false : true,
                               padding: const EdgeInsets.all(2),
                               badgeColor: mainColor,
                               badgeContent: Text(
-                                controller.productMap.values.length.toString(),
+                                cartController.productMap.values.length.toString(),
                                 style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w600),
                               ),
@@ -344,9 +348,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         } else if (existingItemCart != null) {
                           MyMessageHandler.showSnackBar(
                               _scaffoldKey, 'this item already in cart');
-                          }
+                        }
+
+                        else{
+                          cartController.addProductToCart(productModel);
+                        }
+
                         // else {
-                        //   // controller.productMap
+                        //   // cartController.productMap
                         //   // context.read<Cart>().addItem(
                         //   //       widget.proList['proname'],
                         //   //       onSale != 0
