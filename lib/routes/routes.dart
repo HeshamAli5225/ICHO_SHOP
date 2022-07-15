@@ -5,11 +5,11 @@ import 'package:shop/logic/bindings/main_binding.dart';
 import 'package:shop/logic/bindings/product_binding.dart';
 import 'package:shop/veiw/screens/cart_screen.dart';
 import 'package:shop/veiw/screens/auth/forget_password_screen.dart';
-import 'package:shop/veiw/screens/customer_screen.dart';
 import 'package:shop/veiw/screens/payment_screen.dart';
 
 import '../veiw/screens/auth/login_screen.dart';
 import '../veiw/screens/auth/signup_screen.dart';
+import '../veiw/screens/customers/customer_screen.dart';
 import '../veiw/screens/place_order.dart';
 import '../veiw/screens/welcome_screen.dart';
 

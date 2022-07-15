@@ -1,9 +1,7 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
 import 'package:shop/logic/controllers/main_controller.dart';
-import 'package:shop/routes/routes.dart';
 import 'package:shop/utils/theme.dart';
 class SupplierScreen extends StatelessWidget {
  // final controller = Get.find<MainController>();

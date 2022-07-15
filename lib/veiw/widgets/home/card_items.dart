@@ -104,97 +104,99 @@ class CardItems extends StatelessWidget {
                   spreadRadius: 3,
                 ),
               ]),
-          child: Column(
-            children: [
-              Obx(() {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          controller.changeFavourites(productId);
-                        },
-                        icon: controller.isFavourites(productId)
-                            ? Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              )
-                            : Icon(
-                                Icons.favorite_outline,
-                                color: Get.isDarkMode
-                                    ? Colors.white
-                                    : Colors.black,
-                              )),
-                    IconButton(
-                        onPressed: () {
-                          cartController.addProductToCart(productModel);
-                          //print(cartController.allProductTotal());
-                        },
-                        icon: Icon(
-                          Icons.add_shopping_cart,
-                          color: Get.isDarkMode ? Colors.white : Colors.black,
-                        )),
-                  ],
-                );
-              }),
-              Container(
-                width: double.infinity,
-                height: 140,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: Image(
-                  image: NetworkImage(
-                    '$image',
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Obx(() {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            controller.changeFavourites(productId);
+                          },
+                          icon: controller.isFavourites(productId)
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : Icon(
+                                  Icons.favorite_outline,
+                                  color: Get.isDarkMode
+                                      ? Colors.white
+                                      : Colors.black,
+                                )),
+                      IconButton(
+                          onPressed: () {
+                            cartController.addProductToCart(productModel);
+                            //print(cartController.allProductTotal());
+                          },
+                          icon: Icon(
+                            Icons.add_shopping_cart,
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
+                          )),
+                    ],
+                  );
+                }),
+                Container(
+                  width: double.infinity,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
                   ),
-                  fit: BoxFit.fitHeight,
+                  child: Image(
+                    image: NetworkImage(
+                      '$image',
+                    ),
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 15.0,
-                  right: 15,
-                  top: 10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextUtils(
-                        text: '\$ ${price}',
-                        color: Get.isDarkMode ? Colors.white : Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
-                    Container(
-                      height: 20,
-                      width: 45,
-                      decoration: BoxDecoration(
-                        color: Get.isDarkMode ? pinkClr : mainColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 3, right: 2),
-                        child: Row(
-                          children: [
-                            TextUtils(
-                              text: '${rate}',
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            Icon(
-                              Icons.star,
-                              size: 13,
-                              color: Colors.white,
-                            )
-                          ],
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                    right: 15,
+                    top: 10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextUtils(
+                          text: '\$ ${price}',
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                      Container(
+                        height: 20,
+                        width: 45,
+                        decoration: BoxDecoration(
+                          color: Get.isDarkMode ? pinkClr : mainColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 3, right: 2),
+                          child: Row(
+                            children: [
+                              TextUtils(
+                                text: '${rate}',
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 13,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

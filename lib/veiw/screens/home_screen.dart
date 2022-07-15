@@ -27,29 +27,31 @@ class HomeScreen extends StatelessWidget {
                     bottomRight: Radius.circular(20))),
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextUtils(
-                    text:  tr(StringManger.findYour),
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextUtils(
-                    text:tr(StringManger.inspiration) ,
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SearchFormText(),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextUtils(
+                      text:  tr(StringManger.findYour),
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    TextUtils(
+                      text:tr(StringManger.inspiration) ,
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SearchFormText(),
+                  ],
+                ),
               ),
             ),
           ),

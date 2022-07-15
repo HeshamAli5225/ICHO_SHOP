@@ -62,49 +62,51 @@ class _ProductModelState extends State<ProductModel> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                const Text(
-                                  '\$ ',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                FittedBox(
-                                  child: Text(
-                                    widget.products['price'].toStringAsFixed(2),
-                                    style: onSale != 0
-                                        ? const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 11,
-                                            decoration:
-                                                TextDecoration.lineThrough,
-                                            fontWeight: FontWeight.w600)
-                                        : const TextStyle(
-                                            color: Colors.red,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                   Text(
+                                    'EGP ',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize:width*.03,
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 6,
-                                ),
-                                onSale != 0
-                                    ? Text(
-                                        ((1 -
-                                                    (widget.products[
-                                                            'discount'] /
-                                                        100)) *
-                                                widget.products['price'])
-                                            .toStringAsFixed(2),
-                                        style: TextStyle(
-                                            color: Colors.red,
-                                            fontSize: width * .03,
-                                            fontWeight: FontWeight.w600),
-                                      )
-                                    : const Text(''),
-                              ],
+                                  FittedBox(
+                                    child: Text(
+                                      widget.products['price'].toStringAsFixed(2),
+                                      style: onSale != 0
+                                          ? TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: width*.02,
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                              fontWeight: FontWeight.w600)
+                                          :  TextStyle(
+                                              color: Colors.red,
+                                              fontSize: width*.03,
+                                              fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 6,
+                                  ),
+                                  onSale != 0
+                                      ? Text(
+                                          ((1 -
+                                                      (widget.products[
+                                                              'discount'] /
+                                                          100)) *
+                                                  widget.products['price'])
+                                              .toStringAsFixed(2),
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: width * .03,
+                                              fontWeight: FontWeight.w600),
+                                        )
+                                      : const Text(''),
+                                ],
+                              ),
                             ),
                             widget.products['sid'] ==
                                     FirebaseAuth.instance.currentUser?.uid
@@ -176,7 +178,7 @@ class _ProductModelState extends State<ProductModel> {
                       height: 25,
                       width: 80,
                       decoration: const BoxDecoration(
-                          color: Colors.yellow,
+                          color: Colors.orangeAccent,
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(15),
                               bottomRight: Radius.circular(15))),
