@@ -293,6 +293,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       phone: phoneController.text,
                                       address: addressController.text,
                                       type: registerType,
+                                      image: nameController.text.trim().toUpperCase(),
                                     );
                                   } else if (!controller.isCheckBox) {
                                     Get.snackbar(

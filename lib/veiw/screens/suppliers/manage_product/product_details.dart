@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+import 'package:shop/utils/theme.dart';
+import 'package:shop/utils/theme.dart';
+import 'package:shop/utils/theme.dart';
+import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/full_screen_view.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_model.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/visit_store.dart';
@@ -11,7 +15,7 @@ import 'package:collection/collection.dart';
 import 'package:badges/badges.dart';
 
 import '../../../../providers/cart_provider.dart';
-import '../../../../providers/wish_provider.dart';
+import '../../../../providers/favorite_provider.dart';
 import '../../../../utils/scaffold_helper.dart';
 import '../../../widgets/payment/green_button.dart';
 import '../../cart_screen.dart';
@@ -78,7 +82,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             left: 15,
                             top: 20,
                             child: CircleAvatar(
-                              backgroundColor: Colors.yellow,
+                              backgroundColor:mainColor,
                               child: IconButton(
                                 icon: const Icon(
                                   Icons.arrow_back_ios_new,
@@ -93,7 +97,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             right: 15,
                             top: 20,
                             child: CircleAvatar(
-                              backgroundColor: Colors.yellow,
+                              backgroundColor:mainColor,
                               child: IconButton(
                                 icon: const Icon(
                                   Icons.share,
@@ -165,16 +169,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             IconButton(
                                 onPressed: () {
                                   var existingItemWishlist = context
-                                      .read<Wish>()
+                                      .read<Favorite>()
                                       .getWishItems
                                       .firstWhereOrNull((product) =>
                                   product.documentId ==
                                       widget.proList['proid']);
                                   existingItemWishlist != null
                                       ? context
-                                      .read<Wish>()
+                                      .read<Favorite>()
                                       .removeThis(widget.proList['proid'])
-                                      : context.read<Wish>().addWishItem(
+                                      : context.read<Favorite>().addWishItem(
                                     widget.proList['proname'],
                                     onSale != 0
                                         ? ((1 -
@@ -191,7 +195,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   );
                                 },
                                 icon: context
-                                    .watch<Wish>()
+                                    .watch<Favorite>()
                                     .getWishItems
                                     .firstWhereOrNull((product) =>
                                 product.documentId ==
@@ -322,7 +326,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ? false
                                   : true,
                               padding: const EdgeInsets.all(2),
-                              badgeColor: Colors.yellow,
+                              badgeColor:mainColor,
                               badgeContent: Text(
                                 context
                                     .watch<Cart>()
@@ -389,7 +393,7 @@ class ProDetailsHeader extends StatelessWidget {
             height: 40,
             width: 50,
             child: Divider(
-              color: Colors.yellow.shade900,
+              color:Colors.yellow.shade900,
               thickness: 1,
             ),
           ),

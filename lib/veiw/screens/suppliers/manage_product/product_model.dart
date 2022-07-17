@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_details.dart';
 import 'package:collection/collection.dart';
-import '../../../../providers/wish_provider.dart';
+import '../../../../providers/favorite_provider.dart';
 
 
 class ProductModel extends StatefulWidget {
@@ -125,15 +125,15 @@ class _ProductModelState extends State<ProductModel> {
                                 : IconButton(
                                 onPressed: () {
                                   var existingItemWishlist = context
-                                      .read<Wish>()
+                                      .read<Favorite>()
                                       .getWishItems
                                       .firstWhereOrNull((product) =>
                                   product.documentId ==
                                       widget.products['proid']);
                                   existingItemWishlist != null
-                                      ? context.read<Wish>().removeThis(
+                                      ? context.read<Favorite>().removeThis(
                                       widget.products['proid'])
-                                      : context.read<Wish>().addWishItem(
+                                      : context.read<Favorite>().addWishItem(
                                     widget.products['proname'],
                                     onSale != 0
                                         ? ((1 -
@@ -151,7 +151,7 @@ class _ProductModelState extends State<ProductModel> {
                                   );
                                 },
                                 icon: context
-                                    .watch<Wish>()
+                                    .watch<Favorite>()
                                     .getWishItems
                                     .firstWhereOrNull((product) =>
                                 product.documentId ==

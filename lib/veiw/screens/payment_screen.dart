@@ -9,6 +9,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:shop/providers/cart_provider.dart';
 import 'package:shop/routes/routes.dart';
 import 'package:uuid/uuid.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
@@ -36,8 +38,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CartController());
-
+    final controller = Provider.of<Cart>(context);
     return FutureBuilder<DocumentSnapshot>(
         future: customers.doc(FirebaseAuth.instance.currentUser!.uid).get(),
         builder:
@@ -59,362 +60,419 @@ class _PaymentScreenState extends State<PaymentScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
-            return Obx(
-              () {
-                return Material(
-                  color: Colors.grey.shade200,
-                  child: SafeArea(
-                    child: Scaffold(
-                      backgroundColor: Colors.grey.shade200,
-                      appBar: AppBar(
-                        elevation: 0,
-                        backgroundColor: Colors.grey.shade200,
-                        leading: const BackButton(),
-                        title: Text('Payment'),
-                      ),
-                      body: Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 60),
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 120,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+            return Material(
+              color: Colors.grey.shade200,
+              child: SafeArea(
+                child: Scaffold(
+                  backgroundColor: Colors.grey.shade200,
+                  appBar: AppBar(
+                    elevation: 0,
+                    backgroundColor: Colors.grey.shade200,
+                    leading: const BackButton(),
+                    title: Text('Payment'),
+                  ),
+                  body: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 60),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 120,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'Total',
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                        Text(
-                                          '${(controller.total.toDouble() + 10.0).toStringAsFixed(2)} EGP',
-                                          style: const TextStyle(fontSize: 20),
-                                        ),
-                                      ],
+                                    const Text(
+                                      'Total',
+                                      style: TextStyle(fontSize: 20),
                                     ),
-                                    const Divider(
-                                      color: Colors.grey,
-                                      thickness: 2,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'Total order',
-                                          style: TextStyle(
-                                              fontSize: 16, color: Colors.grey),
-                                        ),
-                                        Text(
-                                          '${controller.total.toStringAsFixed(2)} EGP',
-                                          style: const TextStyle(
-                                              fontSize: 16, color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        Text(
-                                          'Shipping Coast',
-                                          style: TextStyle(
-                                              fontSize: 16, color: Colors.grey),
-                                        ),
-                                        Text(
-                                          '10.00' + (' EGP'),
-                                          style: TextStyle(
-                                              fontSize: 16, color: Colors.grey),
-                                        ),
-                                      ],
+                                    Text(
+                                      '${(controller.totalPrice + 10.0).toStringAsFixed(2)} EGP',
+                                      style: const TextStyle(fontSize: 20),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      RadioListTile(
-                                        activeColor: Colors.deepOrange,
-                                        value: 1,
-                                        groupValue: selectedValue,
-                                        onChanged: (int? value) {
-                                          setState(() {
-                                            selectedValue = value!;
-                                          });
-                                        },
-                                        title: const Text('Cash On Delivery'),
-                                        subtitle: const Text('Pay Cash At Home'),
-                                      ),
-                                      RadioListTile(
-                                        activeColor: Colors.deepOrange,
-                                        value: 2,
-                                        groupValue: selectedValue,
-                                        onChanged: (int? value) {
-                                          setState(() {
-                                            selectedValue = value!;
-                                          });
-                                        },
-                                        title: const Text(
-                                            'Pay via visa / Master Card'),
-                                        subtitle: Row(
-                                          children: const [
-                                            Icon(Icons.payment,
-                                                color: Colors.deepOrange),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 15),
-                                              child: Icon(
-                                                  FontAwesomeIcons.ccMastercard,
-                                                  color: Colors.deepOrange),
-                                            ),
-                                            Icon(FontAwesomeIcons.ccVisa,
-                                                color: Colors.deepOrange)
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  thickness: 2,
                                 ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Total order',
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.grey),
+                                    ),
+                                    Text(
+                                      '${controller.totalPrice.toStringAsFixed(2)} EGP',
+                                      style: const TextStyle(
+                                          fontSize: 16, color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text(
+                                      'Shipping Coast',
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.grey),
+                                    ),
+                                    Text(
+                                      '10.00' + (' EGP'),
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  RadioListTile(
+                                    activeColor: Colors.deepOrange,
+                                    value: 1,
+                                    groupValue: selectedValue,
+                                    onChanged: (int? value) {
+                                      setState(() {
+                                        selectedValue = value!;
+                                      });
+                                    },
+                                    title: const Text('Cash On Delivery'),
+                                    subtitle: const Text('Pay Cash At Home'),
+                                  ),
+                                  RadioListTile(
+                                    activeColor: Colors.deepOrange,
+                                    value: 2,
+                                    groupValue: selectedValue,
+                                    onChanged: (int? value) {
+                                      setState(() {
+                                        selectedValue = value!;
+                                      });
+                                    },
+                                    title: const Text(
+                                        'Pay via visa / Master Card'),
+                                    subtitle: Row(
+                                      children: const [
+                                        Icon(Icons.payment,
+                                            color: Colors.deepOrange),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          child: Icon(
+                                              FontAwesomeIcons.ccMastercard,
+                                              color: Colors.deepOrange),
+                                        ),
+                                        Icon(FontAwesomeIcons.ccVisa,
+                                            color: Colors.deepOrange)
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                      bottomSheet: Container(
-                        color: Colors.grey.shade200,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GreenButton(
-                            label:
-                                'Confirm ${(controller.total.toDouble() + 10.0).toStringAsFixed(2)} EGP',
-                            width: 1,
-                            onPressed: () {
-                              if (selectedValue == 1) {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                      ],
+                    ),
+                  ),
+                  bottomSheet: Container(
+                    color: Colors.grey.shade200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GreenButton(
+                        label:
+                            'Confirm ${(controller.totalPrice + 10.0).toStringAsFixed(2)} EGP',
+                        width: 1,
+                        onPressed: () {
+                          if (selectedValue == 1) {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
                                               0.3,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 100),
-                                            child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  Text(
-                                                    'Pay At Home ${(controller.total.toDouble() + 10.0).toStringAsFixed(2)} \$',
-                                                    style: const TextStyle(
-                                                        fontSize: 24),
-                                                  ),
-                                                  GreenButton(
-                                                      label:
-                                                          'Confirm ${(controller.total.toDouble() + 10.0).toStringAsFixed(2)} \$',
-                                                      onPressed: () async {
-                                                        showProgress();
-                                                        for (var item
-                                                            in controller
-                                                                .productMap
-                                                                .values) {
-                                                          CollectionReference
-                                                              orderRef =
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 100),
+                                        child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                'Pay At Home ${(controller.totalPrice.toDouble() + 10.0).toStringAsFixed(2)} \$',
+                                                style: const TextStyle(
+                                                    fontSize: 24),
+                                              ),
+                                              GreenButton(
+                                                  label:
+                                                      'Confirm ${(controller.totalPrice + 10.0).toStringAsFixed(2)} \$',
+                                                  onPressed: () async {
+                                                    showProgress();
+                                                    for (var item in controller
+                                                        .getItems) {
+                                                      CollectionReference
+                                                          orderRef =
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'orders');
+                                                      orderId =
+                                                          const Uuid().v4();
+                                                      await orderRef
+                                                          .doc(orderId)
+                                                          .set({
+                                                        'cid': data['cid'],
+                                                        'custname':
+                                                            data['name'],
+                                                        'email': data['email'],
+                                                        'address':
+                                                            data['address'],
+                                                        'phone': data['phone'],
+                                                        'sid': item.suppId,
+                                                        'proid':
+                                                            item.documentId,
+                                                        'orderid': orderId,
+                                                        'ordername': item.name,
+                                                        'orderimage': item
+                                                            .imagesUrl.first,
+                                                        'orderqty': item.qty,
+                                                        'orderprice': item.qty *
+                                                            item.price,
+                                                        'deliverystatus':
+                                                            'preparing',
+                                                        'deliverydate': '',
+                                                        'orderdate':
+                                                            DateTime.now(),
+                                                        'paymentstatus':
+                                                            'cash on delivery',
+                                                        'orderreview': false,
+                                                      }).whenComplete(() async {
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .runTransaction(
+                                                                (transaction) async {
+                                                          DocumentReference
+                                                              documentReference =
                                                               FirebaseFirestore
                                                                   .instance
                                                                   .collection(
-                                                                      'orders');
-                                                          orderId =
-                                                              const Uuid().v4();
-                                                          await orderRef
-                                                              .doc(orderId)
-                                                              .set({
-                                                            'cid': data['cid'],
-                                                            'custname':
-                                                                data['name'],
-                                                            'email':
-                                                                data['email'],
-                                                            'address':
-                                                                data['address'],
-                                                            'phone':
-                                                                data['phone'],
-                                                            'sid': item.suppId,
-                                                            'proid':
-                                                                item.documentId,
-                                                            'orderid': orderId,
-                                                            'ordername':
-                                                                item.name,
-                                                            'orderimage': item
-                                                                .imagesUrl
-                                                                .first,
-                                                            'orderqty':
-                                                                item.qty,
-                                                            'orderprice':
-                                                                item.qty *
-                                                                    item.price,
-                                                            'deliverystatus':
-                                                                'preparing',
-                                                            'deliverydate': '',
-                                                            'orderdate':
-                                                                DateTime.now(),
-                                                            'paymentstatus':
-                                                                'cash on delivery',
-                                                            'orderreview':
-                                                                false,
-                                                          }).whenComplete(
-                                                                  () async {
-                                                            await FirebaseFirestore
-                                                                .instance
-                                                                .runTransaction(
-                                                                    (transaction) async {
-                                                              DocumentReference
-                                                                  documentReference =
-                                                                  FirebaseFirestore
-                                                                      .instance
-                                                                      .collection(
-                                                                          'products')
-                                                                      .doc(item
-                                                                          .documentId);
-                                                              DocumentSnapshot
-                                                                  snapshot2 =
-                                                                  await transaction
-                                                                      .get(
-                                                                          documentReference);
-                                                              transaction.update(
-                                                                  documentReference,
-                                                                  {
-                                                                    'instock': snapshot2[
+                                                                      'products')
+                                                                  .doc(item
+                                                                      .documentId);
+                                                          DocumentSnapshot
+                                                              snapshot2 =
+                                                              await transaction.get(
+                                                                  documentReference);
+                                                          transaction.update(
+                                                              documentReference,
+                                                              {
+                                                                'instock':
+                                                                    snapshot2[
                                                                             'instock'] -
                                                                         item.qty
-                                                                  });
-                                                            });
-                                                          });
-                                                        }
-                                                        controller
-                                                            .removeAllCart();
-                                                        Navigator.popUntil(
-                                                            context,
-                                                            ModalRoute.withName(
-                                                                Routes
-                                                                    .mainScreen));
-                                                      },
-                                                      width: 0.9)
-                                                ]),
-                                          ),
-                                        ));
-                              } else if (selectedValue == 2) {
-                                final totalPaid =
-                                    controller.total.toDouble() + 10;
-                                makePayment(
-                                    amount: (totalPaid).toStringAsFixed(2),
-                                    currency: "EGP");
-                              }
-                            },
-                          ),
-                        ),
+                                                              });
+                                                        });
+                                                      });
+                                                    }
+                                                    controller.clearCart();
+                                                    Navigator.popUntil(
+                                                        context,
+                                                        ModalRoute.withName(
+                                                            Routes.mainScreen));
+                                                  },
+                                                  width: 0.9)
+                                            ]),
+                                      ),
+                                    ));
+                          } else if (selectedValue == 2) {
+                            final totalPaid = controller.totalPrice + 10;
+                            makePayment(
+                              data: data,
+                                amount: (totalPaid).toStringAsFixed(2),
+                                currency: "EGP");
+                          }
+                        },
                       ),
                     ),
                   ),
-                );
-              },
+                ),
+              ),
             );
           }
           return const Center(
             child: CircularProgressIndicator(),
           );
         });
-    //   },
-    // );
+
   }
-}
 
-Map<String, dynamic>? paymentIntentData;
+  Map<String, dynamic>? paymentIntentData;
 
-Future<void> makePayment(
-    {required String amount, required String currency}) async {
-  try {
-    paymentIntentData = await createPaymentIntent(amount, currency);
-    if (paymentIntentData != null) {
-      await Stripe.instance.initPaymentSheet(
-          paymentSheetParameters: SetupPaymentSheetParameters(
-        applePay: true,
-        googlePay: true,
-        testEnv: true,
-        merchantCountryCode: 'US',
-        merchantDisplayName: 'Prospects',
-        paymentIntentClientSecret: paymentIntentData!['client_secret'],
-      ));
-      await displayPaymentSheet();
-      print("aaa777aaa");
+  Future<void> makePayment(
+      {required String amount, required String currency,required var data}) async {
+    try {
+      paymentIntentData = await createPaymentIntent(amount, currency);
+      if (paymentIntentData != null) {
+        await Stripe.instance.initPaymentSheet(
+            paymentSheetParameters: SetupPaymentSheetParameters(
+              applePay: true,
+              googlePay: true,
+              testEnv: true,
+              merchantCountryCode: 'US',
+              merchantDisplayName: 'Prospects',
+              paymentIntentClientSecret: paymentIntentData!['client_secret'],
+            ));
+        await displayPaymentSheet(data);
+
+      }
+    } catch (e, s) {
+      print('exception:$e$s');
     }
-  } catch (e, s) {
-    print('exception:$e$s');
   }
-}
 
-displayPaymentSheet() async {
-  try {
-    await Stripe.instance.presentPaymentSheet(
-        parameters: PresentPaymentSheetParameters(
-      clientSecret: paymentIntentData?['client_secret'],
-      confirmPayment: true,
-    ));
-  } catch (e) {
-    print("exception:$e");
-  }
-}
+  displayPaymentSheet(var data) async {
+    try {
+      await Stripe.instance.presentPaymentSheet(
+          parameters: PresentPaymentSheetParameters(
+            clientSecret: paymentIntentData?['client_secret'],
+            confirmPayment: true,
+          )).then((value) async{
+           paymentIntentData=null;
+           print("paid");
+           showProgress();
+          for (var item in context.read<Cart>().getItems) {
+        CollectionReference
+        orderRef =
+        FirebaseFirestore
+            .instance
+            .collection(
+            'orders');
+        orderId = const Uuid().v4();
+        await orderRef
+            .doc(orderId)
+            .set({
+          'cid': data['cid'],
+          'custname':
+          data['name'],
+          'email': data['email'],
+          'address':
+          data['address'],
+          'phone': data['phone'],
+          'sid': item.suppId,
+          'proid':
+          item.documentId,
+          'orderid': orderId,
+          'ordername': item.name,
+          'orderimage': item
+              .imagesUrl.first,
+          'orderqty': item.qty,
+          'orderprice': item.qty *
+              item.price,
+          'deliverystatus':
+          'preparing',
+          'deliverydate': '',
+          'orderdate':
+          DateTime.now(),
+          'paymentstatus':
+          'paid online',
+          'orderreview': false,
+        }).whenComplete(() async {
+          await FirebaseFirestore
+              .instance
+              .runTransaction(
+                  (transaction) async {
+                DocumentReference
+                documentReference =
+                FirebaseFirestore
+                    .instance
+                    .collection(
+                    'products')
+                    .doc(item
+                    .documentId);
+                DocumentSnapshot
+                snapshot2 =
+                await transaction.get(
+                    documentReference);
+                transaction.update(
+                    documentReference,
+                    {
+                      'instock':
+                      snapshot2[
+                      'instock'] -
+                          item.qty
+                    });
+              });
+        });
+
+      }  context.read<Cart>().clearCart();
+           Navigator.popUntil(
+               context,
+               ModalRoute.withName(
+                   Routes.mainScreen));
+          });
+
+
+
+      } catch (e) {
+        print("exception:$e");
+      }
+    }
 
 //  Future<Map<String, dynamic>>
-createPaymentIntent(String amount, String currency) async {
-  try {
-    Map<String, dynamic> body = {
-      'amount': calculateAmount(amount),
-      'currency': currency,
-      'payment_method_types[]': 'card',
-      "payment_method_options[card][request_three_d_secure]": "any",
-    };
-    var response = await http.post(
-        Uri.parse('https://api.stripe.com/v1/payment_intents'),
-        body: body,
-        headers: {
-          'Authorization':
+    createPaymentIntent(String amount, String currency) async {
+      try {
+        Map<String, dynamic> body = {
+          'amount': calculateAmount(amount),
+          'currency': currency,
+          'payment_method_types[]': 'card',
+          "payment_method_options[card][request_three_d_secure]": "any",
+        };
+        var response = await http.post(
+            Uri.parse('https://api.stripe.com/v1/payment_intents'),
+            body: body,
+            headers: {
+              'Authorization':
               'Bearer sk_test_51L7tTkF5uinudAWIhzQSQ8S6tmh5JAufqsXZMNIvqizsZXJwLqIMXhWjnmMoEwbGtLFvhbdHwwxnEoETyc8RUN0W00nz3pVz3Y',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        });
-    return jsonDecode(response.body);
-  } catch (err) {
-    print('err charging user: ${err.toString()}');
-  }
+              'Content-Type': 'application/x-www-form-urlencoded'
+            });
+        return jsonDecode(response.body);
+      } catch (err) {
+        print('err charging user: ${err.toString()}');
+      }
+    }
+
+    calculateAmount(String amount) {
+      final a = ((double.parse(amount)) * 100).toInt();
+
+      return a.toString();
+    }
 }
 
-calculateAmount(String amount) {
-  final a = ((double.parse(amount)) * 100).toInt();
-
-  return a.toString();
-}
 
 // import 'package:easy_localization/easy_localization.dart';
 // import 'package:flutter/material.dart';

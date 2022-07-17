@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:shop/logic/bindings/main_binding.dart';
 import 'package:shop/logic/controllers/theme_controller.dart';
 import 'package:shop/providers/cart_provider.dart';
-import 'package:shop/providers/wish_provider.dart';
+import 'package:shop/providers/favorite_provider.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/customers/customer_orders.dart';
 import 'package:shop/veiw/screens/payment_screen.dart';
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Cart()),
-        ChangeNotifierProvider(create: (_) => Wish()),
+        ChangeNotifierProvider(create: (_) => Favorite()),
       ],
       child: GetMaterialApp(
         localizationsDelegates: context.localizationDelegates,

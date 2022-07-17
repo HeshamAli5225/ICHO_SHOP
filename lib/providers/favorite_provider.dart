@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:shop/providers/product_class.dart';
 
-class Wish extends ChangeNotifier {
+class Favorite extends ChangeNotifier {
   final List<Product> _list = [];
   List<Product> get getWishItems {
     return _list;
