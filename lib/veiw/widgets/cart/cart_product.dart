@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
 import '../../../model/product_model.dart';
+import '../../../providers/cart_provider.dart';
+import '../../../providers/product_class.dart';
 
 class CartProduct extends StatelessWidget {
 
-  final ProductModel productModel;
-  final controller=Get.find<CartController>();
+  final Product product;
 
-  CartProduct({required this.productModel});
+  CartProduct({required this.product});
 
   @override
   Widget build(BuildContext context) {
+    final controller=Provider.of<Cart>(context);
+
     final height = MediaQuery.of(context).size.height;
     return Container(
       height: height*.18,
@@ -27,18 +32,20 @@ class CartProduct extends StatelessWidget {
           borderRadius: BorderRadius.circular(20)),
       child: Row(
         children: [
-          SizedBox(
-            child: Card(
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+          Expanded(
+            child: SizedBox(
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.network(
+                      '${product.imagesUrl[0]}',
+                      fit: BoxFit.cover,
+                    )),
               ),
-              child: AspectRatio(
-                  aspectRatio: 1,
-                  child: Image.network(
-                    '${productModel.image}',
-                    fit: BoxFit.cover,
-                  )),
             ),
           ),
           SizedBox(
@@ -50,7 +57,7 @@ class CartProduct extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${productModel.title}',
+                  '${product.name}',
                   style: TextStyle(
                     color: Get.isDarkMode ? Colors.white : Colors.black,
                     fontSize: 16,
@@ -59,10 +66,10 @@ class CartProduct extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Text(
-                  '${controller.productPriceMap[productModel].toStringAsFixed(2)}',
+                  '${controller.totalPrice.toStringAsFixed(2)}',
 
                   style: TextStyle(
                     color: Get.isDarkMode ? Colors.white : Colors.black,
@@ -82,18 +89,18 @@ class CartProduct extends StatelessWidget {
               Row(
                 children: [
                   IconButton(onPressed: () {
-                    controller.decreaseNumberOfProduct(productModel);
+                    controller.decrement(product);
                   }, icon: Icon(Icons.remove_circle,
                     color: Get.isDarkMode?Colors.white:Colors.black,
                   )),
                   TextUtils(
-                    text: '${controller.productMap[productModel]}',
+                    text: '${product.qty}',
                     color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                   IconButton(onPressed: (){
-                    controller.increaseNumberOfProduct(productModel);
+                    controller.increment(product);
                   }, icon: Icon(Icons.add_circle,
                     color: Get.isDarkMode?Colors.white:Colors.black,
                   )),
@@ -101,7 +108,7 @@ class CartProduct extends StatelessWidget {
                 ],
               ),
               IconButton(onPressed: (){
-                controller.removeProductFromCart(productModel);
+                controller.clearCart();
               }, icon: Icon(Icons.delete,color: Colors.red,))
             ],
           )

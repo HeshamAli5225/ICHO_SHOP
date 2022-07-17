@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/providers/cart_provider.dart';
 import 'package:shop/veiw/screens/payment_screen.dart';
 
 import '../../logic/controllers/cart_controller.dart';
@@ -20,10 +22,9 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double totalPrice = Get.put(CartController().total.toDouble());
-    final controller = Get.put(CartController());
+    final controller = Provider.of<Cart>(context);
     return FutureBuilder<DocumentSnapshot>(
-        future: customers.doc(FirebaseAuth.instance.currentUser!.uid).get(),
+        future: customers.doc(FirebaseAuth.instance.currentUser?.uid).get(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -42,7 +43,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
 
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =
-                snapshot.data!.data() as Map<String, dynamic>;
+                snapshot.data?.data() as Map<String, dynamic>;
             return Material(
               color: Colors.grey.shade200,
               child: SafeArea(
@@ -89,9 +90,9 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(15)),
                             child: ListView.builder(
-                                itemCount: controller.productMap.length,
+                                itemCount: controller.getItems.length,
                                 itemBuilder: (context, index) {
-                                  final order = controller.productMap.keys.toList()[index];
+                                  final order = controller.getItems[index];
                                   return Padding(
                                     padding: const EdgeInsets.all(6.0),
                                     child: Container(
@@ -113,7 +114,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                 height: 100,
                                                 width: 100,
                                                 child: Image.network(
-                                                    order.image),
+                                                    order.imagesUrl[0]),
                                               )),
                                           Flexible(
                                             child: Column(
@@ -121,7 +122,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  order.title,
+                                                  order.name,
                                                   maxLines: 2,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -152,15 +153,15 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                             color: Colors
                                                                 .grey.shade600),
                                                       ),
-                                                      // Text(
-                                                      //   'x ${order.qty.toString()}',
-                                                      //   style: TextStyle(
-                                                      //       fontSize: 16,
-                                                      //       fontWeight:
-                                                      //           FontWeight.w600,
-                                                      //       color: Colors
-                                                      //           .grey.shade600),
-                                                      // )
+                                                      Text(
+                                                        'x ${order.qty.toString()}',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Colors
+                                                                .grey.shade600),
+                                                      ),
                                                     ],
                                                   ),
                                                 )
@@ -182,7 +183,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GreenButton(
-                        label: 'Confirm ${controller.total.toStringAsFixed(2)} EGP',
+                        label: 'Confirm ${controller.totalPrice.toStringAsFixed(2)} EGP',
                         width: 1,
                         onPressed: () {
                           Navigator.push(

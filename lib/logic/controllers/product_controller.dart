@@ -14,7 +14,6 @@ class ProductController extends GetxController {
   TextEditingController searchController = TextEditingController();
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getProduct();
     List? favouritesList = storage.read<List>('favouritesList');

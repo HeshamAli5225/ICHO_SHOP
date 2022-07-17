@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shop/model/facebook_model.dart';
 import 'package:shop/model/user_model.dart';
 import 'package:shop/routes/routes.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,7 +13,6 @@ class AuthController extends GetxController {
   bool isCheckBox = true;
   var displayUserName = '';
   var displayUserPhoto = '';
-  FaceBookModel? faceBookModel;
   var user = FirebaseFirestore.instance.collection("users");
   FirebaseAuth auth = FirebaseAuth.instance;
   var googleSignIn = GoogleSignIn();
@@ -235,22 +233,7 @@ class AuthController extends GetxController {
     }
   }
 
-  void signUpUsingFaceBook() async {
-    final LoginResult loginResult = await FacebookAuth.instance.login();
-    if (loginResult.status == LoginStatus.success) {
-      var data = await FacebookAuth.instance.getUserData();
-      faceBookModel = FaceBookModel.fromJson(data);
-      print(faceBookModel!.name);
-      print(faceBookModel!.email);
 
-      isSignIn = true;
-      authBox.write('auth', isSignIn);
-      signInBefore = true;
-      signInBeforeBox.write('signInBefore', signInBefore);
-      update();
-      Get.offNamed(Routes.mainScreen);
-    }
-  }
 
   void signOut() async {
     try {
