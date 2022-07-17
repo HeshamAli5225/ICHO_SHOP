@@ -3,131 +3,134 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
 import 'package:shop/logic/controllers/product_controller.dart';
-import 'package:shop/model/product_model.dart';
 import 'package:shop/utils/theme.dart';
-import 'package:shop/veiw/screens/product_details_screen.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
+
+import '../../screens/suppliers/manage_product/product_details.dart';
 
 class CardItems extends StatelessWidget {
   final controller = Get.put(ProductController());
   final cartController = Get.put(CartController());
-  final Stream<QuerySnapshot> _prodcutsStream = FirebaseFirestore.instance
-      .collection('products').snapshots();
+  final Stream<QuerySnapshot> _prodcutsStream =
+      FirebaseFirestore.instance.collection('products').snapshots();
+
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<QuerySnapshot>(
-
-      stream: _prodcutsStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (snapshot.data!.docs.isEmpty) {
-          return const Center(
-              child: Text(
-                'This category \n\n has no items yet !',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 26,
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Acme',
-                    letterSpacing: 1.5),
-              ));
-        }
-        return Obx(() {
-          if (controller.isLoading.value) {
-            return Expanded(
-                child: Container(
-                    child: Center(
-              child: CircularProgressIndicator(
-                color: Get.isDarkMode ? pinkClr : mainColor,
-              ),
-            )));
-          } else {
-            if (controller.searchList.isEmpty &&
-                controller.searchController.text.isNotEmpty) {
-              return Expanded(
-                  child: Get.isDarkMode
-                      ? Image.asset('assets/images/search_empty_dark.png')
-                      : Image.asset('assets/images/search_empry_light.png'));
-            } else if (controller.searchList.isEmpty) {
-              return Expanded(
-                child: GridView.builder(
-                  itemCount: snapshot.data?.docs.length,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 0.8,
-                    mainAxisSpacing: 9,
-                    crossAxisSpacing: 6,
-                  ),
-                  itemBuilder: (context, index) {
-                    return buildCardItems(
-                        context: context,
-                        image: snapshot.data!.docs[index]["proimages"][0],
-                        price: snapshot.data!.docs[index]["price"],
-                        // rate: controller.productList[index].rating.rate,
-                        productId:snapshot.data?.docs[index]["proid"],
-                        // productModel: controller.productList[index],
-                        onTap: () {
-                          Get.to(ProductDetailsScreen(
-                            productModel: controller.productList[index],
-                          ));
-                        });
-                  },
-                ),
-              );
-            } else {
-              return Expanded(
-                child: GridView.builder(
-                  itemCount: controller.searchList.length,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 0.8,
-                    mainAxisSpacing: 9,
-                    crossAxisSpacing: 6,
-                  ),
-                  itemBuilder: (context, index) {
-                    return buildCardItems(
-                        context: context,
-                        image: controller.searchList[index].image,
-                        price: controller.searchList[index].price,
-                        // rate: controller.searchList[index].rating.rate,
-                        productId: controller.searchList[index].id.toString(),
-                        // productModel: controller.searchList[index],
-                        onTap: () {
-                          Get.to(ProductDetailsScreen(
-                            productModel: controller.searchList[index],
-                          ));
-                        });
-                  },
-                ),
-              );
-            }
+        stream: _prodcutsStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
           }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.data!.docs.isEmpty) {
+            return const Center(
+                child: Text(
+              'This category \n\n has no items yet !',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 26,
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Acme',
+                  letterSpacing: 1.5),
+            ));
+          }
+          return Obx(() {
+            if (controller.isLoading.value) {
+              return Expanded(
+                  child: Container(
+                      child: Center(
+                child: CircularProgressIndicator(
+                  color: Get.isDarkMode ? pinkClr : mainColor,
+                ),
+              )));
+            } else {
+              if (controller.searchList.isEmpty &&
+                  controller.searchController.text.isNotEmpty) {
+                return Expanded(
+                    child: Get.isDarkMode
+                        ? Image.asset('assets/images/search_empty_dark.png')
+                        : Image.asset('assets/images/search_empry_light.png'));
+              } else if (controller.searchList.isEmpty) {
+                return Expanded(
+                  child: GridView.builder(
+                    itemCount: snapshot.data?.docs.length,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 0.8,
+                      mainAxisSpacing: 9,
+                      crossAxisSpacing: 6,
+                    ),
+                    itemBuilder: (context, index) {
+                      return buildCardItems(
+                          context: context,
+                          image: snapshot.data!.docs[index]["proimages"][0],
+                          price: snapshot.data!.docs[index]["price"],
+                          // rate: controller.productList[index].rating.rate,
+                          productId: snapshot.data?.docs[index]["proid"],
+                          // productModel: controller.productList[index],
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                               return ProductDetailsScreen(
+                                   proList:  snapshot.data!.docs[index],
+                                );
+                              },
+                            ));
+                          });
+                    },
+                  ),
+                );
+              } else {
+                return Expanded(
+                  child: GridView.builder(
+                    itemCount: controller.searchList.length,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 0.8,
+                      mainAxisSpacing: 9,
+                      crossAxisSpacing: 6,
+                    ),
+                    itemBuilder: (context, index) {
+                      return buildCardItems(
+                          context: context,
+                          image: controller.searchList[index].image,
+                          price: controller.searchList[index].price,
+                          // rate: controller.searchList[index].rating.rate,
+                          productId: controller.searchList[index].id.toString(),
+                          // productModel: controller.searchList[index],
+                          onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return ProductDetailsScreen(
+                              proList:  snapshot.data!.docs[index],
+                            );
+                          },));
+                          });
+                    },
+                  ),
+                );
+              }
+            }
+          });
         });
-      }
-    );
   }
 
   Widget buildCardItems(
-      {
-        required BuildContext context,
-        required var image,
+      {required BuildContext context,
+      required var image,
       required var price,
       // required double rate,
       required String productId,
       // required ProductModel productModel,
       required Function() onTap}) {
-    var width= MediaQuery.of(context).size.width;
-    var height= MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: InkWell(
@@ -167,7 +170,7 @@ class CardItems extends StatelessWidget {
                           onPressed: () {
                             // todo
                             // cartController.addProductToCart(productModel);
-                            //print(cartController.allProductTotal());
+                            // print(cartController.allProductTotal());
                           },
                           icon: Icon(
                             Icons.add_shopping_cart,
@@ -178,7 +181,7 @@ class CardItems extends StatelessWidget {
                 }),
                 Container(
                   width: double.infinity,
-                  height: height*.20,
+                  height: height * .20,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,

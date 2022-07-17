@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shop/model/facebook_model.dart';
 import 'package:shop/model/user_model.dart';
 import 'package:shop/routes/routes.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,15 +13,16 @@ class AuthController extends GetxController {
   bool isCheckBox = true;
   var displayUserName = '';
   var displayUserPhoto = '';
-  FaceBookModel? faceBookModel;
   var user = FirebaseFirestore.instance.collection("users");
+  var customer = FirebaseFirestore.instance.collection("customers");
+  var supplier = FirebaseFirestore.instance.collection("supplier");
   FirebaseAuth auth = FirebaseAuth.instance;
   var googleSignIn = GoogleSignIn();
   var isSignIn = false;
   var signInBefore = false;
   final GetStorage authBox = GetStorage();
   final GetStorage signInBeforeBox = GetStorage();
-  final GetStorage userType= GetStorage();
+  final GetStorage userType = GetStorage();
 
   void visibility() {
     isVisible = !isVisible;
@@ -41,6 +41,10 @@ class AuthController extends GetxController {
     required String address,
     required String type,
     required String password,
+    required String image,
+
+
+
   }) async {
     /////////
     try {
@@ -52,21 +56,47 @@ class AuthController extends GetxController {
           .then((value) {
         displayUserName = name;
         auth.currentUser!.updateDisplayName(displayUserName);
-        // user.doc(auth.currentUser?.uid).set({
-        //   "email": email,
-        //   "name": name,
-        //   "image": name.trim()[0].toUpperCase(),
-        // });
 
-        createUserInFirestore(name: name, uId: value.user!.uid, email: email, phone: phone, address: address, type: type, password: password);
+        createUserInFirestore(
+            name: name,
+            uId: value.user!.uid,
+            email: email,
+            phone: phone,
+            address: address,
+            type: type,
+            password: password
+            ,image: image
+
+        );
       });
       isSignIn = true;
       authBox.write('auth', isSignIn);
       signInBefore = true;
       signInBeforeBox.write('signInBefore', signInBefore);
       update();
-      if(type=='buyer'){userType.write('type', 'buyer');Get.offNamed(Routes.mainScreen);}
-      else if (type=='seller'){userType.write('type', 'seller');Get.offNamed(Routes.SupplierScreen);}
+      if (type == 'buyer') {
+        userType.write('type', 'buyer');
+        await customer.doc(auth.currentUser!.uid).set({
+          "email": email,
+          "name": name,
+          "image": name.trim()[0].toUpperCase(),
+          "address": address,
+          "phone": phone,
+          "cid": auth.currentUser!.uid,
+        });
+        Get.offNamed(Routes.mainScreen);
+      } else if (type == 'seller') {
+        userType.write('type', 'seller');
+        await supplier.doc(auth.currentUser!.uid).set({
+          "email": email,
+          "name": name,
+          "image": name.trim()[0].toUpperCase(),
+          "address": address,
+          "phone": phone,
+          "sid": auth.currentUser!.uid,
+        });
+        Get.offNamed(Routes.SupplierScreen);
+      }
 
       print('Success');
     } on FirebaseAuthException catch (e) {
@@ -110,49 +140,67 @@ class AuthController extends GetxController {
     required String address,
     required String type,
     required String password,
+    required String image,
   }) async {
-    UserModel userModel=UserModel(id: uId, name: name, email: email, phone: phone, address: address, type: type);
+    UserModel userModel = UserModel(
+        id: uId,
+        name: name,
+        email: email,
+        phone: phone,
+        address: address,
+        type: type,
+        image: image);
     /////////
     try {
-      FirebaseFirestore.instance.collection('users').doc(uId).set(userModel.toMap()).then((value) {});
-    }  catch (error) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uId)
+          .set(userModel.toMap())
+          .then((value) {});
+    } catch (error) {
       print('error in create user in fireStore');
       print('**$error**');
     }
     //////////
   }
 
-
   void logInUsingFirebase({
     required String email,
     required String password,
   }) async {
     try {
-      var type='cc';
+      var type = 'cc';
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
         displayUserName = auth.currentUser!.displayName!;
-       var id= value.user?.uid;
-        FirebaseFirestore.instance.collection('users').doc(id).get().then((value){
-          type=value.data()!['type'];
-          print('typeIs '+value.data()!['type']);
-          print('typeInner'+type);
+        var id = value.user?.uid;
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(id)
+            .get()
+            .then((value) {
+          type = value.data()!['type'];
+          print('typeIs ' + value.data()!['type']);
+          print('typeInner' + type);
 
           isSignIn = true;
           authBox.write('auth', isSignIn);
           signInBefore = true;
           signInBeforeBox.write('signInBefore', signInBefore);
-          update();print('type'+type);
-          if(type=='buyer'){userType.write('type', 'buyer');Get.offNamed(Routes.mainScreen);}
-          else if (type=='seller'){userType.write('type', 'seller');Get.offNamed(Routes.SupplierScreen);}
-
-        }).catchError((error){});
-       print('hereId'+id!);
-        print('typeInner2'+type);
+          update();
+          print('type' + type);
+          if (type == 'buyer') {
+            userType.write('type', 'buyer');
+            Get.offNamed(Routes.mainScreen);
+          } else if (type == 'seller') {
+            userType.write('type', 'seller');
+            Get.offNamed(Routes.SupplierScreen);
+          }
+        }).catchError((error) {});
+        print('hereId' + id!);
+        print('typeInner2' + type);
       });
-
-
     } on FirebaseAuthException catch (e) {
       String title = e.code.replaceAll(RegExp('-'), ' ').capitalize!;
       String message = '';
@@ -235,23 +283,6 @@ class AuthController extends GetxController {
     }
   }
 
-  void signUpUsingFaceBook() async {
-    final LoginResult loginResult = await FacebookAuth.instance.login();
-    if (loginResult.status == LoginStatus.success) {
-      var data = await FacebookAuth.instance.getUserData();
-      faceBookModel = FaceBookModel.fromJson(data);
-      print(faceBookModel!.name);
-      print(faceBookModel!.email);
-
-      isSignIn = true;
-      authBox.write('auth', isSignIn);
-      signInBefore = true;
-      signInBeforeBox.write('signInBefore', signInBefore);
-      update();
-      Get.offNamed(Routes.mainScreen);
-    }
-  }
-
   void signOut() async {
     try {
       await auth.signOut();
@@ -278,4 +309,3 @@ class AuthController extends GetxController {
     }
   }
 }
-
