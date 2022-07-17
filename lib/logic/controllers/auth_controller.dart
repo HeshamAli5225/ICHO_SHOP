@@ -13,6 +13,7 @@ class AuthController extends GetxController {
   bool isCheckBox = true;
   var displayUserName = '';
   var displayUserPhoto = '';
+
   var user = FirebaseFirestore.instance.collection("users");
   FirebaseAuth auth = FirebaseAuth.instance;
   var googleSignIn = GoogleSignIn();
@@ -233,7 +234,22 @@ class AuthController extends GetxController {
     }
   }
 
+  void signUpUsingFaceBook() async {
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+    if (loginResult.status == LoginStatus.success) {
+      var data = await FacebookAuth.instance.getUserData();
 
+      print(faceBookModel!.name);
+      print(faceBookModel!.email);
+
+      isSignIn = true;
+      authBox.write('auth', isSignIn);
+      signInBefore = true;
+      signInBeforeBox.write('signInBefore', signInBefore);
+      update();
+      Get.offNamed(Routes.mainScreen);
+    }
+  }
 
   void signOut() async {
     try {

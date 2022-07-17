@@ -118,6 +118,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                               )),
                                           Flexible(
                                             child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
                                               children: [

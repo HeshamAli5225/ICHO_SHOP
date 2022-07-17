@@ -1,10 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shop/utils/theme.dart';
-import 'package:shop/veiw/screens/suppliers/manage_product/product_details.dart';
-import 'package:collection/collection.dart';
-import '../../../../providers/wish_provider.dart';
 
 
 class ProductModel extends StatefulWidget {
@@ -115,58 +111,58 @@ class _ProductModelState extends State<ProductModel> {
                               ),
                             ),
                             widget.products['sid'] ==
-                                FirebaseAuth.instance.currentUser!.uid
+                                    FirebaseAuth.instance.currentUser?.uid
                                 ? IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.red,
-                                ))
-                                : IconButton(
-                                onPressed: () {
-                                  var existingItemWishlist = context
-                                      .read<Wish>()
-                                      .getWishItems
-                                      .firstWhereOrNull((product) =>
-                                  product.documentId ==
-                                      widget.products['proid']);
-                                  existingItemWishlist != null
-                                      ? context.read<Wish>().removeThis(
-                                      widget.products['proid'])
-                                      : context.read<Wish>().addWishItem(
-                                    widget.products['proname'],
-                                    onSale != 0
-                                        ? ((1 -
-                                        (widget.products[
-                                        'discount'] /
-                                            100)) *
-                                        widget
-                                            .products['price'])
-                                        : widget.products['price'],
-                                    1,
-                                    widget.products['instock'],
-                                    widget.products['proimages'],
-                                    widget.products['proid'],
-                                    widget.products['sid'],
-                                  );
-                                },
-                                icon: context
-                                    .watch<Wish>()
-                                    .getWishItems
-                                    .firstWhereOrNull((product) =>
-                                product.documentId ==
-                                    widget.products['proid']) !=
-                                    null
-                                    ? const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                  size: 30,
-                                )
-                                    : const Icon(
-                                  Icons.favorite_outline,
-                                  color: Colors.red,
-                                  size: 30,
-                                )),
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.edit,
+                                      color: Colors.red,
+                                    )):Text(""),
+                                // : IconButton(
+                                //     onPressed: () {
+                                //       var existingItemWishlist = context
+                                //           .read<Wish>()
+                                //           .getWishItems
+                                //           .firstWhereOrNull((product) =>
+                                //               product.documentId ==
+                                //               widget.products['proid']);
+                                //       existingItemWishlist != null
+                                //           ? context.read<Wish>().removeThis(
+                                //               widget.products['proid'])
+                                //           : context.read<Wish>().addWishItem(
+                                //                 widget.products['proname'],
+                                //                 onSale != 0
+                                //                     ? ((1 -
+                                //                             (widget.products[
+                                //                                     'discount'] /
+                                //                                 100)) *
+                                //                         widget
+                                //                             .products['price'])
+                                //                     : widget.products['price'],
+                                //                 1,
+                                //                 widget.products['instock'],
+                                //                 widget.products['proimages'],
+                                //                 widget.products['proid'],
+                                //                 widget.products['sid'],
+                                //               );
+                                //     },
+                                //     icon: context
+                                //                 .watch<Wish>()
+                                //                 .getWishItems
+                                //                 .firstWhereOrNull((product) =>
+                                //                     product.documentId ==
+                                //                     widget.products['proid']) !=
+                                //             null
+                                //         ? const Icon(
+                                //             Icons.favorite,
+                                //             color: Colors.red,
+                                //             size: 30,
+                                //           )
+                                //         : const Icon(
+                                //             Icons.favorite_outline,
+                                //             color: Colors.red,
+                                //             size: 30,
+                                //           )),
                           ],
                         )
                       ],
