@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop/utils/theme.dart';
 
 
 import '../../../widgets/payment/green_button.dart';
@@ -68,7 +69,7 @@ class _FullScreenViewState extends State<FullScreenView> {
                 margin: const EdgeInsets.all(8),
                 width: 120,
                 decoration: BoxDecoration(
-                    border: Border.all(width: 4, color: Colors.yellow),
+                    border: Border.all(width: 4, color:mainColor),
                     borderRadius: BorderRadius.circular(15)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),

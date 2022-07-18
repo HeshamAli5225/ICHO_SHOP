@@ -108,7 +108,7 @@ class CartProduct extends StatelessWidget {
                 ],
               ),
               IconButton(onPressed: (){
-                controller.clearCart();
+                controller.removeItem(product);
               }, icon: Icon(Icons.delete,color: Colors.red,))
             ],
           )

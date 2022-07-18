@@ -1,16 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
 import 'package:shop/logic/controllers/product_controller.dart';
 import 'package:shop/utils/theme.dart';
+import 'package:shop/veiw/screens/suppliers/dashboard.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
+import '../../../providers/favorite_provider.dart';
 import '../../screens/suppliers/manage_product/product_details.dart';
 
-class CardItems extends StatelessWidget {
+class CardItems extends StatefulWidget {
+  @override
+  State<CardItems> createState() => _CardItemsState();
+}
+
+class _CardItemsState extends State<CardItems> {
   final controller = Get.put(ProductController());
+
   final cartController = Get.put(CartController());
+
   final Stream<QuerySnapshot> _prodcutsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
 
@@ -70,6 +80,7 @@ class CardItems extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return buildCardItems(
                           context: context,
+                          proList: snapshot.data!.docs[index],
                           image: snapshot.data!.docs[index]["proimages"][0],
                           price: snapshot.data!.docs[index]["price"],
                           // rate: controller.productList[index].rating.rate,
@@ -78,8 +89,8 @@ class CardItems extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) {
-                               return ProductDetailsScreen(
-                                   proList:  snapshot.data!.docs[index],
+                                return ProductDetailsScreen(
+                                  proList: snapshot.data!.docs[index],
                                 );
                               },
                             ));
@@ -99,6 +110,7 @@ class CardItems extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       return buildCardItems(
+                        proList: snapshot.data!.docs[index],
                           context: context,
                           image: controller.searchList[index].image,
                           price: controller.searchList[index].price,
@@ -106,11 +118,13 @@ class CardItems extends StatelessWidget {
                           productId: controller.searchList[index].id.toString(),
                           // productModel: controller.searchList[index],
                           onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return ProductDetailsScreen(
-                              proList:  snapshot.data!.docs[index],
-                            );
-                          },));
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return ProductDetailsScreen(
+                                  proList: snapshot.data!.docs[index],
+                                );
+                              },
+                            ));
                           });
                     },
                   ),
@@ -127,8 +141,10 @@ class CardItems extends StatelessWidget {
       required var price,
       // required double rate,
       required String productId,
+      required dynamic proList,
       // required ProductModel productModel,
       required Function() onTap}) {
+    var onSale = proList['discount'];
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Padding(
@@ -147,24 +163,50 @@ class CardItems extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Obx(() {
-                  return Row(
+
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
                           onPressed: () {
-                            controller.changeFavourites(productId);
+                            var existingItemWishlist = context
+                                .read<Favorite>()
+                                .getWishItems
+                                .firstWhereOrNull((product) =>
+                                    product.documentId == proList['proid']);
+                            existingItemWishlist != null
+                                ? context
+                                    .read<Favorite>()
+                                    .removeThis(proList['proid'])
+                                : context.read<Favorite>().addWishItem(
+                                      proList['proname'],
+                                      onSale != 0
+                                          ? ((1 - (proList['discount'] / 100)) *
+                                              proList['price'])
+                                          : proList['price'],
+                                      1,
+                                      proList['instock'],
+                                      proList['proimages'],
+                                      proList['proid'],
+                                      proList['sid'],
+                                    );
                           },
-                          icon: controller.isFavourites(productId)
-                              ? Icon(
+                          icon: context
+                                      .watch<Favorite>()
+                                      .getWishItems
+                                      .firstWhereOrNull((product) =>
+                                          product.documentId ==
+                                          proList['proid']) !=
+                                  null
+                              ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
+                                  size: 30,
                                 )
-                              : Icon(
+                              : const Icon(
                                   Icons.favorite_outline,
-                                  color: Get.isDarkMode
-                                      ? Colors.white
-                                      : Colors.black,
+                                  color:Colors.grey,
+                                  size: 30,
                                 )),
                       IconButton(
                           onPressed: () {
@@ -177,8 +219,8 @@ class CardItems extends StatelessWidget {
                             color: Get.isDarkMode ? Colors.white : Colors.black,
                           )),
                     ],
-                  );
-                }),
+                  ),
+
                 Container(
                   width: double.infinity,
                   height: height * .20,

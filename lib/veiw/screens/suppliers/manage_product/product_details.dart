@@ -2,12 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:shop/utils/theme.dart';
-import 'package:shop/utils/theme.dart';
-import 'package:shop/utils/theme.dart';
-import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/full_screen_view.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/product_model.dart';
-import 'package:shop/veiw/screens/suppliers/manage_product/visit_store.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +18,7 @@ import '../../cart_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final dynamic proList;
+
   const ProductDetailsScreen({Key? key, required this.proList})
       : super(key: key);
 
@@ -37,13 +34,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       .snapshots();
 
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
-  GlobalKey<ScaffoldMessengerState>();
+      GlobalKey<ScaffoldMessengerState>();
   late List<dynamic> imagesList = widget.proList['proimages'];
+
   @override
   Widget build(BuildContext context) {
     var onSale = widget.proList['discount'];
     var existingItemCart = context.read<Cart>().getItems.firstWhereOrNull(
-            (element) => element.documentId == widget.proList['proid']);
+        (element) => element.documentId == widget.proList['proid']);
     return Material(
       child: SafeArea(
         child: ScaffoldMessenger(
@@ -58,8 +56,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => FullScreenView(
-                                imagesList: imagesList,
-                              )));
+                                    imagesList: imagesList,
+                                  )));
                     },
                     child: Stack(
                       children: [
@@ -82,7 +80,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             left: 15,
                             top: 20,
                             child: CircleAvatar(
-                              backgroundColor:mainColor,
+                              backgroundColor: mainColor,
                               child: IconButton(
                                 icon: const Icon(
                                   Icons.arrow_back_ios_new,
@@ -97,7 +95,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             right: 15,
                             top: 20,
                             child: CircleAvatar(
-                              backgroundColor:mainColor,
+                              backgroundColor: mainColor,
                               child: IconButton(
                                 icon: const Icon(
                                   Icons.share,
@@ -127,7 +125,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Row(
                               children: [
                                 const Text(
-                                  'USD  ',
+                                  'EGP  ',
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontSize: 16,
@@ -137,32 +135,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   widget.proList['price'].toStringAsFixed(2),
                                   style: onSale != 0
                                       ? const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 14,
-                                      decoration:
-                                      TextDecoration.lineThrough,
-                                      fontWeight: FontWeight.w600)
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          fontWeight: FontWeight.w600)
                                       : const TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
+                                          color: Colors.red,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
                                 ),
                                 const SizedBox(
                                   width: 6,
                                 ),
                                 onSale != 0
                                     ? Text(
-                                  ((1 -
-                                      (widget.proList[
-                                      'discount'] /
-                                          100)) *
-                                      widget.proList['price'])
-                                      .toStringAsFixed(2),
-                                  style: const TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                )
+                                        ((1 -
+                                                    (widget.proList[
+                                                            'discount'] /
+                                                        100)) *
+                                                widget.proList['price'])
+                                            .toStringAsFixed(2),
+                                        style: const TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600),
+                                      )
                                     : const Text(''),
                               ],
                             ),
@@ -172,59 +170,59 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       .read<Favorite>()
                                       .getWishItems
                                       .firstWhereOrNull((product) =>
-                                  product.documentId ==
-                                      widget.proList['proid']);
+                                          product.documentId ==
+                                          widget.proList['proid']);
                                   existingItemWishlist != null
                                       ? context
-                                      .read<Favorite>()
-                                      .removeThis(widget.proList['proid'])
+                                          .read<Favorite>()
+                                          .removeThis(widget.proList['proid'])
                                       : context.read<Favorite>().addWishItem(
-                                    widget.proList['proname'],
-                                    onSale != 0
-                                        ? ((1 -
-                                        (widget.proList[
-                                        'discount'] /
-                                            100)) *
-                                        widget.proList['price'])
-                                        : widget.proList['price'],
-                                    1,
-                                    widget.proList['instock'],
-                                    widget.proList['proimages'],
-                                    widget.proList['proid'],
-                                    widget.proList['sid'],
-                                  );
+                                            widget.proList['proname'],
+                                            onSale != 0
+                                                ? ((1 -
+                                                        (widget.proList[
+                                                                'discount'] /
+                                                            100)) *
+                                                    widget.proList['price'])
+                                                : widget.proList['price'],
+                                            1,
+                                            widget.proList['instock'],
+                                            widget.proList['proimages'],
+                                            widget.proList['proid'],
+                                            widget.proList['sid'],
+                                          );
                                 },
                                 icon: context
-                                    .watch<Favorite>()
-                                    .getWishItems
-                                    .firstWhereOrNull((product) =>
-                                product.documentId ==
-                                    widget.proList['proid']) !=
-                                    null
+                                            .watch<Favorite>()
+                                            .getWishItems
+                                            .firstWhereOrNull((product) =>
+                                                product.documentId ==
+                                                widget.proList['proid']) !=
+                                        null
                                     ? const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                  size: 30,
-                                )
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                        size: 30,
+                                      )
                                     : const Icon(
-                                  Icons.favorite_outline,
-                                  color: Colors.red,
-                                  size: 30,
-                                )),
+                                        Icons.favorite_outline,
+                                        color: Colors.red,
+                                        size: 30,
+                                      )),
                           ],
                         ),
                         widget.proList['instock'] == 0
                             ? const Text(
-                          'this item is out of stock',
-                          style: TextStyle(
-                              fontSize: 16, color: Colors.blueGrey),
-                        )
+                                'this item is out of stock',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.blueGrey),
+                              )
                             : Text(
-                          (widget.proList['instock'].toString()) +
-                              (' pieces available in stock'),
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.blueGrey),
-                        ),
+                                (widget.proList['instock'].toString()) +
+                                    (' pieces available in stock'),
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.blueGrey),
+                              ),
                         const ProDetailsHeader(
                           label: '   Item Description   ',
                         ),
@@ -258,21 +256,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               if (snapshot.data!.docs.isEmpty) {
                                 return const Center(
                                     child: Text(
-                                      'This category \n\n has no items yet !',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 26,
-                                          color: Colors.blueGrey,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Acme',
-                                          letterSpacing: 1.5),
-                                    ));
+                                  'This category \n\n has no items yet !',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      color: Colors.blueGrey,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Acme',
+                                      letterSpacing: 1.5),
+                                ));
                               }
 
                               return SingleChildScrollView(
                                 child: StaggeredGridView.countBuilder(
                                     physics:
-                                    const NeverScrollableScrollPhysics(),
+                                        const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: snapshot.data!.docs.length,
                                     crossAxisCount: 2,
@@ -282,7 +280,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       );
                                     },
                                     staggeredTileBuilder: (context) =>
-                                    const StaggeredTile.fit(1)),
+                                        const StaggeredTile.fit(1)),
                               );
                             },
                           ),
@@ -296,49 +294,31 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             bottomSheet: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => VisitStore(
-                                        suppId: widget.proList['sid'])));
-                          },
-                          icon: const Icon(Icons.store)),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>  CartScreen(
-
-                                    )));
-                          },
-                          icon: Badge(
-                              showBadge: context.read<Cart>().getItems.isEmpty
-                                  ? false
-                                  : true,
-                              padding: const EdgeInsets.all(2),
-                              badgeColor:mainColor,
-                              badgeContent: Text(
-                                context
-                                    .watch<Cart>()
-                                    .getItems
-                                    .length
-                                    .toString(),
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
-                              ),
-                              child: const Icon(Icons.shopping_cart))),
-                    ],
-                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CartScreen()));
+                      },
+                      icon: Badge(
+                          showBadge: context.read<Cart>().getItems.isEmpty
+                              ? false
+                              : true,
+                          padding: const EdgeInsets.all(2),
+                          badgeColor: mainColor,
+                          badgeContent: Text(
+                            context
+                                .watch<Cart>()
+                                .getItems
+                                .length
+                                .toString(),
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          child: const Icon(Icons.shopping_cart))),
                   GreenButton(
                       label: existingItemCart != null
                           ? 'added to cart'
@@ -352,19 +332,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               _scaffoldKey, 'this item already in cart');
                         } else {
                           context.read<Cart>().addItem(
-                            widget.proList['proname'],
-                            onSale != 0
-                                ? ((1 -
-                                (widget.proList['discount'] /
-                                    100)) *
-                                widget.proList['price'])
-                                : widget.proList['price'],
-                            1,
-                            widget.proList['instock'],
-                            widget.proList['proimages'],
-                            widget.proList['proid'],
-                            widget.proList['sid'],
-                          );
+                                widget.proList['proname'],
+                                onSale != 0
+                                    ? ((1 -
+                                            (widget.proList['discount'] /
+                                                100)) *
+                                        widget.proList['price'])
+                                    : widget.proList['price'],
+                                1,
+                                widget.proList['instock'],
+                                widget.proList['proimages'],
+                                widget.proList['proid'],
+                                widget.proList['sid'],
+                              );
                         }
                       },
                       width: 0.55)
@@ -380,6 +360,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
 class ProDetailsHeader extends StatelessWidget {
   final String label;
+
   const ProDetailsHeader({Key? key, required this.label}) : super(key: key);
 
   @override
@@ -393,7 +374,7 @@ class ProDetailsHeader extends StatelessWidget {
             height: 40,
             width: 50,
             child: Divider(
-              color:Colors.yellow.shade900,
+              color: Colors.yellow.shade900,
               thickness: 1,
             ),
           ),
