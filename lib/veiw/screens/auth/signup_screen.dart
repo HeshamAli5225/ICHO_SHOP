@@ -236,7 +236,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       Row(
                         children: [
-                          TextUtils(text: 'registration type', color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                          TextUtils(text: 'registration type', color: Colors.black, fontSize: screenWidth*0.05, fontWeight: FontWeight.w500),
                           Spacer(),
                           Container(
                             width: screenWidth*0.3,
@@ -274,8 +274,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
-                      CheckWidget(),
+                      // SizedBox(height: 10,),
+                      // CheckWidget(),
                       SizedBox(height: 50,),
                       //Checkbox(value: false, onChanged: (x){})
                       GetBuilder<AuthController>(

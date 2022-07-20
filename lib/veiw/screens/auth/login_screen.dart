@@ -16,9 +16,17 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final controller = Get.find<AuthController>();
   final formKey = GlobalKey<FormState>();
+  final appBar=AppBar(
+    backgroundColor: Get.isDarkMode ? darkGreyClr :Colors.white ,
+    elevation: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
+    final appBarHeight=appBar.preferredSize.height;
+    final statusBarHeight=MediaQuery.of(context).padding.top;
+    final screenHeight=MediaQuery.of(context).size.height-appBarHeight-statusBarHeight;
+    final screenWidth=MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -31,7 +39,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height / 1.3,
+                height: screenHeight *0.83,
                 child: Padding(
                   padding: EdgeInsets.only(left: 25, right: 25, top: 40),
                   child: Form(
@@ -152,53 +160,56 @@ class LoginScreen extends StatelessWidget {
                                 }
                               });
                         }),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TextUtils(
-                          text: tr(StringManger.or),
-                          color: Get.isDarkMode ? Colors.white : Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GetBuilder<AuthController>(builder: (x) {
-                              return InkWell(
-                                  onTap: () {
-                                    // controller.signUpUsingFaceBook();
-                                  },
-                                  child: Image.asset(
-                                      'assets/images/facebook.png'));
-                            }),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            GetBuilder<AuthController>(builder: (x) {
-                              return InkWell(
-                                onTap: () {
-                                  controller.signUpUsingGoogle();
-                                },
-                                child: Image.asset('assets/images/google.png'),
-                              );
-                            }),
-                          ],
-                        )
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        // TextUtils(
+                        //   text: tr(StringManger.or),
+                        //   color: Get.isDarkMode ? Colors.white : Colors.black,
+                        //   fontSize: 20,
+                        //   fontWeight: FontWeight.normal,
+                        // ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     GetBuilder<AuthController>(builder: (x) {
+                        //       return InkWell(
+                        //           onTap: () {
+                        //             // controller.signUpUsingFaceBook();
+                        //           },
+                        //           child: Image.asset(
+                        //               'assets/images/facebook.png'));
+                        //     }),
+                        //     const SizedBox(
+                        //       width: 10,
+                        //     ),
+                        //     GetBuilder<AuthController>(builder: (x) {
+                        //       return InkWell(
+                        //         onTap: () {
+                        //           controller.signUpUsingGoogle();
+                        //         },
+                        //         child: Image.asset('assets/images/google.png'),
+                        //       );
+                        //     }),
+                        //   ],
+                        // )
                       ],
                     ),
                   ),
                 ),
               ),
-              ContainerUnder(
-                  text:  tr(StringManger.dontHaveAccount),
-                  textType:  tr(StringManger.signUp),
-                  onPressed: () {
-                    Get.offNamed(Routes.SignUpScreen);
-                  })
+              Container(
+                height: screenHeight *0.17,
+                child: ContainerUnder(
+                    text:  tr(StringManger.dontHaveAccount),
+                    textType:  tr(StringManger.signUp),
+                    onPressed: () {
+                      Get.offNamed(Routes.SignUpScreen);
+                    }),
+              )
             ],
           ),
         ),

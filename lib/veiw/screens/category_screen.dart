@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../widgets/category/accessories_categ.dart';
 import '../widgets/category/bags_categ.dart';
 import '../widgets/category/beauty_categ.dart';
@@ -53,8 +54,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
       body: Stack(
         children: [
-          Positioned(bottom: 0, left: 0, child: sideNavigator(size)),
-          Positioned(bottom: 0, right: 0, child: categView(size))
+          Positioned(bottom: 0, left: 0,top: 0, child: sideNavigator(size)),
+          Positioned(bottom: 0, right: 0,top: 0, child: categView(size))
         ],
       ),
     );
@@ -75,8 +76,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
               },
               child: Container(
                 color: items[index].isSelected == true
-                    ? Colors.white
-                    : Colors.grey.shade300,
+                    ? Get.isDarkMode?Colors.black:Colors.white
+                    : Get.isDarkMode?Colors.grey:Colors.grey.shade300,
                 height: 100,
                 child: Center(
                   child: Text(items[index].label),
@@ -91,7 +92,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return Container(
       height: size.height * 0.8,
       width: size.width * 0.8,
-      color: Colors.white,
+      color: Get.isDarkMode?Colors.black:Colors.white,
       child: PageView(
         controller: _pageController,
         onPageChanged: (value) {
