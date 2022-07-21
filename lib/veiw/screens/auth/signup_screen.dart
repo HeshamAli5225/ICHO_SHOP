@@ -13,6 +13,7 @@ import '../../widgets/auth/auth_text_form_field.dart';
 import '../../widgets/auth/check_widget.dart';
 import '../../widgets/text_utils.dart';
 import '';
+import 'login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -48,10 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Get.isDarkMode ? darkGreyClr : Colors.white,
-          elevation: 0,
-        ),
+
         backgroundColor: context.theme.backgroundColor,
         body: SingleChildScrollView(
           child: Column(
@@ -319,7 +317,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   text: tr(StringManger.haveAccount),
                   textType: tr(StringManger.login),
                   onPressed: () {
-                    Get.offNamed(Routes.LoginScreen);
+
+                   Get.offNamed(Routes.LoginScreen);
                   })
             ],
           ),
