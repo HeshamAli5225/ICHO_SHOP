@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:shop/utils/theme.dart';
@@ -31,6 +32,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       .collection('products')
       .where('maincateg', isEqualTo: widget.proList['maincateg'])
       .where('subcateg', isEqualTo: widget.proList['subcateg'])
+      .snapshots();
+  late final Stream<QuerySnapshot> _reviewsStream = FirebaseFirestore.instance
+      .collection('products')
+      .doc(widget.proList["proid"])
+      .collection("reviews")
       .snapshots();
 
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
@@ -223,6 +229,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 style: const TextStyle(
                                     fontSize: 16, color: Colors.blueGrey),
                               ),
+                        review(_reviewsStream),
                         const ProDetailsHeader(
                           label: '   Item Description   ',
                         ),
@@ -310,11 +317,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           padding: const EdgeInsets.all(2),
                           badgeColor: mainColor,
                           badgeContent: Text(
-                            context
-                                .watch<Cart>()
-                                .getItems
-                                .length
-                                .toString(),
+                            context.watch<Cart>().getItems.length.toString(),
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ),
@@ -397,4 +400,79 @@ class ProDetailsHeader extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget review(var reviewStream) {
+  return ExpandablePanel(
+      header: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("Review"),
+      ),
+      collapsed:SizedBox(height: 230,child: reviewAll(reviewStream),),
+      expanded: reviewAll(reviewStream));
+}
+
+Widget reviewAll(var reviewStream) {
+  return StreamBuilder<QuerySnapshot>(
+    stream: reviewStream,
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      if (snapshot.hasError) {
+        return const Text('Something went wrong');
+      }
+
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+
+      if (snapshot.data!.docs.isEmpty) {
+        return const Center(
+            child: Text(
+          'This Item \n\n has no review yet !',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 26,
+              color: Colors.blueGrey,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Acme',
+              letterSpacing: 1.5),
+        ));
+      }
+
+      return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: snapshot.data!.docs.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: CircleAvatar(
+              child: Text(
+                snapshot.data!.docs[index]["image"],
+              ),
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(snapshot.data!.docs[index]["name"]),
+                Row(
+                  children: [
+                    Text(snapshot.data!.docs[index]["rate"].toString()),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            subtitle: Text(snapshot.data!.docs[index]["comment"]),
+          );
+        },
+      );
+    },
+  );
 }

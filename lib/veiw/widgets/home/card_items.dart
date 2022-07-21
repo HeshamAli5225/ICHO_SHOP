@@ -24,12 +24,20 @@ class _CardItemsState extends State<CardItems> {
   GlobalKey<ScaffoldMessengerState>();
   final Stream<QuerySnapshot> _prodcutsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
+  late final Stream<QuerySnapshot> _reviewsStream = FirebaseFirestore.instance
+      .collection('products')
+      .doc("proid")
+      .collection("reviews")
+      .snapshots();
+
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder<QuerySnapshot>(
         stream: _prodcutsStream,
         builder: (context, snapshot) {
+
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
@@ -69,35 +77,42 @@ class _CardItemsState extends State<CardItems> {
                         ? Image.asset('assets/images/search_empty_dark.png')
                         : Image.asset('assets/images/search_empry_light.png'));
               } else if (controller.searchList.isEmpty) {
-                return Expanded(
-                  child: GridView.builder(
-                    itemCount: snapshot.data?.docs.length,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      childAspectRatio: 0.8,
-                      mainAxisSpacing: 9,
-                      crossAxisSpacing: 6,
-                    ),
-                    itemBuilder: (context, index) {
-                      return buildCardItems(
-                          context: context,
-                          proList: snapshot.data!.docs[index],
-                          image: snapshot.data!.docs[index]["proimages"][0],
-                          price: snapshot.data!.docs[index]["price"],
-                          // rate: controller.productList[index].rating.rate,
-                          productId: snapshot.data?.docs[index]["proid"],
-                          // productModel: controller.productList[index],
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) {
-                                return ProductDetailsScreen(
-                                  proList: snapshot.data!.docs[index],
-                                );
-                              },
-                            ));
-                          });
-                    },
-                  ),
+                return StreamBuilder<QuerySnapshot>(
+                  stream: _reviewsStream,
+                  builder: (context, snapshot2) {
+                    return Expanded(
+                      child: GridView.builder(
+                        itemCount: snapshot.data?.docs.length,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 0.8,
+                          mainAxisSpacing: 9,
+                          crossAxisSpacing: 6,
+                        ),
+                        itemBuilder: (context, index) {
+                           print(  "anas ${snapshot2.data!.docs}");
+                          return buildCardItems(
+                              context: context,
+                              proList: snapshot.data!.docs[index],
+                              image: snapshot.data!.docs[index]["proimages"][0],
+                              price: snapshot.data!.docs[index]["price"],
+                             //todo
+                              rate: 3.4,
+                              productId: snapshot.data?.docs[index]["proid"],
+                              // productModel: controller.productList[index],
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return ProductDetailsScreen(
+                                      proList: snapshot.data!.docs[index],
+                                    );
+                                  },
+                                ));
+                              });
+                        },
+                      ),
+                    );
+                  }
                 );
               } else {
                 return Expanded(
@@ -115,7 +130,7 @@ class _CardItemsState extends State<CardItems> {
                           context: context,
                           image: controller.searchList[index].image,
                           price: controller.searchList[index].price,
-                          // rate: controller.searchList[index].rating.rate,
+                           rate:3.4,
                           productId: controller.searchList[index].id.toString(),
                           // productModel: controller.searchList[index],
                           onTap: () {
@@ -141,7 +156,7 @@ class _CardItemsState extends State<CardItems> {
       {required BuildContext context,
       required var image,
       required var price,
-      // required double rate,
+      required double rate,
       required String productId,
       required dynamic proList,
       // required ProductModel productModel,
@@ -285,7 +300,7 @@ class _CardItemsState extends State<CardItems> {
                             children: [
                               TextUtils(
                                 // todo
-                                text: '3.4',
+                                text: '${rate}',
                                 color: Colors.white,
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,

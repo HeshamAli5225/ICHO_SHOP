@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shop/utils/theme.dart';
+import 'package:shop/veiw/screens/review_screen.dart';
 
 class CustomerOrderModel extends StatelessWidget {
   final dynamic order;
@@ -46,7 +47,7 @@ class CustomerOrderModel extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(('\$ ') +
+                          Text(('EGP ') +
                               (order['orderprice'].toStringAsFixed(2))),
                           // Text(('x ') + (order['orderqty'].toString()))
                         ],
@@ -133,7 +134,9 @@ class CustomerOrderModel extends StatelessWidget {
                       order['deliverystatus'] == 'delivered' &&
                               order['orderreview'] == false
                           ? TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ReviewScreen(order: order,),));
+                              },
                               child: const Text('Write Review'))
                           : const Text(''),
                       order['deliverystatus'] == 'delivered' &&
