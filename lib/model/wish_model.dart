@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
@@ -42,7 +43,7 @@ class FavoriteModel extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Colors.grey.shade700),
+                          color: Get.isDarkMode?Colors.white:Colors.grey.shade700),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -35,7 +35,7 @@ class ProfileImage extends StatelessWidget {
                   minRadius: 25,
                   maxRadius: 45,
                   child: Text(
-                    "${data["image"]}",
+                    "${data["image"][0]}",
                     style: TextStyle(fontSize: 30),
                   ),
                 ),

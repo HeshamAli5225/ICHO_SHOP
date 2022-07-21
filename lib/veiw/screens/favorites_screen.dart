@@ -26,7 +26,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       child: SafeArea(
         child: Scaffold(
 
-          backgroundColor: Colors.grey.shade200,
+          backgroundColor: Get.isDarkMode?Colors.grey[600]:Colors.grey.shade200,
 
           body: context.watch<Favorite>().getWishItems.isNotEmpty
               ? const FavoriteItem()

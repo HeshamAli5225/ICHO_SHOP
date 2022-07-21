@@ -28,24 +28,28 @@ class SettingsScreen extends StatelessWidget {
               color: Get.isDarkMode ? Colors.white : Colors.grey,
               thickness: 2,
             ),
-            OutlinedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) {
-                      return CustomerOrders();
-                    },
-                  ));
-                },
-                child: Text("Order")),
-            SizedBox(
-              height: 20,
-            ),
+            // OutlinedButton(
+            //     onPressed: () {
+            //       Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (context) {
+            //           return CustomerOrders();
+            //         },
+            //       ));
+            //     },
+            //     child: Text("Order")),
+            // SizedBox(
+            //   height: 20,
+            // ),
             TextUtils(
               text: tr(StringManger.general),
               color: Get.isDarkMode ? pinkClr : mainColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
+            SizedBox(
+              height: 20,
+            ),
+            buildOrderWidget(context),
             SizedBox(
               height: 20,
             ),
@@ -101,4 +105,44 @@ class SettingsScreen extends StatelessWidget {
 //        ),),
     );
   }
+
+  Widget buildOrderWidget(BuildContext context) {
+    return InkWell(
+      child: Material(
+        color: Colors.transparent,
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: darkSettings,
+              ),
+              child: Icon(
+                Icons.shopping_bag,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            TextUtils(
+              text:  'My Order',
+              color: Get.isDarkMode ?Colors.white:Colors.black,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
+      ),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) {
+            return CustomerOrders();
+          },
+        ));
+      },
+    );
+  }
+
 }
