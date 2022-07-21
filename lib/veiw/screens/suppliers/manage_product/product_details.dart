@@ -279,11 +279,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
-                                    itemCount: snapshot.data!.docs.length,
+                                    itemCount: snapshot.data?.docs.length,
                                     crossAxisCount: 2,
                                     itemBuilder: (context, index) {
                                       return ProductModel(
-                                        products: snapshot.data!.docs[index],
+                                        products: snapshot.data?.docs[index],
                                       );
                                     },
                                     staggeredTileBuilder: (context) =>
