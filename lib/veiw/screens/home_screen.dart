@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: height*0.3,
+            height: height*0.22,
             decoration: BoxDecoration(
                 color: Get.isDarkMode ? darkGreyClr : mainColor,
                 borderRadius: BorderRadius.only(
@@ -51,14 +51,14 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Expanded(child: SearchFormText()),
+                  FakeSearch(),
                 ],
               ),
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Align(

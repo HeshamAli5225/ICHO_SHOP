@@ -1,66 +1,60 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:shop/logic/controllers/product_controller.dart';
+import 'package:shop/utils/theme.dart';
+import '../../screens/search_screen.dart';
 
-import '../../../utils/my_string.dart';
+class FakeSearch extends StatelessWidget {
+  const FakeSearch({
+    Key? key,
+  }) : super(key: key);
 
-class SearchFormText extends StatelessWidget {
-  final controller=Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProductController>(builder: (x){
-
-      return TextField(
-      cursorColor: Colors.black,
-      keyboardType: TextInputType.text,
-      style: TextStyle(color: Colors.black),
-      controller: controller.searchController,
-      onChanged: (searchName){
-        controller.addSearchToList(searchName);
+    return InkWell(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const SearchScreen()));
       },
-      decoration: InputDecoration(
-        suffixIcon: controller.searchController.text.isNotEmpty?IconButton( icon: Icon(Icons.close,color: Colors.black,),
+      child: Container(
 
-          onPressed:
-          (){controller.searchController.text='';;controller.cleanSearch();}
-        ,
-
-        ):null,
-        hintText: tr(StringManger.searchWith),
-        hintStyle: TextStyle(fontSize: 16,
-            fontWeight: FontWeight.w500,color: Colors.black45),
-        focusColor: Colors.red,
-        fillColor: Colors.white,
-        prefixIcon: Icon(Icons.search,color: Colors.grey,),
-        filled: true,
-        enabledBorder: OutlineInputBorder(
-          borderSide:BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide:BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-
-
-        ),
-
-        errorBorder: OutlineInputBorder(
-          borderSide:BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide:BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-
-
+        height: 35,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade50,
+            border: Border.all(color:mainColor, width: 1.4),
+            borderRadius: BorderRadius.circular(25)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  'What are you looking for?',
+                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ],
+            ),
+            Container(
+              height: 32,
+              width: 75,
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade400,
+                  borderRadius: BorderRadius.circular(25)),
+              child: const Center(
+                child: Text(
+                  'Search',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+            )
+          ],
         ),
       ),
-    );});
+    );
   }
-
-  void m(){}
 }
-
