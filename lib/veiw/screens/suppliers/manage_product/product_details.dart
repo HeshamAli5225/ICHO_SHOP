@@ -324,7 +324,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ? 'added to cart'
                           : 'ADD TO CART',
                       onPressed: () {
-                        if (widget.proList['instock'] == 0) {
+                        if (widget.proList['instock'] <= 0) {
                           MyMessageHandler.showSnackBar(
                               _scaffoldKey, 'this item is out of stock');
                         } else if (existingItemCart != null) {

@@ -37,33 +37,33 @@ class ProductController extends GetxController {
   }
 
   ////////////////////Logic for favourite////////////////
-
-  void changeFavourites(String productId) async {
-    var productIndex =
-        favouritesList.indexWhere((element) => element.id == productId);
-    if (productIndex >= 0) {
-      favouritesList.removeAt(productIndex);
-      await storage.write('favouritesList', favouritesList);
-    } else {
-      favouritesList
-          .add(productList.firstWhere((element) => element.id == productId));
-      await storage.write('favouritesList', favouritesList);
-    }
-//    productList.forEach((element) {
-//      if(element.id==productId){
 //
-//        bool exist=false;
-//        favouritesList.forEach((element) {
-//          if(element.id==productId){favouritesList.remove(element);exist=true;}
-//
-//        });
-//        if(!exist){favouritesList.add(element);}
-//
-//
-//      }
-//    });
-    //favouritesList.add(productList.firstWhere((element){element.id==productId;}));
-  }
+//   void changeFavourites(String productId) async {
+//     var productIndex =
+//         favouritesList.indexWhere((element) => element.id == productId);
+//     if (productIndex >= 0) {
+//       favouritesList.removeAt(productIndex);
+//       await storage.write('favouritesList', favouritesList);
+//     } else {
+//       favouritesList
+//           .add(productList.firstWhere((element) => element.id == productId));
+//       await storage.write('favouritesList', favouritesList);
+//     }
+// //    productList.forEach((element) {
+// //      if(element.id==productId){
+// //
+// //        bool exist=false;
+// //        favouritesList.forEach((element) {
+// //          if(element.id==productId){favouritesList.remove(element);exist=true;}
+// //
+// //        });
+// //        if(!exist){favouritesList.add(element);}
+// //
+// //
+// //      }
+// //    });
+//     //favouritesList.add(productList.firstWhere((element){element.id==productId;}));
+//   }
 
 //  void removeFromFavourites(int productId){
 //    favouritesList.removeWhere((element) => element.id==productId);

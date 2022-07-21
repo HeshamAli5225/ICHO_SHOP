@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shop/providers/product_class.dart';
 
 class Cart extends ChangeNotifier {
@@ -7,13 +8,13 @@ class Cart extends ChangeNotifier {
     return _list;
   }
 
-  double get totalPrice {
-    var total = 0.0;
 
+  double get totalPrice {
+    double _total = 0.0;
     for (var item in _list) {
-      total += item.price * item.qty;
+      _total += item.price * item.qty;
     }
-    return total;
+    return _total;
   }
 
   int? get count {
@@ -47,7 +48,7 @@ class Cart extends ChangeNotifier {
   }
 
   void decrement(Product product) {
-    if(product.qty>0){
+    if(product.qty>1){
     product.decrease();
     notifyListeners();}
   }

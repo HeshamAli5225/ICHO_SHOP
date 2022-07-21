@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
 import 'package:shop/logic/controllers/product_controller.dart';
 import 'package:shop/utils/theme.dart';
-import 'package:shop/veiw/screens/suppliers/dashboard.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
-
+import 'package:get/get.dart';
+// import 'package:collection/collection.dart';
+import '../../../providers/cart_provider.dart';
 import '../../../providers/favorite_provider.dart';
+import '../../../utils/scaffold_helper.dart';
 import '../../screens/suppliers/manage_product/product_details.dart';
 
 class CardItems extends StatefulWidget {
@@ -19,8 +20,8 @@ class CardItems extends StatefulWidget {
 class _CardItemsState extends State<CardItems> {
   final controller = Get.put(ProductController());
 
-  final cartController = Get.put(CartController());
-
+  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
+  GlobalKey<ScaffoldMessengerState>();
   final Stream<QuerySnapshot> _prodcutsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
 
@@ -136,6 +137,7 @@ class _CardItemsState extends State<CardItems> {
   }
 
   Widget buildCardItems(
+
       {required BuildContext context,
       required var image,
       required var price,
@@ -147,6 +149,8 @@ class _CardItemsState extends State<CardItems> {
     var onSale = proList['discount'];
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    var existingItemCart = context.watch<Cart>().getItems.firstWhereOrNull(
+            (element) => element.documentId == proList['proid']);
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: InkWell(
@@ -210,9 +214,28 @@ class _CardItemsState extends State<CardItems> {
                                 )),
                       IconButton(
                           onPressed: () {
-                            // todo
-                            // cartController.addProductToCart(productModel);
-                            // print(cartController.allProductTotal());
+                            if (proList['instock'] <= 0) {
+                              MyMessageHandler.showSnackBar(
+                                  _scaffoldKey, 'this item is out of stock');
+                            } else if (existingItemCart != null) {
+                              MyMessageHandler.showSnackBar(
+                                  _scaffoldKey, 'this item already in cart');
+                            } else {
+                              context.read<Cart>().addItem(
+                               proList['proname'],
+                                onSale != 0
+                                    ? ((1 -
+                                    (proList['discount'] /
+                                        100)) *
+                                   proList['price'])
+                                    :proList['price'],
+                                1,
+                               proList['instock'],
+                               proList['proimages'],
+                               proList['proid'],
+                               proList['sid'],
+                              );
+                            }
                           },
                           icon: Icon(
                             Icons.add_shopping_cart,

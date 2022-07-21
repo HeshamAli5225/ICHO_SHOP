@@ -1,8 +1,10 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/logic/controllers/cart_controller.dart';
 import 'package:shop/logic/controllers/main_controller.dart';
+import 'package:shop/providers/cart_provider.dart';
 import 'package:shop/routes/routes.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/screens/cart_screen.dart';
@@ -10,9 +12,10 @@ import 'package:shop/veiw/screens/cart_screen.dart';
 class CustomerScreen extends StatelessWidget {
  // final controller = Get.find<MainController>();
   final controller = Get.put(MainController());
-  final cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
+    final cartController = context.watch<Cart>();
+
     return Center(
       child: Obx(() {
         return SafeArea(
@@ -23,21 +26,20 @@ class CustomerScreen extends StatelessWidget {
               elevation: 0,
               backgroundColor: Get.isDarkMode ?darkGreyClr : mainColor ,
               actions: [
-                Obx((){
-                  if(cartController.productMap.isEmpty){
-                    return IconButton(
+
+                  cartController.getItems.isEmpty?
+                     IconButton(
                       onPressed: () {
                         Get.toNamed(Routes.cartScreen);
                       },
-                      icon: Image.asset('assets/images/shop.png'));}
+                      icon: Image.asset('assets/images/shop.png'))
 
-                  else{
-                    return Badge(
+                 : Badge(
                       position: BadgePosition.topEnd(top: 0, end: 3),
                       animationDuration: Duration(milliseconds: 300),
                       animationType: BadgeAnimationType.slide,
                       badgeContent: Text(
-                        '${cartController.productMap.length}',
+                        '${cartController.getItems.length}',
                         style: TextStyle(color: Colors.white),
                       ),
                       child: IconButton(
@@ -45,12 +47,9 @@ class CustomerScreen extends StatelessWidget {
                             Get.toNamed(Routes.cartScreen);
                           },
                           icon: Image.asset('assets/images/shop.png')),
-                    );
-                  }
-                  })
-                ,
+                  ),
 
-              ],
+             ],
               leading: Text(''),
             ),
             backgroundColor: context.theme.backgroundColor,
