@@ -6,6 +6,7 @@ import 'package:shop/logic/controllers/product_controller.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 import 'package:get/get.dart';
+
 // import 'package:collection/collection.dart';
 import '../../../providers/cart_provider.dart';
 import '../../../providers/favorite_provider.dart';
@@ -21,17 +22,15 @@ class _CardItemsState extends State<CardItems> {
   final controller = Get.put(ProductController());
 
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
-  GlobalKey<ScaffoldMessengerState>();
+      GlobalKey<ScaffoldMessengerState>();
   final Stream<QuerySnapshot> _prodcutsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<QuerySnapshot>(
         stream: _prodcutsStream,
         builder: (context, snapshot) {
-
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
@@ -81,15 +80,14 @@ class _CardItemsState extends State<CardItems> {
                       crossAxisSpacing: 6,
                     ),
                     itemBuilder: (context, index) {
-
+                      print (1.8333333333.toStringAsFixed(2));
                       return buildCardItems(
                           context: context,
                           proList: snapshot.data!.docs[index],
                           image: snapshot.data!.docs[index]["proimages"][0],
                           price: snapshot.data!.docs[index]["price"],
-                          rate:  3.4,
+                          rate: snapshot.data!.docs[index]["averageRate"]??0.0,
                           productId: snapshot.data?.docs[index]["proid"],
-                          // productModel: controller.productList[index],
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) {
@@ -114,11 +112,11 @@ class _CardItemsState extends State<CardItems> {
                     ),
                     itemBuilder: (context, index) {
                       return buildCardItems(
-                        proList: snapshot.data!.docs[index],
+                          proList: snapshot.data!.docs[index],
                           context: context,
                           image: controller.searchList[index].image,
                           price: controller.searchList[index].price,
-                           rate:3.4,
+                          rate: "",
                           productId: controller.searchList[index].id.toString(),
                           // productModel: controller.searchList[index],
                           onTap: () {
@@ -140,11 +138,10 @@ class _CardItemsState extends State<CardItems> {
   }
 
   Widget buildCardItems(
-
       {required BuildContext context,
       required var image,
       required var price,
-      required double rate,
+      required String rate,
       required String productId,
       required dynamic proList,
       // required ProductModel productModel,
@@ -152,8 +149,10 @@ class _CardItemsState extends State<CardItems> {
     var onSale = proList['discount'];
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    var existingItemCart = context.watch<Cart>().getItems.firstWhereOrNull(
-            (element) => element.documentId == proList['proid']);
+    var existingItemCart = context
+        .watch<Cart>()
+        .getItems
+        .firstWhereOrNull((element) => element.documentId == proList['proid']);
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: InkWell(
@@ -170,83 +169,79 @@ class _CardItemsState extends State<CardItems> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            var existingItemWishlist = context
-                                .read<Favorite>()
-                                .getWishItems
-                                .firstWhereOrNull((product) =>
-                                    product.documentId == proList['proid']);
-                            existingItemWishlist != null
-                                ? context
-                                    .read<Favorite>()
-                                    .removeThis(proList['proid'])
-                                : context.read<Favorite>().addWishItem(
-                                      proList['proname'],
-                                      onSale != 0
-                                          ? ((1 - (proList['discount'] / 100)) *
-                                              proList['price'])
-                                          : proList['price'],
-                                      1,
-                                      proList['instock'],
-                                      proList['proimages'],
-                                      proList['proid'],
-                                      proList['sid'],
-                                    );
-                          },
-                          icon: context
-                                      .watch<Favorite>()
-                                      .getWishItems
-                                      .firstWhereOrNull((product) =>
-                                          product.documentId ==
-                                          proList['proid']) !=
-                                  null
-                              ? const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                  size: 30,
-                                )
-                              : const Icon(
-                                  Icons.favorite_outline,
-                                  color:Colors.grey,
-                                  size: 30,
-                                )),
-                      IconButton(
-                          onPressed: () {
-                            if (proList['instock'] <= 0) {
-                              MyMessageHandler.showSnackBar(
-                                  _scaffoldKey, 'this item is out of stock');
-                            } else if (existingItemCart != null) {
-                              MyMessageHandler.showSnackBar(
-                                  _scaffoldKey, 'this item already in cart');
-                            } else {
-                              context.read<Cart>().addItem(
-                               proList['proname'],
-                                onSale != 0
-                                    ? ((1 -
-                                    (proList['discount'] /
-                                        100)) *
-                                   proList['price'])
-                                    :proList['price'],
-                                1,
-                               proList['instock'],
-                               proList['proimages'],
-                               proList['proid'],
-                               proList['sid'],
-                              );
-                            }
-                          },
-                          icon: Icon(
-                            Icons.add_shopping_cart,
-                            color: Get.isDarkMode ? Colors.white : Colors.black,
-                          )),
-                    ],
-                  ),
-
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          var existingItemWishlist = context
+                              .read<Favorite>()
+                              .getWishItems
+                              .firstWhereOrNull((product) =>
+                                  product.documentId == proList['proid']);
+                          existingItemWishlist != null
+                              ? context
+                                  .read<Favorite>()
+                                  .removeThis(proList['proid'])
+                              : context.read<Favorite>().addWishItem(
+                                    proList['proname'],
+                                    onSale != 0
+                                        ? ((1 - (proList['discount'] / 100)) *
+                                            proList['price'])
+                                        : proList['price'],
+                                    1,
+                                    proList['instock'],
+                                    proList['proimages'],
+                                    proList['proid'],
+                                    proList['sid'],
+                                  );
+                        },
+                        icon: context
+                                    .watch<Favorite>()
+                                    .getWishItems
+                                    .firstWhereOrNull((product) =>
+                                        product.documentId ==
+                                        proList['proid']) !=
+                                null
+                            ? const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                                size: 30,
+                              )
+                            : const Icon(
+                                Icons.favorite_outline,
+                                color: Colors.grey,
+                                size: 30,
+                              )),
+                    IconButton(
+                        onPressed: () {
+                          if (proList['instock'] <= 0) {
+                            MyMessageHandler.showSnackBar(
+                                _scaffoldKey, 'this item is out of stock');
+                          } else if (existingItemCart != null) {
+                            MyMessageHandler.showSnackBar(
+                                _scaffoldKey, 'this item already in cart');
+                          } else {
+                            context.read<Cart>().addItem(
+                                  proList['proname'],
+                                  onSale != 0
+                                      ? ((1 - (proList['discount'] / 100)) *
+                                          proList['price'])
+                                      : proList['price'],
+                                  1,
+                                  proList['instock'],
+                                  proList['proimages'],
+                                  proList['proid'],
+                                  proList['sid'],
+                                );
+                          }
+                        },
+                        icon: Icon(
+                          Icons.add_shopping_cart,
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
+                        )),
+                  ],
+                ),
                 Container(
                   width: double.infinity,
                   height: height * .20,

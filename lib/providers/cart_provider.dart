@@ -7,7 +7,6 @@ class Cart extends ChangeNotifier {
     return _list;
   }
 
-
   double get totalPrice {
     double _total = 0.0;
     for (var item in _list) {

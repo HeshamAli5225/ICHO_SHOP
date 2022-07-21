@@ -155,6 +155,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
         'sid': FirebaseAuth.instance.currentUser!.uid,
         'proimages': imagesUrlList,
         'discount': discount,
+        "averageRate":"0.0",
       }).whenComplete(() {
         setState(() {
           processing = false;
@@ -303,7 +304,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                                         decimal: true),
                                 decoration: textFormDecoration.copyWith(
                                   labelText: 'price',
-                                  hintText: 'price .. \$',
+                                  hintText: 'price .. \EGP',
                                 )),
                           ),
                         ),
@@ -458,7 +459,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
 
 var textFormDecoration = InputDecoration(
   labelText: 'price',
-  hintText: 'price .. \$',
+  hintText: 'price .. \EGP',
   labelStyle: const TextStyle(color: Colors.black54),
   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
   enabledBorder: OutlineInputBorder(

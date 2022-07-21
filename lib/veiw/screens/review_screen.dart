@@ -15,6 +15,15 @@ class ReviewScreen extends StatefulWidget {
 
 class _ReviewScreenState extends State<ReviewScreen> {
   late double rate;
+  List<double> allRate = [];
+
+  String getAverage() {
+    double sumRate = 0;
+    for (int i = 0; i < allRate.length; i++) {
+      sumRate += allRate[i];
+    }
+    return( sumRate / allRate.length).toStringAsFixed(1);
+  }
 
   late String comment;
   TextEditingController controller = TextEditingController();
@@ -40,6 +49,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 },
                 onRatingUpdate: (double value) {
                   rate = value;
+                  allRate.add(value);
                 },
               ),
               TextField(
@@ -67,6 +77,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   GreenButton(
                       label: "Ok",
                       onPressed: () async {
+                        final product = FirebaseFirestore.instance
+                            .collection("products")
+                            .doc(widget.order["proid"]);
+
                         final collRev = FirebaseFirestore.instance
                             .collection("products")
                             .doc(widget.order["proid"])
@@ -80,7 +94,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           "comment": comment,
                           "image": widget.order["custname"][0]
                               .toString()
-                              .toUpperCase()
+                              .toUpperCase(),
                         }).whenComplete(() async {
                           await FirebaseFirestore.instance
                               .runTransaction((transaction) async {
@@ -88,9 +102,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                 FirebaseFirestore.instance
                                     .collection("orders")
                                     .doc(widget.order["orderid"]);
-                            transaction.update(documentReference, {
-                              "orderreview":true
-                            });
+                            transaction.update(
+                                documentReference, {"orderreview": true});
+                          });
+                          await product.update({
+                            "averageRate":getAverage()
                           });
                           Navigator.pop(context);
                         });
