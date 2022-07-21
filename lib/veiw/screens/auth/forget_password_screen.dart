@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/logic/controllers/auth_controller.dart';
@@ -99,9 +100,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                 GetBuilder<AuthController>(builder: (x) {
                   return AuthButton(
                       text: tr(StringManger.send),
-                      onPressed: () {
+                      onPressed: () async{
                         if (formKey.currentState!.validate()) {
-                          controller.resetPassword(emailController.text.trim());
+                         try {
+                           await FirebaseAuth.instance.sendPasswordResetEmail( email: emailController.text.trim(),);
+                         } on Exception catch (e) {
+                           print (e);
+                         }
                         }
                       });
                 }),
