@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:shop/providers/product_class.dart';
 
 class Cart extends ChangeNotifier {

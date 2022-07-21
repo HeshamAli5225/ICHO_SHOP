@@ -24,12 +24,6 @@ class _CardItemsState extends State<CardItems> {
   GlobalKey<ScaffoldMessengerState>();
   final Stream<QuerySnapshot> _prodcutsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
-  late final Stream<QuerySnapshot> _reviewsStream = FirebaseFirestore.instance
-      .collection('products')
-      .doc("proid")
-      .collection("reviews")
-      .snapshots();
-
 
   @override
   Widget build(BuildContext context) {
@@ -77,42 +71,36 @@ class _CardItemsState extends State<CardItems> {
                         ? Image.asset('assets/images/search_empty_dark.png')
                         : Image.asset('assets/images/search_empry_light.png'));
               } else if (controller.searchList.isEmpty) {
-                return StreamBuilder<QuerySnapshot>(
-                  stream: _reviewsStream,
-                  builder: (context, snapshot2) {
-                    return Expanded(
-                      child: GridView.builder(
-                        itemCount: snapshot.data?.docs.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: 0.8,
-                          mainAxisSpacing: 9,
-                          crossAxisSpacing: 6,
-                        ),
-                        itemBuilder: (context, index) {
-                           print(  "anas ${snapshot2.data!.docs}");
-                          return buildCardItems(
-                              context: context,
-                              proList: snapshot.data!.docs[index],
-                              image: snapshot.data!.docs[index]["proimages"][0],
-                              price: snapshot.data!.docs[index]["price"],
-                             //todo
-                              rate: 3.4,
-                              productId: snapshot.data?.docs[index]["proid"],
-                              // productModel: controller.productList[index],
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) {
-                                    return ProductDetailsScreen(
-                                      proList: snapshot.data!.docs[index],
-                                    );
-                                  },
-                                ));
-                              });
-                        },
-                      ),
-                    );
-                  }
+                return Expanded(
+                  child: GridView.builder(
+                    itemCount: snapshot.data?.docs.length,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 0.8,
+                      mainAxisSpacing: 9,
+                      crossAxisSpacing: 6,
+                    ),
+                    itemBuilder: (context, index) {
+
+                      return buildCardItems(
+                          context: context,
+                          proList: snapshot.data!.docs[index],
+                          image: snapshot.data!.docs[index]["proimages"][0],
+                          price: snapshot.data!.docs[index]["price"],
+                          rate:  3.4,
+                          productId: snapshot.data?.docs[index]["proid"],
+                          // productModel: controller.productList[index],
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return ProductDetailsScreen(
+                                  proList: snapshot.data!.docs[index],
+                                );
+                              },
+                            ));
+                          });
+                    },
+                  ),
                 );
               } else {
                 return Expanded(
