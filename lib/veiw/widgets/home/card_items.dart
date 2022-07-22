@@ -266,6 +266,7 @@ class _CardItemsState extends State<CardItems> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextUtils(
+
                           text: 'EGP ${price}',
                           color: Get.isDarkMode ? Colors.white : Colors.black,
                           fontSize: 15,
