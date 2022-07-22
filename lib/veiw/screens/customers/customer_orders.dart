@@ -22,7 +22,7 @@ class CustomerOrders extends StatelessWidget {
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('orders')
-            .where('cid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+            .where('cid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {

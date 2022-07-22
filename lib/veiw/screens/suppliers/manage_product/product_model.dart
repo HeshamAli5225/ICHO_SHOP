@@ -115,7 +115,7 @@ class _ProductModelState extends State<ProductModel> {
                               ),
                             ),
                             widget.products['sid'] ==
-                                FirebaseAuth.instance.currentUser!.uid
+                                FirebaseAuth.instance.currentUser?.uid
                                 ? IconButton(
                                 onPressed: () {},
                                 icon: const Icon(
