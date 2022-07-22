@@ -8,8 +8,12 @@ import '../../utils/theme.dart';
 import '../widgets/text_utils.dart';
 
 class WelcomeScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
+    final  height=MediaQuery.of(context).size.height;
+    final width=MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -30,10 +34,10 @@ class WelcomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 100,
+                    height: height*0.17
                   ),
                   Container(
-                    height: 60,
+                    height: height*0.1,
                     width: 190,
                     decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.2),
@@ -46,11 +50,11 @@ class WelcomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     )),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: height*0.03,
                   ),
                   Container(
-                    height: 60,
+                    height: height*0.1,
                     width: 230,
                     decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.2),
@@ -75,7 +79,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 250,
+                    height: height*0.2,
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -93,7 +97,7 @@ class WelcomeScreen extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                   SizedBox(
-                    height: 30,
+                    height: height*0.07,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

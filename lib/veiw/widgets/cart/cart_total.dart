@@ -22,7 +22,7 @@ class CartTotal extends StatelessWidget {
       final width =
           MediaQuery.of(context).size.width;
       return Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(5),
         height: height*0.12,
         child: Row(
           children: [
@@ -38,7 +38,7 @@ class CartTotal extends StatelessWidget {
                 TextUtils(
                   text: 'EGP ${controller.totalPrice.toStringAsFixed(2)}',
                   color: Get.isDarkMode ? Colors.white : Colors.black,
-                  fontSize: height*0.04,
+                  fontSize: height*0.035,
                   fontWeight: FontWeight.w800,
                 ),
               ],

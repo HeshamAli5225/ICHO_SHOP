@@ -11,6 +11,8 @@ class FakeSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
         Navigator.push(context,
@@ -37,7 +39,7 @@ class FakeSearch extends StatelessWidget {
                 ),
                 Text(
                   tr(StringManger.what_are_you_looking),
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                  style: TextStyle(fontSize: width*0.04, color: Colors.grey),
                 ),
               ],
             ),
@@ -50,7 +52,7 @@ class FakeSearch extends StatelessWidget {
               child:  Center(
                 child: Text(
                   tr(StringManger.search),
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: width*0.04, color: Colors.white),
                 ),
               ),
             )
