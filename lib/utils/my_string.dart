@@ -63,7 +63,17 @@ class StringManger {
 
   static const String sign = "sign";
 
+  static const String phone = "phone";
+
+  static const String address = "address";
+
   static const String checkBox = "checkBox";
+
+  static const String registerType = "registerType";
+
+  static const String buyer = "buyer";
+
+  static const String seller = "seller";
 
   static const String acceptTerm = "acceptTerm";
 
@@ -125,8 +135,19 @@ class StringManger {
 
   static const String sureLogOut = "sureLogOut";
 
-  static const String buyer='buyer';
-  static const String seller='seller';
+  static const String Enter_a_valid_phone_number = "Enter a valid phone number";
+
+  static const String Enter_your_address = "Enter your address";
+
+  static const String  my_order = "my order";
+
+  static const String search = "search";
+
+  static const String  what_are_you_looking = "what are you looking";
+
+
+
+
 
 // static const String or                 = "Or";
 // static const String or                 = "Or";

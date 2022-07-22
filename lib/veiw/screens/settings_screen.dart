@@ -127,7 +127,7 @@ class SettingsScreen extends StatelessWidget {
               width: 20,
             ),
             TextUtils(
-              text:  'My Order',
+              text:  tr(StringManger.my_order),
               color: Get.isDarkMode ?Colors.white:Colors.black,
               fontSize: 22,
               fontWeight: FontWeight.bold,

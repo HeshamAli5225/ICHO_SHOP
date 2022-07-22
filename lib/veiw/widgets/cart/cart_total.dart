@@ -17,8 +17,13 @@ class CartTotal extends StatelessWidget {
   Widget build(BuildContext context) {
 
       final controller = Provider.of<Cart>(context);
+      final height =
+          MediaQuery.of(context).size.height;
+      final width =
+          MediaQuery.of(context).size.width;
       return Container(
         padding: EdgeInsets.all(10),
+        height: height*0.12,
         child: Row(
           children: [
             Column(
@@ -27,23 +32,23 @@ class CartTotal extends StatelessWidget {
                 TextUtils(
                   text: tr(StringManger.total),
                   color: Colors.grey,
-                  fontSize: 18,
+                  fontSize: height*0.03,
                   fontWeight: FontWeight.w600,
                 ),
                 TextUtils(
                   text: 'EGP ${controller.totalPrice.toStringAsFixed(2)}',
                   color: Get.isDarkMode ? Colors.white : Colors.black,
-                  fontSize: 25,
+                  fontSize: height*0.04,
                   fontWeight: FontWeight.w800,
                 ),
               ],
             ),
             SizedBox(
-              width: 20,
+              width: width*0.02,
             ),
             Expanded(
               child: Container(
-                  height: 60,
+                  height: height*0.12,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -61,13 +66,13 @@ class CartTotal extends StatelessWidget {
                           TextUtils(
                             text: tr(StringManger.checkOut),
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: height*0.034,
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            width: 15,
+                            width: width*0.025,
                           ),
-                          Icon(Icons.shopping_cart)
+                          Icon(Icons.shopping_cart,size: height*0.04,)
                         ],
                       ))),
             )

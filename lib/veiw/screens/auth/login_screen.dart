@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
     final appBarHeight = appBar.preferredSize.height;
     final statusBarHeight = MediaQuery.of(context).padding.top;
     final screenHeight =
-        MediaQuery.of(context).size.height - appBarHeight - statusBarHeight;
+        MediaQuery.of(context).size.height - statusBarHeight;
     final screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -43,10 +43,11 @@ class LoginScreen extends StatelessWidget {
                   width: double.infinity,
                   height: screenHeight * 0.83,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 25, right: 25, top: 40),
+                    padding: EdgeInsets.only(left: 25, right: 25, ),
                     child: Form(
                       key: formKey,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Row(
                             children: [
@@ -149,7 +150,7 @@ class LoginScreen extends StatelessWidget {
                                 )),
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 10,
                           ),
                           GetBuilder<AuthController>(builder: (x) {
                             return AuthButton(

@@ -13,6 +13,8 @@ import 'package:shop/veiw/widgets/cart/empty_cart.dart';
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+
     final controller = Provider.of<Cart>(context);
     return SafeArea(
         child: Scaffold(
@@ -68,7 +70,7 @@ class CartScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * .75,
+                        height: MediaQuery.of(context).size.height * .7,
                         child: ListView.separated(
                           itemBuilder: (context, index) {
                             return CartProduct(

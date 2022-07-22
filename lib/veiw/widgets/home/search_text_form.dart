@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/utils/my_string.dart';
 import 'package:shop/utils/theme.dart';
 import '../../screens/search_screen.dart';
 
@@ -25,7 +27,7 @@ class FakeSearch extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
-              children: const [
+              children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Icon(
@@ -34,7 +36,7 @@ class FakeSearch extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'What are you looking for?',
+                  tr(StringManger.what_are_you_looking),
                   style: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ],
@@ -45,9 +47,9 @@ class FakeSearch extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.grey.shade400,
                   borderRadius: BorderRadius.circular(25)),
-              child: const Center(
+              child:  Center(
                 child: Text(
-                  'Search',
+                  tr(StringManger.search),
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),

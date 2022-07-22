@@ -114,11 +114,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         keyboardType: TextInputType.phone,
                         obsecureText: false,
                         validator: (value) {
-                          // if (! value.toString().isPhoneNumber ) {
-                          //   return tr(StringManger.validName);
-                          // } else {
-                          //   return null;
-                          // }
+                          if (! value.toString().isPhoneNumber ) {
+                            return tr(StringManger.Enter_a_valid_phone_number);
+                          } else {
+                            return null;
+                          }
                         },
                         prefixIcon: Get.isDarkMode
                             ? Icon(
@@ -130,7 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Icons.phone,
                           size: 30,
                           color: mainColor,
-                        ), hintText: 'phone',
+                        ), hintText: tr(StringManger.phone),
                         //suffixIcon: Icon(Icons.remove_red_eye),
                         //hintText: tr(StringManger.userName),
                       ),
@@ -166,12 +166,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: addressController,
                         keyboardType: TextInputType.text,
                         validator: (value) {
-                          // if (!RegExp(StringManger.validationEmail)
-                          //     .hasMatch(value)) {
-                          //   return tr(StringManger.validEmail);
-                          // } else {
-                          //   return null;
-                          // }
+                          if (value.toString().length==0 ) {
+                            return tr(StringManger.Enter_your_address);
+                          } else {
+                            return null;
+                          }
                         },
                         prefixIcon: Get.isDarkMode
                             ? Icon(
@@ -185,7 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           color: mainColor,
                         ),
                         //suffixIcon: Icon(Icons.remove_red_eye),
-                        hintText: 'Address',
+                        hintText: tr(StringManger.address),
                         //hintText: tr(StringManger.email),
                       ),
 
@@ -234,7 +233,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       Row(
                         children: [
-                          TextUtils(text: 'registration type', color: Colors.black, fontSize: screenWidth*0.05, fontWeight: FontWeight.w500),
+                          TextUtils(text: tr(StringManger.registerType), color: Colors.black, fontSize: screenWidth*0.05, fontWeight: FontWeight.w500),
                           Spacer(),
                           Container(
                             width: screenWidth*0.3,
@@ -253,10 +252,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 value: registerType,
                                 items: [
-                                  DropdownMenuItem(child: Text('buyer',style: TextStyle(fontSize: 16,
+                                  DropdownMenuItem(child: Text(tr(StringManger.buyer),style: TextStyle(fontSize: 16,
                                       fontWeight: FontWeight.bold
                                   ),),value: StringManger.buyer,),
-                                  DropdownMenuItem(child: Text('seller',style: TextStyle(fontSize: 16,
+                                  DropdownMenuItem(child: Text(tr(StringManger.seller),style: TextStyle(fontSize: 16,
                                       fontWeight: FontWeight.bold
                                   ),),value: StringManger.seller,),
                                 ],

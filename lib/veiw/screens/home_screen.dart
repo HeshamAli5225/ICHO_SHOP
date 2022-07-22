@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: height*0.22,
+            height: height*0.25,
             decoration: BoxDecoration(
                 color: Get.isDarkMode ? darkGreyClr : mainColor,
                 borderRadius: BorderRadius.only(
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                   TextUtils(
                     text:  tr(StringManger.findYour),
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: height*0.033,
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                   TextUtils(
                     text:tr(StringManger.inspiration) ,
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: height*0.047,
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(
@@ -56,20 +56,20 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: TextUtils(
-                  text: tr(StringManger.categories),
-                  color: Get.isDarkMode ? Colors.white : Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500),
-            ),
-          ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20),
+          //   child: Align(
+          //     alignment: Alignment.topLeft,
+          //     child: TextUtils(
+          //         text: tr(StringManger.categories),
+          //         color: Get.isDarkMode ? Colors.white : Colors.black,
+          //         fontSize: 20,
+          //         fontWeight: FontWeight.w500),
+          //   ),
+          // ),
           SizedBox(height: 20,),
           CardItems()
           //Expanded(child: Container(), flex: 5),
