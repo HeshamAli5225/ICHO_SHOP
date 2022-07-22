@@ -6,6 +6,7 @@ import 'package:shop/veiw/widgets/setting/dark_mode_widget.dart';
 import 'package:shop/veiw/widgets/setting/language_widget.dart';
 import 'package:shop/veiw/widgets/setting/log_out_widget.dart';
 import 'package:shop/veiw/widgets/setting/profile_image.dart';
+import 'package:shop/logic/controllers/auth_controller.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
 import '../../utils/my_string.dart';
@@ -49,10 +50,10 @@ class SettingsScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            buildOrderWidget(context),
-            SizedBox(
+          AuthController.userType.read('type')=='buyer'?buildOrderWidget(context):SizedBox(),
+            AuthController.userType.read('type')=='buyer'?SizedBox(
               height: 20,
-            ),
+            ):SizedBox(),
             DarkModeWidget(),
             SizedBox(
               height: 20,

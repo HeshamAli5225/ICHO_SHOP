@@ -22,7 +22,7 @@ class AuthController extends GetxController {
   var signInBefore = false;
   final GetStorage authBox = GetStorage();
   final GetStorage signInBeforeBox = GetStorage();
-  final GetStorage userType = GetStorage();
+  static final GetStorage userType = GetStorage();
 
   void visibility() {
     isVisible = !isVisible;

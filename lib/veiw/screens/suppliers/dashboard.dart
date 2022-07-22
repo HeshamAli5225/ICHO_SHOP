@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'dart:ui';
 
 import 'package:shop/utils/theme.dart';
+import 'package:shop/veiw/screens/settings_screen.dart';
 import 'package:shop/veiw/screens/suppliers/edit_business.dart';
 import 'package:shop/veiw/screens/suppliers/manage_product/manage_products.dart';
 import 'package:shop/veiw/screens/suppliers/my_store.dart';
@@ -111,7 +112,7 @@ class DashData {
 }
 
 List<DashData> data = [
-  DashData(title: "My Store", icon: Icons.store),
+  DashData(title: "Profile", icon: Icons.person),
   DashData(title: "Orders", icon: Icons.shopping_bag),
   DashData(title: "Edit Products", icon: Icons.edit),
   DashData(title: "Manage Products", icon: Icons.settings),
@@ -119,7 +120,7 @@ List<DashData> data = [
   DashData(title: "analytics", icon: Icons.analytics),
 ];
 List<Widget> screens = [
-  MyStore(),
+  SettingsScreen(),
   SupplierOrders(),
   EditBusiness(),
   ManageProducts(),
