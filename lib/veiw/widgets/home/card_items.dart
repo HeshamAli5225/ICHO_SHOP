@@ -265,12 +265,14 @@ class _CardItemsState extends State<CardItems> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextUtils(
+                      Expanded(
+                        child: TextUtils(
 
-                          text: 'EGP ${price}',
-                          color: Get.isDarkMode ? Colors.white : Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
+                            text: 'EGP ${price}',
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
                       Container(
                         height: 20,
                         width: 45,

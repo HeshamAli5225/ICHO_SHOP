@@ -12,8 +12,8 @@ class TextUtils extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Expanded(
-      child: Text(
+    return
+       Text(
 
         text,
         style: GoogleFonts.lato(
@@ -26,7 +26,6 @@ class TextUtils extends StatelessWidget {
           ),
         ),
         maxLines: 1,
-      ),
-    );
+      );
   }
 }
