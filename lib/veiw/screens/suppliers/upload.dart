@@ -201,8 +201,8 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                               
                                 color: mainColor.withOpacity(.4),
                                 borderRadius: BorderRadius.circular(15)),
-                            height: size.width * 0.5,
-                            width: size.width * 0.5,
+                            height: size.width * 0.4,
+                            width: size.width * 0.4,
                             child: imagesFileList != null
                                 ? ClipRRect(borderRadius: BorderRadius.circular(15),child: previewImages())
                                 : const Center(
@@ -212,66 +212,70 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                                         style: TextStyle(fontSize: 16)),
                                   ),
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
+                          Expanded(
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    '* select main category',
-                                    style: TextStyle(color: Colors.red),
+                                  Column(
+                                    children: [
+                                      const Text(
+                                        '* select main category',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                      DropdownButton(
+                                          iconSize: 40,
+                                          iconEnabledColor: mainColor,
+                                          dropdownColor: Colors.grey,
+                                          value: mainCategValue,
+                                          items: maincateg
+                                              .map<DropdownMenuItem<String>>(
+                                                  (value) {
+                                            return DropdownMenuItem(
+                                              child: Text(value),
+                                              value: value,
+                                            );
+                                          }).toList(),
+                                          onChanged: (String? value) {
+                                            selectedMainCateg(value);
+                                          }),
+                                    ],
                                   ),
-                                  DropdownButton(
-                                      iconSize: 40,
-                                      iconEnabledColor: mainColor,
-                                      dropdownColor: Colors.grey,
-                                      value: mainCategValue,
-                                      items: maincateg
-                                          .map<DropdownMenuItem<String>>(
-                                              (value) {
-                                        return DropdownMenuItem(
-                                          child: Text(value),
-                                          value: value,
-                                        );
-                                      }).toList(),
-                                      onChanged: (String? value) {
-                                        selectedMainCateg(value);
-                                      }),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  const Text(
-                                    '* select subcategory',
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                  DropdownButton(
-                                      iconSize: 40,
-                                      iconEnabledColor: mainColor,
+                                  Column(
+                                    children: [
+                                      const Text(
+                                        '* select subcategory',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                      DropdownButton(
+                                          iconSize: 40,
+                                          iconEnabledColor: mainColor,
 
-                                      iconDisabledColor: Colors.black,
-                                      dropdownColor: Colors.grey,                                      menuMaxHeight: 500,
-                                      disabledHint:
-                                          const Text('select category'),
-                                      value: subCategValue,
-                                      items: subCategList
-                                          .map<DropdownMenuItem<String>>(
-                                              (value) {
-                                        return DropdownMenuItem(
-                                          child: Text(value),
-                                          value: value,
-                                        );
-                                      }).toList(),
-                                      onChanged: (String? value) {
-                                        print(value);
-                                        setState(() {
-                                          subCategValue = value!;
-                                        });
-                                      })
+                                          iconDisabledColor: Colors.black,
+                                          dropdownColor: Colors.grey,                                      menuMaxHeight: 500,
+                                          disabledHint:
+                                              const Text('select category'),
+                                          value: subCategValue,
+                                          items: subCategList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (value) {
+                                            return DropdownMenuItem(
+                                              child: Text(value),
+                                              value: value,
+                                            );
+                                          }).toList(),
+                                          onChanged: (String? value) {
+                                            print(value);
+                                            setState(() {
+                                              subCategValue = value!;
+                                            });
+                                          })
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
+                            ),
                           )
                         ]),
                     const SizedBox(

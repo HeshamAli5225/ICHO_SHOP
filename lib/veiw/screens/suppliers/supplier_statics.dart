@@ -69,6 +69,7 @@ class Statics extends StatelessWidget {
 }
 
 class StaticsModel extends StatelessWidget {
+
   final String label;
   final dynamic value;
   final int decimal;
@@ -81,10 +82,13 @@ class StaticsModel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     return Column(
       children: [
         Container(
-          height: 60,
+          height: height*0.08,
           width: MediaQuery.of(context).size.width * 0.55,
           decoration: const BoxDecoration(
               color: Colors.blueGrey,
@@ -97,7 +101,7 @@ class StaticsModel extends StatelessWidget {
           )),
         ),
         Container(
-          height: 90,
+          height: height*0.15,
           width: MediaQuery.of(context).size.width * 0.7,
           decoration: BoxDecoration(
               color: Colors.blueGrey.shade100,

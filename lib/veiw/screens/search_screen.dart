@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/utils/my_string.dart';
 import 'package:shop/utils/theme.dart';
 
 import 'package:shop/veiw/screens/suppliers/manage_product/product_details.dart';
@@ -50,13 +52,13 @@ class _SearchScreenState extends State<SearchScreen> {
           width: MediaQuery.of(context).size.width * 0.7,
           child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
+              children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Icon(Icons.search, color: Colors.white),
                 ),
                 Text(
-                  'Search for any thing ..',
+                  tr(StringManger.search_for_any_thing),
                   style: TextStyle(color: Colors.white),
                 )
               ]),

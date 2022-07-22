@@ -45,6 +45,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height=MediaQuery.of(context).size.height;
+    final width=MediaQuery.of(context).size.width;
     var onSale = widget.proList['discount'];
     var existingItemCart = context.read<Cart>().getItems.firstWhereOrNull(
         (element) => element.documentId == widget.proList['proid']);
@@ -368,6 +370,8 @@ class ProDetailsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height=MediaQuery.of(context).size.height;
+    final width=MediaQuery.of(context).size.width;
     return SizedBox(
       height: 60,
       child: Row(
@@ -375,7 +379,7 @@ class ProDetailsHeader extends StatelessWidget {
         children: [
           SizedBox(
             height: 40,
-            width: 50,
+            width: width*0.16,
             child: Divider(
               color: Colors.yellow.shade900,
               thickness: 1,
@@ -385,12 +389,12 @@ class ProDetailsHeader extends StatelessWidget {
             label,
             style: TextStyle(
                 color: Colors.yellow.shade900,
-                fontSize: 24,
+                fontSize: width*0.055,
                 fontWeight: FontWeight.w600),
           ),
           SizedBox(
             height: 40,
-            width: 50,
+            width: width*0.16,
             child: Divider(
               color: Colors.yellow.shade900,
               thickness: 1,

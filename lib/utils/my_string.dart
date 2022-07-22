@@ -145,6 +145,9 @@ class StringManger {
 
   static const String  what_are_you_looking = "what are you looking";
 
+  static const String  search_for_any_thing = "Search for any thing ..";
+
+
 
 
 
