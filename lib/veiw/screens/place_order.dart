@@ -65,7 +65,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                           height: 90,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Get.isDarkMode?Colors.black54:Colors.white,
                               borderRadius: BorderRadius.circular(15)),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(

@@ -68,8 +68,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   appBar: AppBar(
                     elevation: 0,
                     backgroundColor: Colors.grey.shade200,
-                    leading: const BackButton(),
-                    title: Text('Payment'),
+                    leading: BackButton(color: Colors.black),
+                    title: Text('Payment',style: TextStyle(color:Colors.black),),
                   ),
                   body: Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 60),
@@ -92,13 +92,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'Total',
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(fontSize: 20,color:Colors.black),
                                     ),
                                     Text(
                                       '${(controller.totalPrice + 10.0).toStringAsFixed(2)} EGP',
-                                      style: const TextStyle(fontSize: 20),
+                                      style:  TextStyle(fontSize: 20,color:Colors.black),
                                     ),
                                   ],
                                 ),
@@ -146,53 +146,59 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           height: 20,
                         ),
                         Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  RadioListTile(
-                                    activeColor: Colors.deepOrange,
-                                    value: 1,
-                                    groupValue: selectedValue,
-                                    onChanged: (int? value) {
-                                      setState(() {
-                                        selectedValue = value!;
-                                      });
-                                    },
-                                    title: const Text('Cash On Delivery'),
-                                    subtitle: const Text('Pay Cash At Home'),
-                                  ),
-                                  RadioListTile(
-                                    activeColor: Colors.deepOrange,
-                                    value: 2,
-                                    groupValue: selectedValue,
-                                    onChanged: (int? value) {
-                                      setState(() {
-                                        selectedValue = value!;
-                                      });
-                                    },
-                                    title: const Text(
-                                        'Pay via visa / Master Card'),
-                                    subtitle: Row(
-                                      children: const [
-                                        Icon(Icons.payment,
-                                            color: Colors.deepOrange),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          child: Icon(
-                                              FontAwesomeIcons.ccMastercard,
-                                              color: Colors.deepOrange),
+                          child: Center(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: SingleChildScrollView(
+                                child: Container(
+                                  color: Colors.grey,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      RadioListTile(
+                                        activeColor: Colors.deepOrange,
+                                        value: 1,
+                                        groupValue: selectedValue,
+                                        onChanged: (int? value) {
+                                          setState(() {
+                                            selectedValue = value!;
+                                          });
+                                        },
+                                        title:  Text('Cash On Delivery',style: TextStyle(color:Get.isDarkMode?Colors.black:Colors.white),),
+                                        subtitle:  Text('Pay Cash At Home',style: TextStyle(color:Get.isDarkMode?Colors.black :Colors.white)),
+                                      ),
+                                      RadioListTile(
+                                        activeColor: Colors.deepOrange,
+                                        value: 2,
+                                        groupValue: selectedValue,
+                                        onChanged: (int? value) {
+                                          setState(() {
+                                            selectedValue = value!;
+                                          });
+                                        },
+                                        title:  Text(
+                                            'Pay via visa / Master Card',style: TextStyle(color:Get.isDarkMode?Colors.black:Colors.white)),
+                                        subtitle: Row(
+                                          children: const [
+                                            Icon(Icons.payment,
+                                                color: Colors.deepOrange),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 15),
+                                              child: Icon(
+                                                  FontAwesomeIcons.ccMastercard,
+                                                  color: Colors.deepOrange),
+                                            ),
+                                            Icon(FontAwesomeIcons.ccVisa,
+                                                color: Colors.deepOrange)
+                                          ],
                                         ),
-                                        Icon(FontAwesomeIcons.ccVisa,
-                                            color: Colors.deepOrange)
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ),

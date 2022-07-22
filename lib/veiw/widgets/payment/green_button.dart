@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../utils/theme.dart';
 
@@ -37,7 +38,7 @@ class GreenButton extends StatelessWidget {
       height: 35,
       width: MediaQuery.of(context).size.width * width,
       decoration: BoxDecoration(
-          color: mainColor, borderRadius: BorderRadius.circular(25)),
+          color: Get.isDarkMode?pinkClr:mainColor, borderRadius: BorderRadius.circular(25)),
       child: MaterialButton(
         onPressed: onPressed,
         child: Text(
