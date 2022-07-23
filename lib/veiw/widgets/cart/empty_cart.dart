@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/routes/routes.dart';
+import 'package:shop/utils/my_string.dart';
 import 'package:shop/utils/theme.dart';
 import 'package:shop/veiw/widgets/text_utils.dart';
 
@@ -24,13 +26,13 @@ class EmptyCart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextUtils(
-                text: 'Your Cart is ',
+                text: tr(StringManger.your_cart_is),
                 color: Get.isDarkMode ? Colors.white : Colors.black,
                 fontSize: 30,
                 fontWeight: FontWeight.w900,
               ),
               TextUtils(
-                text: 'Empty',
+                text: tr(StringManger.empty),
                 color: Get.isDarkMode ? pinkClr : mainColor,
                 fontSize: 30,
                 fontWeight: FontWeight.w900,
@@ -41,7 +43,7 @@ class EmptyCart extends StatelessWidget {
             height: 10,
           ),
           TextUtils(
-            text: 'Add items to get started',
+            text: tr(StringManger.add_items_to_get_started),
             color: Get.isDarkMode ? Colors.white : Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -61,7 +63,7 @@ class EmptyCart extends StatelessWidget {
               ),
               onPressed: () {Get.offNamed(Routes.mainScreen);},
               child: TextUtils(
-                text: 'Go to Home',
+                text: tr(StringManger.go_to_home),
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

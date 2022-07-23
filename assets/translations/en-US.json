@@ -67,6 +67,9 @@
   "my order":"MyOrder",
   "search": "search",
   "what are you looking": "what are you looking for ?",
-  "Search for any thing ..":"Search for any thing .."
-
+  "Search for any thing ..":"Search for any thing ..",
+  "empty":"Empty",
+  "your_cart_is":"Your Cart is",
+  "add_items_to_get_started":"Add item to get started",
+  "go_to_home": "Go To Home"
 }

@@ -67,5 +67,9 @@
   "my order":"طلباتي",
   "search": "بحث",
   "what are you looking": "علي ما تبحث ؟",
-  "Search for any thing ..":"إبحث عن أي شيئ"
+  "Search for any thing ..":"إبحث عن أي شيئ",
+  "empty":"فارغة",
+  "your_cart_is":"عربة التسوق ",
+  "add_items_to_get_started":"أضف منتجات وإبدأ التسوق",
+  "go_to_home": "إذهب إلي الصفحة الرئيسية"
 }

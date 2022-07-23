@@ -147,6 +147,14 @@ class StringManger {
 
   static const String  search_for_any_thing = "Search for any thing ..";
 
+  static const String empty = "empty";
+
+  static const String your_cart_is = "your_cart_is";
+
+  static const String add_items_to_get_started = "add_items_to_get_started";
+
+  static const String go_to_home = "go_to_home";
+
 
 
 

@@ -46,7 +46,7 @@ class CartProduct extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 15,
+            width: 10,
           ),
           Expanded(
             child: Column(
@@ -66,7 +66,7 @@ class CartProduct extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  '${product.price.toStringAsFixed(2)}',
+                  '${(product.price*product.qty).toStringAsFixed(2)}',
                   style: TextStyle(
                     color: Get.isDarkMode ? Colors.white : Colors.black,
                     fontSize: 16,
