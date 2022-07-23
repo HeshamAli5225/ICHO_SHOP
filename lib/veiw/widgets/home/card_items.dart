@@ -166,10 +166,10 @@ class _CardItemsState extends State<CardItems> {
                   spreadRadius: 3,
                 ),
               ]),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
+          child: Column(
+            children: [
+              Flexible(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
@@ -242,9 +242,11 @@ class _CardItemsState extends State<CardItems> {
                         )),
                   ],
                 ),
-                Container(
+              ),
+              Expanded(
+                child: Container(
                   width: double.infinity,
-                  height: height * .20,
+                   // height: height * .20,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
@@ -256,55 +258,55 @@ class _CardItemsState extends State<CardItems> {
                     fit: BoxFit.fitHeight,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15.0,
-                    right: 15,
-                    top: 10,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: TextUtils(
-
-                            text: 'EGP ${price}',
-                            color: Get.isDarkMode ? Colors.white : Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 15.0,
+                  right: 15,
+                  top: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: TextUtils(
+                          text: 'EGP ${price}',
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
+                          fontSize: MediaQuery.of(context).size.width*.040,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      height: 20,
+                      width: 45,
+                      decoration: BoxDecoration(
+                        color: Get.isDarkMode ? pinkClr : mainColor,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      Container(
-                        height: 20,
-                        width: 45,
-                        decoration: BoxDecoration(
-                          color: Get.isDarkMode ? pinkClr : mainColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 3, right: 2),
-                          child: Row(
-                            children: [
-                              TextUtils(
-                                // todo
-                                text: '${rate}',
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              Icon(
-                                Icons.star,
-                                size: 13,
-                                color: Colors.white,
-                              )
-                            ],
-                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 3, right: 2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextUtils(
+                              // todo
+                              text: '${rate}',
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            Icon(
+                              Icons.star,
+                              size: 13,
+                              color: Colors.white,
+                            )
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),

@@ -18,7 +18,7 @@ class TextUtils extends StatelessWidget {
         text,
         style: GoogleFonts.lato(
           textStyle: TextStyle(
-            overflow:TextOverflow.clip ,
+            overflow:TextOverflow.ellipsis ,
             color: color,
             fontSize: fontSize,
             fontWeight: fontWeight,

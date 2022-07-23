@@ -28,6 +28,7 @@ class FakeSearch extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+<<<<<<< Updated upstream
             Row(
               children: [
                 Padding(
@@ -43,6 +44,31 @@ class FakeSearch extends StatelessWidget {
                 ),
               ],
             ),
+=======
+            Expanded(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      tr(StringManger.what_are_you_looking),
+                      style: TextStyle(fontSize: 18, color: Colors.grey,
+                      overflow: TextOverflow.ellipsis
+                      ),
+
+                    ),
+                  ),
+                ],),
+            ),
+
+
+>>>>>>> Stashed changes
             Container(
               height: 32,
               width: 75,

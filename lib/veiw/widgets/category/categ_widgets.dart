@@ -73,11 +73,12 @@ class SubcategModel extends StatelessWidget {
       },
       child: Column(
         children: [
-          SizedBox(
-            height: height*.1,
-            width: width*.1,
-            child: Image(
-              image: AssetImage(assetName),
+          Flexible(
+            child: SizedBox(
+              
+              child: Image(
+                image: AssetImage(assetName),
+              ),
             ),
           ),
           Text(
